@@ -19,10 +19,6 @@ return new class extends Migration
         });
 
         Schema::create('sport_tags', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger("sport_id");
-            $table->unsignedBigInteger("tag_id");
-
             $table->foreignId('sport_id')
                 ->references('id')->on('sports');
 

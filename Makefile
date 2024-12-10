@@ -7,7 +7,7 @@ down:
 	docker compose -f $(COMPOSE_FILE) down
 
 clean:
-	docker volume rm project_api-db
+	docker volume rm sportnest_api-db
 
 reset:
 	make down

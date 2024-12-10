@@ -18,14 +18,10 @@ return new class extends Migration
         });
 
         Schema::create('sport_club_sports', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('sport_club_id');
-            $table->unsignedBigInteger('sport_id');
-
             $table->foreignId('sport_club_id')
                 ->references('id')->on('sport_clubs');
 
-            $table->foreign('sport_id')
+            $table->foreignId('sport_id')
                 ->references('id')->on('sports');
         });
     }
@@ -36,5 +32,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('sport_clubs');
+        Schema::dropIfExists('sport_club_sports');
     }
 };
