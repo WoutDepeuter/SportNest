@@ -9,4 +9,6 @@ export default function Welcome({ user, test }: {user: string, test: number}) {
            <p>Hello {user} {test}, welcome to your first Inertia app wow!!</p>
        </div>
     )
+
+
 }
