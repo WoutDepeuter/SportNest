@@ -2,23 +2,16 @@
 
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\UserController;
 
 #homepage route
-Route::get('/', function () {
-    return Inertia::render('Homepage');
-});
+Route::get('/', [UserController::class, 'index']);
 
 #Search Result route
-Route::get('/Search-Result', function () {
-    return Inertia::render('SearchResult');
-});
+Route::get('/search', [UserController::class, 'search']);
 
 #club page route
-Route::get('/Club-Page', function () {
-    return Inertia::render('ClubPage');
-});
+Route::get('/club/{id}', [UserController::class, 'club']);
 
 #FAQ page route
-Route::get('/FAQ', function () {
-    return Inertia::render('FAQPage');
-});
+Route::get('/faq', [UserController::class, 'faq']);
