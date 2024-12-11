@@ -16,4 +16,13 @@ class Tag extends Model
 
     public string $description;
 
+    /**
+     * @param int $amount
+     * @return Tag[]
+     */
+    public static function Random(int $amount): array
+    {
+        return Tag::all()->random($amount)->all();
+    }
+
 }
