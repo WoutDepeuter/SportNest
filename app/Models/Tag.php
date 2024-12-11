@@ -33,7 +33,7 @@ class Tag extends Model
      */
     public static function difficultyTags(): array
     {
-        return Tag::all()->where("name", "LIKE", "moeilijkheid_%")->all();
+        return Tag::where("name", "LIKE", "moeilijkheid_%")->get()->all();
     }
 
     /**
@@ -41,7 +41,7 @@ class Tag extends Model
      */
     public static function enduranceTags(): array
     {
-        return Tag::all()->where("name", "LIKE", "uithoudingsvermogen_%")->all();
+        return Tag::where("name", "LIKE", "uithoudingsvermogen_%")->get()->all();
     }
 
 }
