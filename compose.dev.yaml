@@ -9,3 +9,8 @@ services:
       MYSQL_ROOT_PASSWORD: dev
       MYSQL_DATABASE: laravel
       MYSQL_USER: laravel
+    volumes:
+      - api-db:/var/lib/mysql
+
+volumes:
+  api-db: {}
