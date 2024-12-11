@@ -4,7 +4,7 @@ export default function Navbar() {
             <ul className="flex justify-between items-center">
                 <li className="flex-shrink-0">
                     <a href="/">
-                        <img src="/sportnets.png" alt="Home" className="h-16 w-16" />
+                        <img src="/logo.png" alt="Home" className="h-16 w-16" />
                     </a>
                 </li>
                 <li className="flex-1 text-center">
