@@ -6,8 +6,6 @@ type ContactInfoProps = {
 
 export default function ContactInfo({ website, email, phone }: ContactInfoProps) {
     return (
-
-
         <div className="contact-info border-gray-200 border bg-gray-200 max-w-xs p-6 fixed left-4 top-1/4 z-10 rounded-lg shadow-lg">
             <h1 className="text-xl font-semibold mb-6">Contact</h1>
 
