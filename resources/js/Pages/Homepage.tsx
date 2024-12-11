@@ -3,7 +3,6 @@ import { Head } from '@inertiajs/react';
 import React from 'react';
 import Map from '../Components/Map'; // Import the Map component
 import '../../css/app.css';
-import '../../css/homepage.css';
 
 export default function Homepage(): JSX.Element {
     return (
