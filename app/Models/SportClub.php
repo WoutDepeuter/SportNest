@@ -9,9 +9,10 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class SportClub extends Model
 {
 
-    public string $name;
-
-    public string $url;
+    public $fillable = [
+        "name",
+        "url",
+    ];
 
     /**
      * @return Address

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\UserController;
 
+
 #homepage route
 Route::get('/', [UserController::class, 'index']);
 
