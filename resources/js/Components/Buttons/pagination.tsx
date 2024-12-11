@@ -1,26 +1,32 @@
-import { MouseEventHandler } from "react";
+type PaginationProps = {
+    back: () => void;
+    next: () => void;
+    hasNext: () => boolean;
+    hasPrevious: () => boolean;
+}
 
-export default function Pagination({ onClick }: { onClick: MouseEventHandler }) {
+export default function Pagination(props: PaginationProps) {
     return (
         <div className="inline-flex">
-            <button
+            {props.hasPrevious() && <button
                 onClick={() => {
-                    alert('event');
-                  }}
+                    props.back();
+                }}
                 className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l"
             >
                 Prev
-            </button>
-            <button
+            </button>}
+
+            {props.hasNext() && <button
                 onClick={() => {
-                    alert('event');
-                  }}
+                    props.next();
+                }}
                 className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r"
             >
                 Next
-            </button>
+            </button>}
 
-            
+
         </div>
     );
 }
