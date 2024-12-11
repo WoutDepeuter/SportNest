@@ -1,6 +1,6 @@
 export default function Navbar() {
     return (
-        <nav className="dark:bg-gray-800 p-4">
+        <nav className="bg-gray-800 p-4">
             <ul className="flex justify-between items-center">
                 <li className="flex-shrink-0">
                     <a href="/">
