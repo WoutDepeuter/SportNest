@@ -10,9 +10,6 @@ class Quiz
      */
     public array $pages = [];
 
-    /**
-     * @param QuizPage[] $pages
-     */
     public function __construct()
     {
         $this->pages = self::defaultPages();
