@@ -3,6 +3,7 @@ import { Head } from '@inertiajs/react';
 import React from 'react';
 import Map from '../Components/Map'; // Import the Map component
 import '../../css/app.css';
+import '../../css/homepage.css';
 
 export default function Homepage(): JSX.Element {
     return (
@@ -12,13 +13,14 @@ export default function Homepage(): JSX.Element {
                 <meta name="description" content="Homepage"></meta>
             </head>
             <body>
-                <div className="banner">
-                    <image></image>
-                    <button>find a club for me</button>
+                <nav>
+                    {/* insert navbar here */}
+                </nav>
+                <div className='banner'>
+                    {/*insert banner and button here */}
                 </div>
                 <div className="searchbar">
-                    <input type="text" placeholder="club name" />
-                    <button>Search</button>
+                    {/* insert searchbar here */}
                 </div>
                 <div className="reaserch-form">
                     <select name="Sport">
@@ -67,6 +69,8 @@ export default function Homepage(): JSX.Element {
 
                 {/* Map Component */}
                 <Map />
+
+                {/* Footer */}
             </body>
         </>
     );
