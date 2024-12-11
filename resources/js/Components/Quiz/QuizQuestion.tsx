@@ -34,8 +34,8 @@ function MultiQuizQuestion(props: {question: QuizQuestion }) {
             <p className="text-gray-600 mb-4">{question.description}</p>
 
             <div className="space-y-2">
-                {question.data.map((tag: { name: string; description: string }, index: number) => (
-                    <div className="flex items-center space-x-3 p-2 rounded-md hover:bg-gray-100 cursor-pointer border border-gray-200">
+                {tags.map((tag: Tag, index: number) => (
+                    <div key={index} className="flex items-center space-x-3 p-2 rounded-md hover:bg-gray-100 cursor-pointer border border-gray-200">
                         <input
                             type="checkbox"
                             className="form-checkbox h-5 w-5 text-blue-600"
