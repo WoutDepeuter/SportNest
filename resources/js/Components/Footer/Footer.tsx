@@ -1,6 +1,6 @@
 export default function Footer() {
     return (
-        <footer className="bg-gray-800 p-4 fixed bottom-0 left-0 w-full">
+        <footer className="bg-gray-800 p-4 w-full">
             <div className="flex items-center">
                 <div className="mb-4 md:mb-0">
                     <a href="#" className="text-lg font-bold text-white">SportNest</a>
