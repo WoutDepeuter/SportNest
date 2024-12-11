@@ -7,8 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tag extends Model
 {
-    /** @use HasFactory<\Database\Factories\TagFactory> */
-    use HasFactory;
+    public $fillable = [
+        "name",
+        "description",
+    ];
 
     public string $name;
 
