@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\QuizController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 use App\Http\Controllers\UserController;
 
 
@@ -28,3 +28,7 @@ Route::get('/clubowner/club/add', [ClubOwnerController::class, 'ClubAdd']);
 
 #Club Owner Edit Club route
 Route::get('/clubowner/club/edit', [ClubOwnerController::class, 'ClubEdit']);
+
+Route::prefix('/quiz')->group(function () {
+    Route::get('/', [QuizController::class, 'index']);
+});

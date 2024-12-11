@@ -2,6 +2,8 @@
 
 namespace App\Models\Quiz;
 
+use App\Models\Tag;
+
 class Quiz
 {
 
@@ -13,6 +15,24 @@ class Quiz
     public function __construct()
     {
         $this->pages = self::defaultPages();
+
+        $this->addPage(new QuizPage(
+            "moeilijkheid",
+            "",
+            array(
+                QuizQuestion::multi("", "", Tag::difficultyTags())
+            )
+        ));
+
+        $this->addPage(new QuizPage(
+            "uithoudingsvermogen",
+            "",
+            array(
+                QuizQuestion::multi("", "", Tag::enduranceTags())
+            )
+        ));
+
+
     }
 
     public function addPage(QuizPage $page): void

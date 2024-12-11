@@ -22,7 +22,26 @@ class Tag extends Model
      */
     public static function Random(int $amount): array
     {
-        return Tag::all()->random($amount)->all();
+        return Tag::all()
+            ->where('name', 'NOT LIKE', 'moeilijkheid_*')
+            ->where('name', 'NOT LIKE', 'uithoudingsvermogen_*')
+            ->random($amount)->all();
+    }
+
+    /**
+     * @return Tag[]
+     */
+    public static function difficultyTags(): array
+    {
+        return Tag::all()->where("name", "LIKE", "moeilijkheid_%")->all();
+    }
+
+    /**
+     * @return Tag[]
+     */
+    public static function enduranceTags(): array
+    {
+        return Tag::all()->where("name", "LIKE", "uithoudingsvermogen_%")->all();
     }
 
 }
