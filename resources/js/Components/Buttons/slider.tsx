@@ -2,29 +2,43 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 
-function formatPrice(value: number) {
-  return `€${value}`;
-}
 
-export default function PriceRangeSlider() {
-  const [value, setValue] = React.useState<number[]>([50, 500]); // Default price range
-
-  const handleChange = (event: Event, newValue: number | number[]) => {
-    setValue(newValue as number[]);
+type RangeSliderProps = {
+    min: number;              // Minimum value
+    max: number;              // Maximum value
+    step: number;             // Step interval
+    value: number[];          // Default value range
+    formatValue: (value: number) => string; // Function to format the value
+    label: string;            // Label for the range
   };
-
-  return (
-    <Box sx={{ width: 300 }}>
-      <Slider
-        getAriaLabel={() => 'Price range'}
-        value={value}
-        onChange={handleChange}
-        valueLabelDisplay="auto"
-        getAriaValueText={formatPrice}
-        min={0} // Minimum price
-        max={500} // Maximum price
-        step={10} // Step interval
-      />
-    </Box>
-  );
-}
+  
+  export default function RangeSlider({
+    min,
+    max,
+    step,
+    value,
+    formatValue,
+    label
+  }: RangeSliderProps) {
+  
+    const [sliderValue, setSliderValue] = React.useState<number[]>(value); // Set initial value
+  
+    const handleChange = (event: Event, newValue: number | number[]) => {
+      setSliderValue(newValue as number[]);
+    };
+  
+    return (
+      <Box sx={{ width: 300 }}>
+        <Slider
+          getAriaLabel={() => label}
+          value={sliderValue}
+          onChange={handleChange}
+          valueLabelDisplay="auto"
+          getAriaValueText={formatValue}
+          min={min}
+          max={max}
+          step={step}
+        />
+      </Box>
+    );
+  }
