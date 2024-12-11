@@ -1,14 +1,73 @@
-
-import { Head } from '@inertiajs/react'
+// Homepage.tsx
+import { Head } from '@inertiajs/react';
 import React from 'react';
+import Map from '../Components/Map'; // Import the Map component
+import '../../css/app.css';
 
-export default function Homepage() {
+export default function Homepage(): JSX.Element {
     return (
-        <div>
-            <Head title="Homepage" />
-            <h1>Welcome</h1>
-            <p>This is the homepage without variables.</p>
-        </div>
+        <>
+            <head>
+                <title>Homepage</title>
+                <meta name="description" content="Homepage"></meta>
+            </head>
+            <body>
+                <div className="banner">
+                    <image></image>
+                    <button>find a club for me</button>
+                </div>
+                <div className="searchbar">
+                    <input type="text" placeholder="club name" />
+                    <button>Search</button>
+                </div>
+                <div className="reaserch-form">
+                    <select name="Sport">
+                        <option value="">Select a sport</option>
+                        <option value="Football">Football</option>
+                        <option value="Basketball">Basketball</option>
+                        <option value="Volleyball">Volleyball</option>
+                        <option value="Tennis">Tennis</option>
+                        <option value="Cricket">Cricket</option>
+                        <option value="Baseball">Baseball</option>
+                        <option value="Rugby">Rugby</option>
+                        <option value="Hockey">Hockey</option>
+                        <option value="Swimming">Swimming</option>
+                        <option value="Athletics">Athletics</option>
+                        <option value="Badminton">Badminton</option>
+                    </select>
+                    <select name="region">
+                        <option value="">Select a region</option>
+                        <option value="Anderlecht">Anderlecht</option>
+                        <option value="Auderghem">Auderghem</option>
+                        <option value="Berchem-Sainte-Agathe">Berchem-Sainte-Agathe</option>
+                        <option value="Bruxelles">Bruxelles</option>
+                        <option value="Etterbeek">Etterbeek</option>
+                        <option value="Evere">Evere</option>
+                        <option value="Forest">Forest</option>
+                        <option value="Ganshoren">Ganshoren</option>
+                        <option value="Ixelles">Ixelles</option>
+                        <option value="Jette">Jette</option>
+                        <option value="Koekelberg">Koekelberg</option>
+                        <option value="Molenbeek-Saint-Jean">Molenbeek-Saint-Jean</option>
+                        <option value="Saint-Gilles">Saint-Gilles</option>
+                        <option value="Saint-Josse-ten-Noode">Saint-Josse-ten-Noode</option>
+                        <option value="Schaerbeek">Schaerbeek</option>
+                        <option value="Uccle">Uccle</option>
+                        <option value="Watermael-Boitsfort">Watermael-Boitsfort</option>
+                        <option value="Woluwe-Saint-Lambert">Woluwe-Saint-Lambert</option>
+                        <option value="Woluwe-Saint-Pierre">Woluwe-Saint-Pierre</option>
+                    </select>
+                    <select name="time">
+                        <option value="">Select a time</option>
+                        <option value="Morning">Morning</option>
+                        <option value="Afternoon">Afternoon</option>
+                        <option value="Evening">Evening</option>
+                    </select>
+                </div>
+
+                {/* Map Component */}
+                <Map />
+            </body>
+        </>
     );
 }
-
