@@ -4,14 +4,21 @@ interface DropdownProps {
     label: string;
     name: string;
     options: { value: string; label: string }[];
+    defaultValue?: string;
+    onChange?: (value: string) => void;
+
 }
 
-const Dropdown: React.FC<DropdownProps> = ({ label, name, options }) => {
-    const [selectedValue, setSelectedValue] = useState(options[0]?.value || ""); // Default to the first option or an empty string
+
+const Dropdown: React.FC<DropdownProps> = ({ label, name, options, defaultValue, onChange }) => {
+    const [selectedValue, setSelectedValue] = useState(defaultValue || options[0]?.value || "");
 
     const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setSelectedValue(event.target.value); // Update state with the selected value
+        const value = event.target.value;
+        setSelectedValue(value);
+        if (onChange) onChange(value);
     };
+
 
     return (
         <div className="flex items-center justify-between">
