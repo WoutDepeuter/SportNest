@@ -14,13 +14,13 @@ export default function Homepage(): JSX.Element {
             </head>
             <body>
                 <nav>
-                    {/* insert navbar here */}
+                    {/* insert navbar react component here */}
                 </nav>
-                <div className='banner'>
-                    {/*insert banner and button here */}
+                <div className="bg-blue-500 text-white p-4 rounded-lg shadow-lg">
+                    {/* insert banner and button here */}
                 </div>
                 <div className="searchbar">
-                    {/* insert searchbar here */}
+                    {/* insert searchbar react component here */}
                 </div>
                 <div className="reaserch-form">
                     <select name="Sport">
@@ -70,7 +70,7 @@ export default function Homepage(): JSX.Element {
                 {/* Map Component */}
                 <Map />
 
-                {/* Footer */}
+                {/* insert Footer react component here*/}
             </body>
         </>
     );
