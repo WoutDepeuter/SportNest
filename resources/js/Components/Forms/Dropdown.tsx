@@ -1,4 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, Dispatch, SetStateAction } from "react";
+
+export type myProps<T> = {
+    currentValue: T;
+    setValue: Dispatch<SetStateAction<T>>;
+};
+
+export function Drop<T>({ currentValue, setValue }: myProps<T>) {
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setValue(event.target.value as unknown as T);
+    };
+
+    return (
+        <div>
+            <input
+                type="text"
+                value={currentValue as unknown as string}
+                onChange={handleChange}
+            />
+        </div>
+    );
+}
 
 interface DropdownProps {
     label: string;
@@ -6,19 +27,16 @@ interface DropdownProps {
     options: { value: string; label: string }[];
     defaultValue?: string;
     onChange?: (value: string) => void;
-
 }
 
-
 const Dropdown: React.FC<DropdownProps> = ({ label, name, options, defaultValue, onChange }) => {
-    const [selectedValue, setSelectedValue] = useState(defaultValue || options[0]?.value || "");
+    const [selectedValue, setSelectedValue] = useState(defaultValue || "");
 
     const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const value = event.target.value;
         setSelectedValue(value);
         if (onChange) onChange(value);
     };
-
 
     return (
         <div className="flex items-center justify-between">
