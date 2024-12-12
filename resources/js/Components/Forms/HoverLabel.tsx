@@ -11,7 +11,7 @@ export default function HoverLabel({ text, hoverText }: HoverLabelProps) {
 
     return (
         <div
-            className="relative inline-block"
+            className="relative inline-block w-full"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
