@@ -1,17 +1,18 @@
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import MainLayout from '@/Layouts/MainLayout';
 import { Head } from '@inertiajs/react';
+import DeleteUserForm from './Profile/Partials/DeleteUserForm';
+import UpdatePasswordForm from './Profile/Partials/UpdatePasswordForm';
+import { PageProps } from '@/types';
+import UpdateProfileInformation from './Profile/Partials/UpdateProfileInformationForm';
+import { Link } from '@inertiajs/react';
 
-export default function Dashboard() {
+export default function Dashboard({
+    mustVerifyEmail,
+    status,
+}: PageProps<{ mustVerifyEmail: boolean; status?: string }>) {
+    
     return (
-        <AuthenticatedLayout
-            header={
-                <h2 className="text-xl font-semibold leading-tight text-gray-800">
-                    Dashboard
-                </h2>
-            }
-        >
-            <Head title="Dashboard" />
-
+        <MainLayout title="Dashboard">
             <div className="py-12">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                     <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
@@ -19,8 +20,15 @@ export default function Dashboard() {
                             You're logged in!
                         </div>
                     </div>
+                    <div className="mt-6 flex justify-center">
+                    <Link href="/clubowner/profile">
+                        <a className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-lg text-xl">
+                            Go to Club Owner Profile
+                        </a>
+                    </Link>
+                </div>
                 </div>
             </div>
-        </AuthenticatedLayout>
+        </MainLayout>
     );
 }
