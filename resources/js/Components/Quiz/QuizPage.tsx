@@ -1,10 +1,11 @@
 import {QuizPage, QuizResult} from "@/Models/quiz";
 import {formatQuizQuestion} from "@/Components/Quiz/QuizQuestion";
 import {Paragraphize, Titleize} from "@/Functions/strings";
+import {Tag} from "@/Models/tag";
 
 type QuizPageProps = {
     page: QuizPage;
-    result: QuizResult;
+    callback: (tag: Tag, weight: number) => void;
 }
 
 export default function QuizPageComponent(props: QuizPageProps) {
@@ -19,7 +20,7 @@ export default function QuizPageComponent(props: QuizPageProps) {
             <div className="space-y-6">
                 {page.questions.map((question, index) => (
                     <div key={index}>
-                        {formatQuizQuestion(question)}
+                        {formatQuizQuestion(question, props.callback)}
                     </div>
                 ))}
             </div>

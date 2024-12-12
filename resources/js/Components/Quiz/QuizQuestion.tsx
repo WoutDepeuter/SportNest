@@ -1,32 +1,40 @@
 import {QuizQuestion, QuizQuestionType} from "@/Models/quiz";
 import {Tag} from "@/Models/tag";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import HoverLabel from "@/Components/Forms/HoverLabel";
 import RangeSlider from "@/Components/Buttons/slider";
 import {Paragraphize, Titleize} from "@/Functions/strings";
 
-export function formatQuizQuestion(question: QuizQuestion) {
+export function formatQuizQuestion(question: QuizQuestion, f: (tag: Tag, weight: number) => void) {
     switch (question.type) {
         case QuizQuestionType.MULTI:
-            return <MultiQuizQuestion question={question}  />
+            return <MultiQuizQuestion question={question} f={f}  />
         case QuizQuestionType.RANGE:
-            return <RangeQuizQuestion question={question} />
+            return <RangeQuizQuestion question={question} f={f} />
     }
 
     throw new Error("Question of unknown type: " + question.type)
 }
 
-function MultiQuizQuestion(props: {question: QuizQuestion }) {
+type QuizProps = {
+    question: QuizQuestion;
+    f: (tag: Tag, weight: number) => void;
+}
+
+function MultiQuizQuestion(props: QuizProps) {
     const question = props.question as QuizQuestion;
     const tags = question.data as Tag[];
 
-    const [selectedTags, setSelectedTags] = useState<string[]>([]);
+    const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
 
-    const handleCheckboxChange = (tagName: string) => {
+    const handleCheckboxChange = (tag: Tag) => {
+        const includes = selectedTags.includes(tag);
+        const weight = includes ? 5 : 0;
+        props.f(tag, weight);
+
         setSelectedTags((prev) =>
-            prev.includes(tagName)
-                ? prev.filter((name) => name !== tagName)
-                : [...prev, tagName]
+            includes ? prev.filter((t) => t !== tag)
+                : [...prev, tag]
         );
     };
 
@@ -41,8 +49,8 @@ function MultiQuizQuestion(props: {question: QuizQuestion }) {
                         <input
                             type="checkbox"
                             className="form-checkbox h-5 w-5 text-blue-600"
-                            checked={selectedTags.includes(tag.name)}
-                            onChange={() => handleCheckboxChange(tag.name)}
+                            checked={selectedTags.includes(tag)}
+                            onChange={() => handleCheckboxChange(tag)}
                         />
                         <HoverLabel text={tag.name} hoverText={tag.description}/>
                     </div>
@@ -52,11 +60,14 @@ function MultiQuizQuestion(props: {question: QuizQuestion }) {
     );
 }
 
-function RangeQuizQuestion(props: { question: QuizQuestion }) {
+function RangeQuizQuestion(props: QuizProps) {
     const question = props.question as QuizQuestion;
     const tag = props.question.data as Tag;
 
     const [weight, setWeight] = useState<number>(0);
+    useEffect(() => {
+        props.f(tag, weight);
+    }, [weight]);
 
     return (
         <div className="space-y-4">
