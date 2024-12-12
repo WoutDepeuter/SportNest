@@ -39,23 +39,32 @@ function QuizIndexComponent(props: QuizProps) {
     return (
         <div className="flex flex-col flex-grow h-full items-center justify-between py-10 space-y-2">
 
+            <div className="w-full px-5">
+                <h1 className="text-2xl">Orientation Quiz</h1> {/** TODO: Style?? **/}
+            </div>
+
             <div className="flex flex-row space-x-5 w-full justify-between h-full px-20">
 
                 <div className="w-1/2 flex justify-center">
                     <img className="w-3/4 rounded-2xl shadow-xl" src={quizImage(pageIdx)} alt="Random image related to sports"/>
                 </div>
 
-                <div className="flex w-1/2">
-                    <QuizPageComponent page={page}/>
+                <div className="flex flex-col w-1/2 space-y-2">
+                    <div className="w-full h-full">
+                        <QuizPageComponent page={page}/>
+                    </div>
+
+                    <div className="flex flex-row w-full justify-center">
+                        <Pagination
+                            hasPrevious={() => pageIdx !== 0}
+                            back={() => setPageIdx(Math.max(0, pageIdx - 1) % props.quiz.pages.length)}
+                            next={() => setPageIdx(pageIdx + 1 % props.quiz.pages.length)}
+                            hasNext={() => pageIdx < props.quiz.pages.length - 1}
+                            classes="flex-row w-4/5"
+                        />
+                    </div>
                 </div>
             </div>
-
-            <Pagination
-                hasPrevious={() => pageIdx !== 0}
-                back={() => setPageIdx(Math.max(0, pageIdx - 1) % props.quiz.pages.length)}
-                next={() => setPageIdx(pageIdx + 1 % props.quiz.pages.length)}
-                hasNext={() => pageIdx < props.quiz.pages.length - 1}
-            />
         </div>
     )
 }

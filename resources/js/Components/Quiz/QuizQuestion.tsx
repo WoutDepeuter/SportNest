@@ -2,6 +2,7 @@ import {QuizQuestion, QuizQuestionType} from "@/Models/quiz";
 import {Tag} from "@/Models/tag";
 import {useState} from "react";
 import HoverLabel from "@/Components/Forms/HoverLabel";
+import RangeSlider from "@/Components/Buttons/slider";
 
 export function formatQuizQuestion(question: QuizQuestion) {
     switch (question.type) {
@@ -51,7 +52,35 @@ function MultiQuizQuestion(props: {question: QuizQuestion }) {
 }
 
 function RangeQuizQuestion(props: { question: QuizQuestion }) {
+    const question = props.question as QuizQuestion;
     const tag = props.question.data as Tag;
 
-    return <div></div>
+    const [weight, setWeight] = useState<number>(0);
+
+    return (
+        <div className="space-y-4">
+            <h2 className="text-xl font-semibold">{question.label}</h2>
+            <p className="text-gray-600 mb-4">{question.description}</p>
+
+            <div className="flex flex-col space-y-4">
+                <HoverLabel text={tag.name} hoverText={tag.description}/>
+                <div className="flex flex-row space-x-5 justify-center items-center">
+                    <div>0</div>
+                    <RangeSlider
+                        min={0}
+                        max={5}
+                        step={1}
+                        value={[weight]}
+                        formatValue={(i) => `${i}`}
+                        label={tag.name}
+                        onChange={(value: number[]) => {
+                            const v = value.length > 0 ? value[0] : 0;
+                            setWeight(v);
+                        }}
+                    />
+                    <div>5</div>
+                </div>
+            </div>
+        </div>
+    );
 }
