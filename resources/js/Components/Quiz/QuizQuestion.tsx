@@ -3,6 +3,7 @@ import {Tag} from "@/Models/tag";
 import {useState} from "react";
 import HoverLabel from "@/Components/Forms/HoverLabel";
 import RangeSlider from "@/Components/Buttons/slider";
+import {Paragraphize, Titleize} from "@/Functions/strings";
 
 export function formatQuizQuestion(question: QuizQuestion) {
     switch (question.type) {
@@ -31,8 +32,8 @@ function MultiQuizQuestion(props: {question: QuizQuestion }) {
 
     return (
         <div className="space-y-4">
-            <h2 className="text-xl font-semibold">{question.label}</h2>
-            <p className="text-gray-600 mb-4">{question.description}</p>
+            <h2 className="text-xl font-semibold">{Titleize(question.label)}</h2>
+            <p className="text-gray-600 mb-4">{Paragraphize(question.description)}</p>
 
             <div className="space-y-2">
                 {tags.map((tag: Tag, index: number) => (

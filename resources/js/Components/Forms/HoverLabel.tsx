@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {Paragraphize, Titleize} from "@/Functions/strings";
 
 type HoverLabelProps = {
     text: string;
@@ -15,11 +16,11 @@ export default function HoverLabel({ text, hoverText }: HoverLabelProps) {
             onMouseLeave={() => setIsHovered(false)}
         >
             <span className="text-gray-700 font-medium cursor-pointer">
-                {text}
+                {Titleize(text)}
             </span>
             {isHovered && (
                 <div className="absolute left-0 top-full mt-1 bg-gray-800 text-white text-sm p-2 rounded shadow-lg z-10 transition-opacity duration-300">
-                    {hoverText}
+                    {Paragraphize(hoverText)}
                 </div>
             )}
         </div>
