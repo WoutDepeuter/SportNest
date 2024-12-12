@@ -2,7 +2,7 @@ import {Quiz, QuizPage, QuizResult} from "@/Models/quiz";
 import {useEffect, useState} from "react";
 import {WaitingGlass} from "@/Components/Animations/LoadingHourGlass";
 import QuizPageComponent from "@/Components/Quiz/QuizPage";
-import Pagination from "@/Components/Buttons/pagination";
+import {SoloPagination} from "@/Components/Buttons/pagination";
 import MainLayout from "@/Layouts/MainLayout";
 import {Tag} from "@/Models/tag";
 
@@ -66,7 +66,7 @@ function QuizIndexComponent(props: QuizProps) {
                     </div>
 
                     <div className="flex flex-row w-full justify-center">
-                        <Pagination
+                        <SoloPagination
                             hasPrevious={() => pageIdx !== 0}
                             back={() => setPageIdx(Math.max(0, pageIdx - 1) % props.quiz.pages.length)}
                             next={() => setPageIdx(pageIdx + 1 % props.quiz.pages.length)}
