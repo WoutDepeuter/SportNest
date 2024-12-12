@@ -3,11 +3,12 @@ type PaginationProps = {
     next: () => void;
     hasNext: () => boolean;
     hasPrevious: () => boolean;
+    classes?: string
 }
 
 export default function Pagination(props: PaginationProps) {
     return (
-        <div className="inline-flex">
+        <div className={`flex ` + (props.classes ?? "")}>
             {props.hasPrevious() && <button
                 onClick={() => {
                     props.back();

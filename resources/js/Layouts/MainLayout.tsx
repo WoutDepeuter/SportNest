@@ -14,7 +14,7 @@ export default function MainLayout({title, children}: MainLayoutProps) {
 
     return (
         <>
-            <Head title={title} />
+            <Head title={title}/>
             <div className="flex flex-col">
                 <div className="flex flex-col h-screen">
                     <div className="flex w-full">
@@ -28,11 +28,10 @@ export default function MainLayout({title, children}: MainLayoutProps) {
                         </div>
 
                     </div>
-
-                    <div className="flex w-full">
-                        <Footer/>
-                    </div>
                 </div>
+            </div>
+            <div className="flex w-full">
+                <Footer/>
             </div>
         </>
     )
