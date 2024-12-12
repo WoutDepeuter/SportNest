@@ -32,64 +32,68 @@ const CreateClubForm: React.FC<CreateClubFormProps> = ({ onCreateClub, onCancel 
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm mx-auto">
-      <h2 className="text-2xl font-bold text-center mb-4">Create New Club</h2>
+    <div className="bg-white p-8 rounded-lg shadow-xl max-w-md mx-auto">
+      <h2 className="text-3xl font-semibold text-center mb-6 text-gray-800">Create New Club</h2>
       <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">Club Name</label>
+        <div className="mb-6">
+          <label className="block text-sm font-medium text-gray-700 mb-2">Club Name</label>
           <input
             type="text"
             name="name"
             value={clubData.name}
             onChange={handleChange}
-            className="w-full p-2 mt-1 border border-gray-300 rounded-lg"
+            className="w-full p-3 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
+            placeholder="Enter the club name"
           />
         </div>
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">Club Type</label>
+        <div className="mb-6">
+          <label className="block text-sm font-medium text-gray-700 mb-2">Club Type</label>
           <input
             type="text"
             name="type"
             value={clubData.type}
             onChange={handleChange}
-            className="w-full p-2 mt-1 border border-gray-300 rounded-lg"
+            className="w-full p-3 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
+            placeholder="Enter the type of sport"
           />
         </div>
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">Club Address</label>
+        <div className="mb-6">
+          <label className="block text-sm font-medium text-gray-700 mb-2">Club Address</label>
           <input
             type="text"
             name="address"
             value={clubData.address}
             onChange={handleChange}
-            className="w-full p-2 mt-1 border border-gray-300 rounded-lg"
+            className="w-full p-3 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
+            placeholder="Enter the club's address"
           />
         </div>
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">Club Member Count</label>
+        <div className="mb-6">
+          <label className="block text-sm font-medium text-gray-700 mb-2">Club Member Count</label>
           <input
             type="number"
             name="clubCount"
             value={clubData.clubCount}
             onChange={handleChange}
-            className="w-full p-2 mt-1 border border-gray-300 rounded-lg"
+            className="w-full p-3 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
+            placeholder="Number of members"
           />
         </div>
-        <div className="flex justify-between">
+        <div className="flex justify-between items-center">
           <button
             type="button"
             onClick={onCancel}
-            className="px-4 py-2 bg-gray-300 text-white rounded-lg"
+            className="px-6 py-3 bg-gray-300 text-white rounded-lg hover:bg-gray-400 transition-colors"
           >
             Cancel
           </button>
           <button
             type="submit"
-            className="px-4 py-2 bg-blue-500 text-white rounded-lg"
+            className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
           >
             Create Club
           </button>
