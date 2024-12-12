@@ -38,6 +38,7 @@ const LeaveReviewPopup: React.FC<LeaveReviewPopupProps> = ({ open, onClose }) =>
           name="simple-controlled"
           value={rating}
           onChange={(event, newValue) => setRating(newValue)}
+          style={{ color: 'black' }}
         />
         
         <TextField
