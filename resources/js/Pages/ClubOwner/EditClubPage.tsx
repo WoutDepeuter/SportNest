@@ -1,4 +1,5 @@
 import EventContainer from '@/Components/Events/EventContainer';
+import PostSection from '@/Components/Posts/PostContainer';
 import React from 'react';
 
 const MainPage: React.FC = () => {
@@ -7,6 +8,8 @@ const MainPage: React.FC = () => {
       <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">Club and Event Management</h1>
 
       <EventContainer />
+
+      <PostSection />
     </div>
   );
 };
