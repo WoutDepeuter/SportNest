@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\UserController;
 use Inertia\Inertia;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 #homepage route
 Route::get('/', [UserController::class, 'index']);
@@ -35,6 +36,11 @@ Route::get('/clubowner/club/add', [ClubOwnerController::class, 'ClubAdd'])->midd
 //         'phpVersion' => PHP_VERSION,
 //     ]);
 // });
+
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
+    ->middleware('auth')
+    ->name('logout');
+    
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
