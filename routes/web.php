@@ -32,3 +32,8 @@ Route::get('/clubowner/club/edit', [ClubOwnerController::class, 'ClubEdit']);
 Route::prefix('/quiz')->group(function () {
     Route::get('/', [QuizController::class, 'index']);
 });
+
+#--------------------------------------------
+use App\Http\Controllers\ScraperController;
+
+Route::post('/run-scraper', [ScraperController::class, 'runScraper']);
