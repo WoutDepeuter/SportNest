@@ -27,6 +27,7 @@ function QuizIndexComponent(props: QuizProps) {
 
     function submit() {
         console.log(quizResult)
+        // Make http request, store result in local storage? redirect to page? idk?
     }
 
     useEffect(() => {

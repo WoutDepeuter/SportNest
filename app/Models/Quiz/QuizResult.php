@@ -2,6 +2,8 @@
 
 namespace App\Models\Quiz;
 
+use App\Models\Tag;
+
 class QuizResult
 {
 
@@ -10,7 +12,7 @@ class QuizResult
     public int $radius;
 
     /**
-     * @type QuizTagResult[]
+     * @type array<Tag, int>
      */
     public array $results;
 
