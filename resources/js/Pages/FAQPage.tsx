@@ -7,10 +7,9 @@ import {
     Box,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import Footer from "@/Components/Footer/Footer";
-import Navbar from "@/Components/Navigation/Navbar";
+import MainLayout from "@/Layouts/MainLayout";
 
-const FAQPage: React.FC = () => {
+function FAQPage() {
     const faqs = [
         {
             question: "What is SportNest?",
@@ -27,33 +26,30 @@ const FAQPage: React.FC = () => {
     ];
 
     return (
-        <div>
-            <Navbar />
+        <Box sx={{ pb: 8 }}>
             <br />
-            <Box sx={{ pb: 8 }}>
-                {" "}
-                {/* Ensure padding at the bottom */}
-                <Typography variant="h4" component="h1" gutterBottom>
-                    Frequently Asked Questions
-                </Typography>
-                {faqs.map((faq, index) => (
-                    <Accordion key={index}>
-                        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                            <Typography variant="subtitle1">
-                                {faq.question}
-                            </Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                            <Typography variant="body2">
-                                {faq.answer}
-                            </Typography>
-                        </AccordionDetails>
-                    </Accordion>
-                ))}
-            </Box>
-            <Footer />
-        </div>
+            {/* Ensure padding at the bottom */}
+            <Typography variant="h4" component="h1" gutterBottom>
+                Frequently Asked Questions
+            </Typography>
+            {faqs.map((faq, index) => (
+                <Accordion key={index}>
+                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                        <Typography variant="subtitle1">
+                            {faq.question}
+                        </Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                        <Typography variant="body2">
+                            {faq.answer}
+                        </Typography>
+                    </AccordionDetails>
+                </Accordion>
+            ))}
+        </Box>
     );
 };
+
+FAQPage.layout = (page: React.ReactNode) => <MainLayout title="FAQ" children={page}/>;
 
 export default FAQPage;
