@@ -20,7 +20,7 @@ export default function ClubInfo({ name, description }: ClubInfoProps) {
             {/* Image Section */}
             <div className="flex justify-center">
                 <img
-                    src=""
+                    src="https://uploads.dailydot.com/2024/08/gangster-spongebob-.jpg?q=65&auto=format&w=1600&ar=2:1&fit=crop"
                     alt=""
                     className=""
                 />

@@ -5,22 +5,61 @@ import MainLayout from "@/Layouts/MainLayout";
 import Clubpagebutton from "../Components/ClubPage/clubpagebutton";
 import ContactInfo from "../Components/ClubPage/ContactInfo";
 import ClubInfo from "@/Components/ClubPage/Clubinfo";
-
 import ReviewContainer from "@/Components/Reviews/ReviewContainer";
+import { LeaveReviewButton } from "@/Components/ClubPage/Genericbutton";
+import ReportButton from "@/Components/ClubPage/ReportButton";
 
-function ClubPage(): JSX.Element {
+interface ClubData {
+    name: string;
+    description: string;
+    website: string;
+    email: string;
+    phone: string;
+    map_coords: {
+        lat: number;
+        lng: number;
+    };
+}
+
+function ClubPage({ club }: { club: ClubData }): JSX.Element {
     return (
         <div>
-            <ClubInfo  name = "test" description = "de brusselse badminton club is een badminton club meow meow meow meow meow meow moewm meow mew"/>
-            <Map/>
-            <ContactInfo website="example.com" email="info@example.com" phone="123-456-7890"/>
-            <Clubpagebutton label="Join Now" onClick={() => console.log("Button clicked")}/>
-            <ReviewContainer/>
+            {/* Club Information */}
+            <ClubInfo name={club.name} description={club.description} />
 
+            {/* Contact Information */}
+            <ContactInfo website={club.website} email={club.email} phone={club.phone} />
+
+            {/* Buttons in a Vertical Row */}
+            <div className="flex flex-col gap-4 my-4 items-start">
+                <div className="w-auto">
+                    <LeaveReviewButton />
+                </div>
+                <div className="w-auto">
+                    <ReportButton />
+                </div>
+            </div>
+
+            {/* Reviews Section */}
+            <section className="my-8">
+                <ReviewContainer />
+            </section>
+
+            {/* Placeholder Sections */}
+            <section className="my-8">
+                <h1 className="text-4xl font-extrabold">Equipment</h1>
+                {/* Add equipment content here */}
+            </section>
+
+            <section className="my-8">
+                <h1 className="text-4xl font-extrabold">Events and Training</h1>
+                {/* Add events and training content here */}
+            </section>
         </div>
     );
 }
 
-ClubPage.layout = (page: React.ReactNode) => <MainLayout children={page}/>;
+// Layout wrapper
+ClubPage.layout = (page: React.ReactNode) => <MainLayout>{page}</MainLayout>;
 
 export default ClubPage;
