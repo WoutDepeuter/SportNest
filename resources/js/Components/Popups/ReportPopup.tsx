@@ -17,7 +17,7 @@ export default function ReportPopup(): JSX.Element {
                     {/* Dropdown */}
                     <div>
                         <label htmlFor="type" className="block text-sm font-medium text-gray-700 mb-1">
-                            Type of Issue
+
                         </label>
                         <Dropdown
                             name="type"
@@ -33,7 +33,7 @@ export default function ReportPopup(): JSX.Element {
                                 { value: "safety", label: "Safety Concerns" },
                                 { value: "other", label: "Other" },
                             ]}
-                            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedIssue(e.target.value)}
+                            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedIssue(e.target.value as string)}
                         />
                     </div>
 
