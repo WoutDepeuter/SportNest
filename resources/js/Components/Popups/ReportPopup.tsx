@@ -7,8 +7,8 @@ export default function ReportPopup(): JSX.Element {
     const [selectedIssue, setSelectedIssue] = useState<string>("");
 
     return (
-        <div className="flex items-center justify-center min-h-screen ">
-            <div className="p-6 border border-gray-300 rounded-md bg-gray-100 shadow-lg w-full max-w-md md:max-w-lg lg:max-w-xl">
+        <div className="flex items-center justify-center min-h-screen">
+            <div className="p-6 border border-gray-300 rounded-md bg-gray-100 shadow-lg w-full max-w-md md:max-w-lg lg:max-w-xl mx-4">
                 {/* Header */}
                 <h1 className="font-bold text-2xl text-center mb-4">REPORT AN ISSUE</h1>
 
@@ -16,9 +16,7 @@ export default function ReportPopup(): JSX.Element {
                 <div className="flex flex-col space-y-4">
                     {/* Dropdown */}
                     <div>
-                        <label htmlFor="type" className="block text-sm font-medium text-gray-700 mb-1">
 
-                        </label>
                         <Dropdown
                             name="type"
                             label=""
