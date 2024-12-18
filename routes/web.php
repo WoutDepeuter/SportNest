@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use Inertia\Inertia;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
+
 #homepage route
 Route::get('/', [UserController::class, 'index']);
 
@@ -41,7 +42,6 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->middleware('auth')
     ->name('logout');
 
-
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -56,4 +56,5 @@ Route::middleware('auth')->group(function () {
 use App\Http\Controllers\ScraperController;
 
 Route::post('/run-scraper', [ScraperController::class, 'runScraper']);
+
 require __DIR__.'/auth.php';

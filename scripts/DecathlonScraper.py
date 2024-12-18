@@ -1,10 +1,15 @@
 import requests
 from bs4 import BeautifulSoup
 import csv
+import logging
+import sys
 
-# Define sport and category as variables
-sport = "basketball"
-category = "ballons-de-basketball"
+# Configure logging
+logging.basicConfig(filename='/var/www/html/SportNest/laravel/SportNest/storage/logs/scraper.log', level=logging.DEBUG)
+
+# Get sport and category from command-line arguments
+sport = sys.argv[1] if len(sys.argv) > 1 else "basketball"
+category = sys.argv[2] if len(sys.argv) > 2 else "ballons-de-basketball"
 
 # Define the target URL
 URL = f"https://www.decathlon.be/fr/tous-les-sports/{sport}/{category}"
@@ -16,9 +21,10 @@ def fetch_webpage(url):
     }
     response = requests.get(url, headers=headers)
     if response.status_code == 200:
+        logging.debug(f"Successfully fetched {url}")
         return response.text
     else:
-        print(f"Failed to fetch {url}, status code: {response.status_code}")
+        logging.error(f"Failed to fetch {url}, status code: {response.status_code}")
         return None
 
 # Function to parse the webpage content and extract product details
@@ -65,19 +71,26 @@ def parse_webpage(html_content):
                 "product_url": product_url
             })
 
+    logging.debug(f"Parsed {len(items)} items from the webpage")
     return items
 
 # Main logic to fetch and save the data to CSV
 def main():
+    logging.debug("Starting scraper")
     html_content = fetch_webpage(URL)
     if html_content:
         sports_equipment = parse_webpage(html_content)
         # Save the results to a CSV file
-        with open("/storage/app/public/scraped-data.csv", "w", newline="", encoding="utf-8") as csvfile:
-            writer = csv.DictWriter(csvfile, fieldnames=["name", "price", "image_url", "product_url"])
-            writer.writeheader()
-            writer.writerows(sports_equipment)
-        print("Data saved to sports_equipment.csv")
+        try:
+            with open("/var/www/html/SportNest/laravel/SportNest/storage/app/public/scraped-data.csv", "w", newline="", encoding="utf-8") as csvfile:
+                writer = csv.DictWriter(csvfile, fieldnames=["name", "price", "image_url", "product_url"])
+                writer.writeheader()
+                writer.writerows(sports_equipment)
+            logging.debug("Data saved to scraped-data.csv")
+        except Exception as e:
+            logging.error(f"Failed to save data to CSV: {e}")
+    else:
+        logging.error("Failed to retrieve webpage content")
 
 if __name__ == "__main__":
     main()
