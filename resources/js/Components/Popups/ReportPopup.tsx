@@ -1,7 +1,7 @@
 import Dropdown from "@/Components/Forms/Dropdown";
 import React, { useState } from "react";
 import TextInput from "@/Components/TextInput";
-import PostButton2 from "@/Components/Buttons/post2";
+import PostButton2 from "@/Components/Buttons/ReportPost";
 
 export default function ReportPopup(): JSX.Element {
     const [selectedIssue, setSelectedIssue] = useState<string>("");

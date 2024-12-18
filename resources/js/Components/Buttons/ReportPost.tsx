@@ -6,7 +6,7 @@ type PostButtonProps = {
     label?: string;      // Optional label for the button
 };
 
-const PostButton2: React.FC<PostButtonProps> = ({ onClick }) => {
+const ReportPost: React.FC<PostButtonProps> = ({ onClick }) => {
     return (
         <Button
             variant="contained"
@@ -28,4 +28,4 @@ const PostButton2: React.FC<PostButtonProps> = ({ onClick }) => {
     );
 };
 
-export default PostButton2;
+export default ReportPost;
