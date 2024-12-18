@@ -47,6 +47,7 @@ function FilterClubsComponent() {
         }).then((res) => {
             if (res && res.data) {
                 setClubs(res.data);
+                setPage(1)
             }
         })
     }
@@ -114,7 +115,7 @@ function FilterClubsComponent() {
                     </div>
 
 
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-2 gap-4 w-full">
                         {clubs.filter((_, idx) => {
                             return idx >= (page - 1) * pageSize && idx < page * pageSize
                         }).map(c => {

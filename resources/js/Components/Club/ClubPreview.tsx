@@ -8,7 +8,7 @@ type ClubPreviewProps = {
 export default function ClubPreview(props: ClubPreviewProps) {
     const club = props.club;
 
-    return  <div className="flex items-center p-4 border border-gray-200 rounded-lg shadow-lg bg-white">
+    return  <div className="flex items-center p-4 border border-gray-200 rounded-lg shadow-lg bg-white w-full">
         <div className="flex-1">
             <h2 className="text-xl font-bold">{Titleize(club.name)}</h2>
             <p className="text-gray-600">
