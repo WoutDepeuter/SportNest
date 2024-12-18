@@ -52,11 +52,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/clubowner/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-<<<<<<< HEAD
 #--------------------------------------------
 use App\Http\Controllers\ScraperController;
 
 Route::post('/run-scraper', [ScraperController::class, 'runScraper']);
-=======
 require __DIR__.'/auth.php';
->>>>>>> origin/main
