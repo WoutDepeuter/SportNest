@@ -20,9 +20,7 @@ Route::get('/club/{id}', [UserController::class, 'club']);
 #FAQ page route
 Route::get('/faq', [UserController::class, 'faq']);
 
-Route::get('/test', function () {
-    return Inertia::render('TestPage');
-});
+
 
 #--------------------------------------------
 use App\Http\Controllers\ClubOwnerController;
