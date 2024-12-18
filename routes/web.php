@@ -1,9 +1,11 @@
 <?php
 
-use App\Http\Controllers\QuizController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
+use Illuminate\Foundation\Application;
 use App\Http\Controllers\UserController;
-
+use Inertia\Inertia;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 #homepage route
 Route::get('/', [UserController::class, 'index']);
@@ -21,19 +23,40 @@ Route::get('/faq', [UserController::class, 'faq']);
 use App\Http\Controllers\ClubOwnerController;
 
 #Club Owner Home route
-Route::get('/clubowner', [ClubOwnerController::class, 'Home']);
+Route::get('/clubowner', [ClubOwnerController::class, 'Home'])->middleware('auth');
 
 #Club Owner Add Club route
-Route::get('/clubowner/club/add', [ClubOwnerController::class, 'ClubAdd']);
+Route::get('/clubowner/club/add', [ClubOwnerController::class, 'ClubAdd'])->middleware('auth');
 
-#Club Owner Edit Club route
-Route::get('/clubowner/club/edit', [ClubOwnerController::class, 'ClubEdit']);
+// Route::get('/e', function () {
+//     return Inertia::render('Welcome', [
+//         'canLogin' => Route::has('login'),
+//         'canRegister' => Route::has('register'),
+//         'laravelVersion' => Application::VERSION,
+//         'phpVersion' => PHP_VERSION,
+//     ]);
+// });
 
-Route::prefix('/quiz')->group(function () {
-    Route::get('/', [QuizController::class, 'index']);
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
+    ->middleware('auth')
+    ->name('logout');
+
+
+Route::get('/dashboard', function () {
+    return Inertia::render('Dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/clubowner/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/clubowner/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/clubowner/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+<<<<<<< HEAD
 #--------------------------------------------
 use App\Http\Controllers\ScraperController;
 
 Route::post('/run-scraper', [ScraperController::class, 'runScraper']);
+=======
+require __DIR__.'/auth.php';
+>>>>>>> origin/main
