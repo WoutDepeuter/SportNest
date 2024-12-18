@@ -8,14 +8,16 @@ export default function ReportPopup(): JSX.Element {
 
     return (
         <div className="flex items-center justify-center min-h-screen ">
-            <div className="p-6 border border-gray-300 rounded-md bg-gray-100 w-1/3 shadow-lg">
+            <div className="p-6 border border-gray-300 rounded-md bg-gray-100 shadow-lg w-full max-w-md md:max-w-lg lg:max-w-xl">
+                {/* Header */}
                 <h1 className="font-bold text-2xl text-center mb-4">REPORT AN ISSUE</h1>
 
                 {/* Dropdown and Input Layout */}
                 <div className="flex flex-col space-y-4">
-                    {/* Dropdown Label */}
+                    {/* Dropdown */}
                     <div>
                         <label htmlFor="type" className="block text-sm font-medium text-gray-700 mb-1">
+                            Type of Issue
                         </label>
                         <Dropdown
                             name="type"
@@ -45,7 +47,7 @@ export default function ReportPopup(): JSX.Element {
                         />
                     )}
 
-
+                    {/* Post Button */}
                     <div className="flex justify-center">
                         <PostButton2 onClick={() => console.log("Button clicked")} />
                     </div>
