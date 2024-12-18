@@ -55,14 +55,14 @@ function FilterClubsComponent() {
                                  values={tags}
                                  selected={selectedTags}
                                  setSelected={setSelectedTags}
-                                 renderer={t => <HoverLabel text={t.name} hoverText={t.description}/>}
+                                 renderer={t => t.name}
                     />
 
                     <MultiSelect title="Sports"
                                  values={sports}
                                  selected={selectedSports}
                                  setSelected={setSelectedSports}
-                                 renderer={t => <HoverLabel text={t.name} hoverText={t.description}/>}
+                                 renderer={t => t.name}
                     />
 
                     <div
@@ -79,11 +79,12 @@ function FilterClubsComponent() {
                             {
                                 selected: selectedTags,
                                 setSelected: setSelectedTags,
-                                renderer: t => <HoverLabel text={t.name} hoverText={t.description}/>},
+                                renderer: t => t.name
+                            },
                             {
                                 selected: selectedSports,
                                 setSelected: setSelectedSports,
-                                renderer: t => <HoverLabel text={t.name} hoverText={t.description}/>
+                                renderer: t => t.name
                             }
                         ]
                     }/>
