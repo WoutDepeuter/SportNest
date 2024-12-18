@@ -1,9 +1,10 @@
-import {Quiz, QuizPage} from "@/Models/quiz";
+import {Quiz, QuizPage, QuizResult} from "@/Models/quiz";
 import {useEffect, useState} from "react";
 import {WaitingGlass} from "@/Components/Animations/LoadingHourGlass";
 import QuizPageComponent from "@/Components/Quiz/QuizPage";
-import Pagination from "@/Components/Buttons/pagination";
+import {SoloPagination} from "@/Components/Buttons/pagination";
 import MainLayout from "@/Layouts/MainLayout";
+import {Tag} from "@/Models/tag";
 
 type QuizProps = {
     quiz: Quiz;
@@ -18,6 +19,16 @@ function quizImage(idx: number): string {
 function QuizIndexComponent(props: QuizProps) {
     const [pageIdx, setPageIdx] = useState<number>(0);
     const [page, setPage] = useState<QuizPage | null>(null);
+    const [quizResult, _] = useState<QuizResult>(new QuizResult());
+
+    function updateWeight(tag: Tag, weight: number) {
+        quizResult.addResult(tag, weight);
+    }
+
+    function submit() {
+        console.log(quizResult)
+        // Make http request, store result in local storage? redirect to page? idk?
+    }
 
     useEffect(() => {
         if (props.quiz.pages.length <= pageIdx) {
@@ -51,17 +62,20 @@ function QuizIndexComponent(props: QuizProps) {
 
                 <div className="flex flex-col w-1/2 space-y-2">
                     <div className="w-full h-full">
-                        <QuizPageComponent page={page}/>
+                        <QuizPageComponent page={page} callback={updateWeight}/>
                     </div>
 
                     <div className="flex flex-row w-full justify-center">
-                        <Pagination
+                        <SoloPagination
                             hasPrevious={() => pageIdx !== 0}
                             back={() => setPageIdx(Math.max(0, pageIdx - 1) % props.quiz.pages.length)}
                             next={() => setPageIdx(pageIdx + 1 % props.quiz.pages.length)}
                             hasNext={() => pageIdx < props.quiz.pages.length - 1}
                             classes="flex-row w-4/5"
                         />
+                        <button onClick={() => submit()}>
+                            check
+                        </button>
                     </div>
                 </div>
             </div>
