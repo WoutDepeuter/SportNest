@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -28,6 +29,8 @@ Route::get('/clubowner', [ClubOwnerController::class, 'Home'])->middleware('auth
 #Club Owner Add Club route
 Route::get('/clubowner/club/add', [ClubOwnerController::class, 'ClubAdd'])->middleware('auth');
 
+Route::post("/search/filter", [SearchController::class, "filter"]);
+
 // Route::get('/e', function () {
 //     return Inertia::render('Welcome', [
 //         'canLogin' => Route::has('login'),
@@ -40,7 +43,7 @@ Route::get('/clubowner/club/add', [ClubOwnerController::class, 'ClubAdd'])->midd
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->middleware('auth')
     ->name('logout');
-    
+
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
