@@ -2,6 +2,7 @@ import React from 'react';
 import Map from '../Components/Map'; // Import the Map component
 import '../../css/app.css';
 import MainLayout from "@/Layouts/MainLayout";
+import FilterClubsComponent from "@/Components/Filter/FilterComponent";
 
 function Homepage(): JSX.Element {
     return (
@@ -16,6 +17,9 @@ function Homepage(): JSX.Element {
             <div className="flex flex-grow justify-center items-center m-5 p-5">
                 <Map />
             </div>
+
+            <FilterClubsComponent />
+
         </div>
     );
 }

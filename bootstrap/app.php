@@ -20,6 +20,10 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->web(append: [
            HandleInertiaRequests::class,
         ]);
+
+        $middleware->validateCsrfTokens(
+            except: ['/search/filter']
+        );
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
