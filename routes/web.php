@@ -7,7 +7,6 @@ use App\Http\Controllers\UserController;
 use Inertia\Inertia;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
-
 #homepage route
 Route::get('/', [UserController::class, 'index']);
 
@@ -28,15 +27,6 @@ Route::get('/clubowner', [ClubOwnerController::class, 'Home'])->middleware('auth
 
 #Club Owner Add Club route
 Route::get('/clubowner/club/add', [ClubOwnerController::class, 'ClubAdd'])->middleware('auth');
-
-// Route::get('/e', function () {
-//     return Inertia::render('Welcome', [
-//         'canLogin' => Route::has('login'),
-//         'canRegister' => Route::has('register'),
-//         'laravelVersion' => Application::VERSION,
-//         'phpVersion' => PHP_VERSION,
-//     ]);
-// });
 
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->middleware('auth')

@@ -82,11 +82,12 @@ def main():
         sports_equipment = parse_webpage(html_content)
         # Save the results to a CSV file
         try:
-            with open("/var/www/html/SportNest/laravel/SportNest/storage/app/public/scraped-data.csv", "w", newline="", encoding="utf-8") as csvfile:
+            filepath = sys.argv[3]  # Get the filepath from command-line arguments
+            with open(filepath, "w", newline="", encoding="utf-8") as csvfile:
                 writer = csv.DictWriter(csvfile, fieldnames=["name", "price", "image_url", "product_url"])
                 writer.writeheader()
                 writer.writerows(sports_equipment)
-            logging.debug("Data saved to scraped-data.csv")
+            logging.debug(f"Data saved to {filepath}")
         except Exception as e:
             logging.error(f"Failed to save data to CSV: {e}")
     else:

@@ -5,8 +5,8 @@ import '../../css/app.css';
 import MainLayout from "@/Layouts/MainLayout";
 
 function Homepage(): JSX.Element {
-    const sport = 'badminton';
-    const category = 'raquettes-de-badminton';
+    const sport = 'basketball';
+    const category = 'ballons-de-basketball';
 
     return (
         <div className="flex flex-col w-full flex-grow">
@@ -20,7 +20,7 @@ function Homepage(): JSX.Element {
             <div className="flex flex-grow justify-center items-center m-5 p-5">
                 <Map />
             </div>
-            {/*
+            {/* Add the DecathlonEquipment component
             <div className="flex flex-grow justify-center items-center m-5 p-5">
                 <DecathlonEquipment sport={sport} category={category} />
             </div>
