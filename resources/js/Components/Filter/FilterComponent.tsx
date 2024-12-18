@@ -3,9 +3,9 @@ import MainLayout from "@/Layouts/MainLayout";
 import WobbleFloatFleet from "@/Components/Forms/WobbleFloat";
 import MultiSelect from "@/Components/Forms/MultiSelect";
 import {Tag} from "@/Models/tag";
-import HoverLabel from "@/Components/Forms/HoverLabel";
 import {Sport} from "@/Models/sport";
 import axios from "axios";
+import {SportClub} from "@/Models/club";
 
 type FilterComponentProps = {
 
@@ -14,11 +14,12 @@ type FilterComponentProps = {
 function FilterClubsComponent() {
 
     const [tags, setTags] = useState<Tag[]>([]);
-    const [selectedTags, setSelectedTags] = React.useState<Tag[]>([]);
+    const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
 
-    const [sports, setSports] = React.useState<Sport[]>([]);
-    const [selectedSports, setSelectedSports] = React.useState<Tag[]>([]);
+    const [sports, setSports] = useState<Sport[]>([]);
+    const [selectedSports, setSelectedSports] = useState<Tag[]>([]);
 
+    const [clubs, setClubs] = useState<SportClub[]>([]);
 
     function loadFilterInfo() {
         axios.get("/search/filters")
@@ -32,9 +33,25 @@ function FilterClubsComponent() {
         })
     }
 
+    function updateClubs() {
+        axios.post("/search/filter", {
+            sports: selectedSports.map(s =>s.id),
+            tags: selectedTags.map(t =>t.id)
+        }).catch((error) => {
+            console.log(error);
+        }).then((res) => {
+            if (res && res.data) {
+                setClubs(res.data);
+            }
+        })
+    }
+
     useEffect(() => {
         loadFilterInfo();
     }, []);
+    useEffect(() => {
+        updateClubs()
+    }, [selectedSports, selectedTags]);
 
     return <div>
             <div className="flex flex-col md:flex-row justify-center ">
@@ -89,6 +106,13 @@ function FilterClubsComponent() {
                         ]
                     }/>
                 </div>
+
+                <div>
+                    {clubs.map(c => {
+                        return <div>{c.name}</div>
+                    })}
+                </div>
+
             </div>
     </div>
 
