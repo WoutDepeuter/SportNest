@@ -7,7 +7,6 @@ use App\Http\Controllers\UserController;
 use Inertia\Inertia;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
-
 #homepage route
 Route::get('/', [UserController::class, 'index']);
 
@@ -19,8 +18,6 @@ Route::get('/club/{id}', [UserController::class, 'club']);
 
 #FAQ page route
 Route::get('/faq', [UserController::class, 'faq']);
-
-
 
 #--------------------------------------------
 use App\Http\Controllers\ClubOwnerController;
@@ -43,7 +40,7 @@ Route::get('/clubowner/club/add', [ClubOwnerController::class, 'ClubAdd'])->midd
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->middleware('auth')
     ->name('logout');
-
+    
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
