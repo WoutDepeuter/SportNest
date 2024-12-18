@@ -6,12 +6,17 @@ import {Tag} from "@/Models/tag";
 import {Sport} from "@/Models/sport";
 import axios from "axios";
 import {SportClub} from "@/Models/club";
+import ClubPreview from "@/Components/Club/ClubPreview";
+import Pagination from "@/Components/Buttons/pagination";
 
 type FilterComponentProps = {
 
 }
 
 function FilterClubsComponent() {
+
+    const pageSize = 10;
+    const [page, setPage] = useState<number>(1);
 
     const [tags, setTags] = useState<Tag[]>([]);
     const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
@@ -53,8 +58,8 @@ function FilterClubsComponent() {
         updateClubs()
     }, [selectedSports, selectedTags]);
 
-    return <div>
-            <div className="flex flex-col md:flex-row justify-center ">
+    return <div className="w-full">
+            <div className="flex flex-col md:flex-row justify-center px-5 space-x-5">
                 <div className="flex flex-col">
                     <div
                         className="mb-4 flex flex-col justify-start space-y-2 rounded bg-white p-5 shadow-sm ring-1 ring-inset ring-gray-300">
@@ -90,27 +95,37 @@ function FilterClubsComponent() {
                     </div>
                 </div>
 
-                <div className="flex flex-col mt-2 md:mt-0">
-                    <WobbleFloatFleet floatsProps={
-                        [
-                            {
-                                selected: selectedTags,
-                                setSelected: setSelectedTags,
-                                renderer: t => t.name
-                            },
-                            {
-                                selected: selectedSports,
-                                setSelected: setSelectedSports,
-                                renderer: t => t.name
-                            }
-                        ]
-                    }/>
-                </div>
+                <div className="flex flex-col space-y-3">
+                    <div className="flex flex-col mt-2 md:mt-0">
+                        <WobbleFloatFleet floatsProps={
+                            [
+                                {
+                                    selected: selectedTags,
+                                    setSelected: setSelectedTags,
+                                    renderer: t => t.name
+                                },
+                                {
+                                    selected: selectedSports,
+                                    setSelected: setSelectedSports,
+                                    renderer: t => t.name
+                                }
+                            ]
+                        }/>
+                    </div>
 
-                <div>
-                    {clubs.map(c => {
-                        return <div>{c.name}</div>
-                    })}
+
+                    <div className="grid grid-cols-2 gap-4">
+                        {clubs.filter((_, idx) => {
+                            return idx >= (page - 1) * pageSize && idx < page * pageSize
+                        }).map(c => {
+                            return <ClubPreview club={c} key={c.id}/>
+                        })}
+                    </div>
+
+                    <Pagination itemsPerPage={pageSize} currentPage={page} totalItems={clubs.length}
+                                onPageChange={(p) => {
+                                    setPage(p)
+                                }}/>
                 </div>
 
             </div>
