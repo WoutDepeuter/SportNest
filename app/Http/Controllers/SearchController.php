@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Filter\FilterRequest;
+use App\Models\Sport;
 use App\Models\SportClub;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -38,6 +40,14 @@ class SearchController extends Controller
 
 
         return response()->json($clubs);
+    }
+
+    public function filterItems()
+    {
+        return response()->json([
+            "sports" => Sport::all(),
+            "tags" => Tag::all()
+        ]);
     }
 
 }

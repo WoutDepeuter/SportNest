@@ -30,6 +30,7 @@ Route::get('/clubowner', [ClubOwnerController::class, 'Home'])->middleware('auth
 Route::get('/clubowner/club/add', [ClubOwnerController::class, 'ClubAdd'])->middleware('auth');
 
 Route::post("/search/filter", [SearchController::class, "filter"]);
+Route::get("/search/filters", [SearchController::class, "filterItems"]);
 
 // Route::get('/e', function () {
 //     return Inertia::render('Welcome', [
