@@ -1,5 +1,11 @@
 // EventCard.tsx
 import React from 'react';
+import { Card } from "flowbite-react";
+import Image from "next/image";
+
+
+
+
 
 interface Event {
   name: string;
@@ -9,12 +15,27 @@ interface Event {
 
 const EventCard: React.FC<{ event: Event }> = ({ event }) => {
   return (
-    <div className="p-4 bg-white rounded-lg shadow-md border border-gray-200">
-      <h3 className="text-lg font-bold mb-2">{event.name}</h3>
-      <p className="text-gray-600 mb-2">{event.date}</p>
-      <p className="text-gray-700">{event.summary}</p>
-    </div>
+    <Card className="max-w-sm">
+  <img 
+    src="/images/placeholder.jpg" 
+    alt="image 1" 
+    width={500} 
+    height={500} 
+  />
+  <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+    {event.name}
+  </h5>
+  <p className="font-normal text-gray-700 dark:text-gray-400">
+    {event.summary}
+  </p>
+  <p className="font-normal text-gray-700 dark:text-gray-400">
+    {event.date}
+  </p>
+</Card>
+    
+      
   );
 };
 
 export default EventCard;
+

@@ -27,11 +27,18 @@ const FAQPage: React.FC = () => {
     ];
 
     return (
-        <div>
+        <div
+            style={{
+                display: "flex",
+                flexDirection: "column",
+                minHeight: "100vh",
+            }}
+        >
+            {/* Navbar */}
             <Navbar />
             <br />
-            <Box sx={{ pb: 8 }}>
-                {" "}
+            {/* Main content */}
+            <Box sx={{ pb: 8, flex: 1 }}>
                 {/* Ensure padding at the bottom */}
                 <Typography variant="h4" component="h1" gutterBottom>
                     Frequently Asked Questions
@@ -51,6 +58,7 @@ const FAQPage: React.FC = () => {
                     </Accordion>
                 ))}
             </Box>
+            {/* Footer */}
             <Footer />
         </div>
     );

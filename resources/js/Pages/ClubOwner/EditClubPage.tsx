@@ -2,6 +2,7 @@ import DeleteButton from "@/Components/Buttons/delete_button";
 import BasicRating from "@/Components/Buttons/Rating";
 import Rating from "@/Components/Buttons/Rating";
 import CreateClubForm from "@/Components/Club/CreateClubForm";
+import EditClub from "@/Components/Club/EditClub";
 import ContactInfo from "@/Components/ClubPage/ContactInfo";
 import EventContainer from "@/Components/Events/EventContainer";
 import DeleteClubPopup from "@/Components/Popups/DeleteClub";
@@ -27,9 +28,13 @@ const MainPage: React.FC = () => {
     };
     return (
         <div className="container mx-auto p-6">
+
             <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
                 Club and Event Management
+
             </h1>
+            <EditClub/>
+            <BasicRating value={rating} onChange={handleRatingChange} />
             {/* <ContactInfo website={"test.com"} email={"test@test.com"} phone={"0433333333"}/> */}
             <div>
                 {/* <button onClick={() => setModalOpen(true)}>Delete Club</button> */}
@@ -44,7 +49,7 @@ const MainPage: React.FC = () => {
             <EventContainer />
 
             <PostSection />
-            <BasicRating value={rating} onChange={handleRatingChange} />
+            
         </div>
     );
 };
