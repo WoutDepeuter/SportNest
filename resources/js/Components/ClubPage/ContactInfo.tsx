@@ -1,10 +1,5 @@
-import {EnvelopeIcon, GlobeAltIcon, PhoneIcon} from "@heroicons/react/24/outline";
-
-type ContactInfoProps = {
-    website: string;
-    email: string;
-    phone: string;
-};
+import LeaveReviewButton from "@/Components/ClubPage/LeaveReviewButton";
+import ReportButton from "@/Components/ClubPage/ReportButton";
 
 export default function ContactInfo({ website, email, phone }: ContactInfoProps) {
     return (
@@ -13,18 +8,26 @@ export default function ContactInfo({ website, email, phone }: ContactInfoProps)
 
             <div className="flex flex-col space-y-6">
                 <div className="flex items-center">
-                    <GlobeAltIcon />
+                    <GlobeAltIcon/>
                     <p className="mt-0 ml-2">Website: {website}</p>
                 </div>
 
                 <div className="flex items-center">
-                    <EnvelopeIcon />
+                    <EnvelopeIcon/>
                     <p className="mt-0 ml-2">Email: {email}</p>
                 </div>
 
                 <div className="flex items-center">
-                    <PhoneIcon />
+                    <PhoneIcon/>
                     <p className="mt-0 ml-2">Phone: {phone}</p>
+                </div>
+                <div className="flex flex-col gap-4 mt-6 items-start">
+                    <div className="w-auto">
+                        <LeaveReviewButton/>
+                    </div>
+                    <div className="w-auto">
+                        <ReportButton/>
+                    </div>
                 </div>
             </div>
         </div>
