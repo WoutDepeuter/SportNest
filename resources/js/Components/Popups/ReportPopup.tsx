@@ -31,7 +31,7 @@ export default function ReportPopup(): JSX.Element {
                                 { value: "safety", label: "Safety Concerns" },
                                 { value: "other", label: "Other" },
                             ]}
-                            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedIssue(e.target.value as string)}
+                            onChange={(e) => setSelectedIssue(e)}
                         />
                     </div>
 
