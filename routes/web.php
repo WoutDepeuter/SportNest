@@ -1,9 +1,14 @@
 <?php
 
 use App\Http\Controllers\QuizController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
+use Illuminate\Foundation\Application;
 use App\Http\Controllers\UserController;
-
+use Inertia\Inertia;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\ClubController;
 
 #homepage route
 Route::get('/', [UserController::class, 'index']);
@@ -16,19 +21,50 @@ Route::get('/club/{id}', [UserController::class, 'club']);
 
 #FAQ page route
 Route::get('/faq', [UserController::class, 'faq']);
+#clubpage route
+Route::get('/club/{id}', [ClubController::class, 'ClubPage'])->name('club.page');
 
 #--------------------------------------------
 use App\Http\Controllers\ClubOwnerController;
 
 #Club Owner Home route
-Route::get('/clubowner', [ClubOwnerController::class, 'Home']);
+Route::get('/clubowner', [ClubOwnerController::class, 'Home'])->middleware('auth');
 
 #Club Owner Add Club route
-Route::get('/clubowner/club/add', [ClubOwnerController::class, 'ClubAdd']);
+Route::get('/clubowner/club/add', [ClubOwnerController::class, 'ClubAdd'])->middleware('auth');
 
-#Club Owner Edit Club route
-Route::get('/clubowner/club/edit', [ClubOwnerController::class, 'ClubEdit']);
+Route::post("/search/filter", [SearchController::class, "filter"]);
+Route::get("/search/filters", [SearchController::class, "filterItems"]);
 
-Route::prefix('/quiz')->group(function () {
-    Route::get('/', [QuizController::class, 'index']);
+Route::get("/quiz", [QuizController::class, 'index']);
+
+// Route::get('/e', function () {
+//     return Inertia::render('Welcome', [
+//         'canLogin' => Route::has('login'),
+//         'canRegister' => Route::has('register'),
+//         'laravelVersion' => Application::VERSION,
+//         'phpVersion' => PHP_VERSION,
+//     ]);
+// });
+
+
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
+    ->middleware('auth')
+    ->name('logout');
+
+Route::get('/dashboard', function () {
+    return Inertia::render('Dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/clubowner/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/clubowner/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/clubowner/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+#--------------------------------------------
+use App\Http\Controllers\ScraperController;
+
+Route::post('/run-scraper', [ScraperController::class, 'runScraper']);
+
+require __DIR__.'/auth.php';

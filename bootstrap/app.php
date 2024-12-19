@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\CheckAdminRole;
 use App\Http\Middleware\HandleInertiaRequests;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -13,8 +14,18 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->web(append: [
+            \App\Http\Middleware\HandleInertiaRequests::class,
+            \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,
+        ]);
+        $middleware->alias(['isAdmin' => CheckAdminRole::class]);
+
+        $middleware->web(append: [
            HandleInertiaRequests::class,
         ]);
+
+        $middleware->validateCsrfTokens(
+            except: ['/search/filter']
+        );
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

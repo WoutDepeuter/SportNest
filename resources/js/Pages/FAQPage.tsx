@@ -7,8 +7,7 @@ import {
     Box,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import Footer from "@/Components/Footer/Footer";
-import Navbar from "@/Components/Navigation/Navbar";
+import MainLayout from "@/Layouts/MainLayout";
 
 const FAQPage: React.FC = () => {
     const faqs = [
@@ -27,40 +26,30 @@ const FAQPage: React.FC = () => {
     ];
 
     return (
-        <div
-            style={{
-                display: "flex",
-                flexDirection: "column",
-                minHeight: "100vh",
-            }}
-        >
-            {/* Navbar */}
-            <Navbar />
-            <br />
-            {/* Main content */}
-            <Box sx={{ pb: 8, flex: 1 }}>
-                {/* Ensure padding at the bottom */}
-                <Typography variant="h4" component="h1" gutterBottom>
-                    Frequently Asked Questions
-                </Typography>
-                {faqs.map((faq, index) => (
-                    <Accordion key={index}>
-                        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                            <Typography variant="subtitle1">
-                                {faq.question}
-                            </Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                            <Typography variant="body2">
-                                {faq.answer}
-                            </Typography>
-                        </AccordionDetails>
-                    </Accordion>
-                ))}
-            </Box>
-            {/* Footer */}
-            <Footer />
-        </div>
+        <MainLayout title="FAQ">
+            <div className="m-8">
+                <Box sx={{ pb: 8 }}>
+                    {" "}
+                    <Typography variant="h4" component="h1" gutterBottom>
+                        Frequently Asked Questions
+                    </Typography>
+                    {faqs.map((faq, index) => (
+                        <Accordion key={index}>
+                            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                                <Typography variant="subtitle1">
+                                    {faq.question}
+                                </Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                <Typography variant="body2">
+                                    {faq.answer}
+                                </Typography>
+                            </AccordionDetails>
+                        </Accordion>
+                    ))}
+                </Box>
+            </div>
+        </MainLayout>
     );
 };
 
