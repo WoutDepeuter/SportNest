@@ -3,6 +3,7 @@ import Map from '../Components/Map'; // Import the Map component
 import DecathlonEquipment from '../Components/Equipment/DecathlonEquipment'; // Import the DecathlonEquipment component
 import '../../css/app.css';
 import MainLayout from "@/Layouts/MainLayout";
+import FilterClubsComponent from "@/Components/Filter/FilterComponent";
 
 function Homepage(): JSX.Element {
     const sport = 'badminton';
@@ -24,6 +25,8 @@ function Homepage(): JSX.Element {
             <div className="flex flex-grow justify-center items-center m-5 p-5">
                 <DecathlonEquipment sport={sport} category={category} />
             </div>
+
+            <FilterClubsComponent />
 
         </div>
     );
