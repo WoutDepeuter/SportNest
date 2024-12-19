@@ -1,6 +1,4 @@
-import PhoneSVG from "@/Components/ClubPage/SVG/PhoneSVG";
-import MailSVG from "@/Components/ClubPage/SVG/MailSVG";
-import BrowserSVG from "@/Components/ClubPage/SVG/BrowserSVG";
+import {EnvelopeIcon, GlobeAltIcon, PhoneIcon} from "@heroicons/react/24/outline";
 
 type ContactInfoProps = {
     website: string;
@@ -15,17 +13,17 @@ export default function ContactInfo({ website, email, phone }: ContactInfoProps)
 
             <div className="flex flex-col space-y-6">
                 <div className="flex items-center">
-                    <BrowserSVG/>
+                    <GlobeAltIcon />
                     <p className="mt-0 ml-2">Website: {website}</p>
                 </div>
 
                 <div className="flex items-center">
-                    <MailSVG/>
+                    <EnvelopeIcon />
                     <p className="mt-0 ml-2">Email: {email}</p>
                 </div>
 
                 <div className="flex items-center">
-                    <PhoneSVG/>
+                    <PhoneIcon />
                     <p className="mt-0 ml-2">Phone: {phone}</p>
                 </div>
             </div>

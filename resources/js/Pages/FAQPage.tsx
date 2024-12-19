@@ -7,8 +7,6 @@ import {
     Box,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import Footer from "@/Components/Footer/Footer";
-import Navbar from "@/Components/Navigation/Navbar";
 import MainLayout from "@/Layouts/MainLayout";
 
 const FAQPage: React.FC = () => {
