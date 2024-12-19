@@ -38,6 +38,7 @@ Route::post("/search/filter", [SearchController::class, "filter"]);
 Route::get("/search/filters", [SearchController::class, "filterItems"]);
 
 Route::get("/quiz", [QuizController::class, 'index']);
+Route::post("/quiz/result", [QuizController::class, 'findWithWeigh']);
 
 Route::get("/admin/dashboard", [AdminController::class, "index"]);
 
