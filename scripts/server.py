@@ -1,35 +1,21 @@
 from flask import Flask, request, jsonify
-import subprocess
-import os
-import uuid
-import csv
 import json
+from DecathlonScraper import run_scraper
 
 app = Flask(__name__)
 app.config['DEBUG'] = True  # Enable debug mode
 
 @app.route('/run-scraper', methods=['POST'])
-def run_scraper():
+def run_scraper_endpoint():
     data = request.json
     sport = data.get('sport', 'basketball')
     category = data.get('category', 'ballons-de-basketball')
 
-    # Run the scraper script
-    process = subprocess.Popen(
-        ['python3', 'DecathlonScraper.py', sport, category],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE
-    )
-    stdout, stderr = process.communicate()
+    # Run the scraper function
+    scraped_data = run_scraper(sport, category)
 
-    if process.returncode != 0:
-        return jsonify({'message': 'Scraper process failed', 'error': stderr.decode('utf-8')}), 500
-
-    # Parse the JSON output from the scraper
-    try:
-        scraped_data = json.loads(stdout.decode('utf-8'))
-    except json.JSONDecodeError:
-        return jsonify({'message': 'Failed to parse scraper output', 'error': stdout.decode('utf-8')}), 500
+    if not scraped_data:
+        return jsonify({'message': 'Scraper process failed'}), 500
 
     return jsonify({'message': 'Scraper has run successfully!', 'data': scraped_data})
 

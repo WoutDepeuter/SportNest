@@ -1,15 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import logging
-import sys
 import json
-
-# Get sport and category from command-line arguments
-sport = sys.argv[1] if len(sys.argv) > 1 else "basketball"
-category = sys.argv[2] if len(sys.argv) > 2 else "ballons-de-basketball"
-
-# Define the target URL
-URL = f"https://www.decathlon.be/fr/tous-les-sports/{sport}/{category}"
 
 # Function to fetch webpage content
 def fetch_webpage(url):
@@ -71,16 +63,21 @@ def parse_webpage(html_content):
     logging.debug(f"Parsed {len(items)} items from the webpage")
     return items
 
-# Main logic to fetch and save the data to CSV
-def main():
+# Function to run the scraper
+def run_scraper(sport, category):
     logging.debug("Starting scraper")
+    URL = f"https://www.decathlon.be/fr/tous-les-sports/{sport}/{category}"
     html_content = fetch_webpage(URL)
     if html_content:
         sports_equipment = parse_webpage(html_content)
-        # Output the results as JSON
-        print(json.dumps(sports_equipment))
+        return sports_equipment
     else:
         logging.error("Failed to retrieve webpage content")
+        return []
 
 if __name__ == "__main__":
-    main()
+    import sys
+    sport = sys.argv[1] if len(sys.argv) > 1 else "basketball"
+    category = sys.argv[2] if len(sys.argv) > 2 else "ballons-de-basketball"
+    data = run_scraper(sport, category)
+    print(json.dumps(data))
