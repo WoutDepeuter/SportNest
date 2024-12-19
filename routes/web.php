@@ -41,10 +41,10 @@ Route::get("/quiz", [QuizController::class, 'index']);
 
 Route::get("/admin/dashboard", [AdminController::class, "index"]);
 
-
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->middleware('auth')
     ->name('logout');
+
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -55,10 +55,5 @@ Route::middleware('auth')->group(function () {
     Route::patch('/clubowner/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/clubowner/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
-#--------------------------------------------
-use App\Http\Controllers\ScraperController;
-
-Route::post('/run-scraper', [ScraperController::class, 'runScraper']);
 
 require __DIR__.'/auth.php';
