@@ -30,16 +30,6 @@ function ClubPage({ club }: { club: ClubData }): JSX.Element {
             {/* Contact Information */}
             <ContactInfo website={club.website} email={club.email} phone={club.phone} />
 
-            {/* Buttons in a Vertical Row */}
-            <div className="flex flex-col gap-4 my-4 items-start">
-                <div className="w-auto">
-                    <LeaveReviewButton />
-                </div>
-                <div className="w-auto">
-                    <ReportButton />
-                </div>
-            </div>
-
             {/* Reviews Section */}
             <section className="my-8">
                 <ReviewContainer />
