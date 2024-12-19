@@ -24,7 +24,7 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
 
         $middleware->validateCsrfTokens(
-            except: ['/search/filter']
+            except: ['/search/filter', "/quiz/result"]
         );
     })
     ->withExceptions(function (Exceptions $exceptions) {
