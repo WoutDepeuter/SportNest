@@ -14,7 +14,31 @@
         "paths": {
             "@/*": ["./resources/js/*"],
             "ziggy-js": ["./vendor/tightenco/ziggy"]
-        }
+        },
+        "types": [
+            "babel__core",
+            "babel__generator",
+            "babel__template",
+            "babel__traverse",
+            "estree",
+            "geojson",
+            "hoist-non-react-statics",
+            "js-cookie",
+            "leaflet",
+            "lodash",
+            "node",
+            "parse-json",
+            "prop-types",
+            "react",
+            "react-dom",
+            "react-transition-group",
+            "stylis"
+        ]
     },
-    "include": ["resources/js/**/*.ts", "resources/js/**/*.tsx", "resources/js/**/*.d.ts"]
+    "include": [
+        "resources/js/**/*.ts",
+        "resources/js/**/*.tsx",
+        "resources/js/**/*.d.ts",
+        "resources/js/types/**/*.d.ts"
+    ]
 }
