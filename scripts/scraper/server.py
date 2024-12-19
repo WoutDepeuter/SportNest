@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 import json
-from DecathlonScraper import run_scraper
+from scraper.DecathlonScraper import run_scraper
 
 app = Flask(__name__) 
 
