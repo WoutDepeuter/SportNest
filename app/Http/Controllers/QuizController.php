@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Quiz\Quiz;
 use App\Models\Quiz\QuizResult;
 use App\Models\Sport;
+use App\Models\SportClub;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -18,9 +19,13 @@ class QuizController extends Controller
     }
 
     public function findWithWeigh(Request $request) {
-        $result = $request->get('result');
+        $result = $request->get('results');
 
-        $sportsSortedByDynamicTagWeight = Sport::with('tags')
+        if (sizeof($result) == 0) {
+            return SportClub::limit(10)->get();
+        }
+
+        $topSports = Sport::with('tags')
             ->select('sports.*')
             ->join('sport_tags', 'sports.id', '=', 'sport_tags.sport_id')
             ->join('tags', 'tags.id', '=', 'sport_tags.tag_id')
@@ -36,7 +41,13 @@ class QuizController extends Controller
             ->limit(10)
             ->get();
 
-        return $sportsSortedByDynamicTagWeight;
+        $topSportIds = $topSports->pluck('id');
+
+        $clubsWithTopSports = SportClub::whereHas('sports', function ($query) use ($topSportIds) {
+            $query->whereIn('sports.id', $topSportIds);
+        })->get();
+
+        return $clubsWithTopSports;
     }
 
 }
