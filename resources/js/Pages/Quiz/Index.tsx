@@ -19,14 +19,6 @@ function quizImage(idx: number): string {
     return "/images/quiz/" + QUIZ_IMAGES[idx % QUIZ_IMAGES.length];
 }
 
-const mapToObject = (map: Map<any, any>) => {
-    const obj: any = {};
-    for (let [key, value] of map.entries()) {
-        obj[key] = value;
-    }
-    return obj;
-};
-
 function QuizIndexComponent(props: QuizProps) {
     const [pageIdx, setPageIdx] = useState<number>(0);
     const [page, setPage] = useState<QuizPage | null>(null);
@@ -40,9 +32,7 @@ function QuizIndexComponent(props: QuizProps) {
 
     function submit() {
         console.log(quizResult)
-        axios.post("/quiz/result", {
-            results: mapToObject(quizResult.)
-        })
+        axios.post("/quiz/result", quizResult)
             .catch(err => {
                 console.log(err)
             }).then(res =>  {

@@ -26,7 +26,7 @@ export class QuizResult {
 
     private loc: string = "";
     private radius: number = 0;
-    protected results: Map<Tag, number> = new Map();
+    protected results: {[key: number]: number} = {}
 
     public setLoc(value: string) {
         this.loc = value;
@@ -38,9 +38,9 @@ export class QuizResult {
 
     public addResult(tag: Tag, weight: number): void {
         if (weight == 0) {
-            this.results.delete(tag)
+            delete this.results[tag.id];
         } else {
-            this.results.set(tag, weight)
+            this.results[tag.id] = weight;
         }
     }
 

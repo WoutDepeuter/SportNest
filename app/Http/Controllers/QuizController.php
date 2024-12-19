@@ -45,7 +45,7 @@ class QuizController extends Controller
 
         $clubsWithTopSports = SportClub::whereHas('sports', function ($query) use ($topSportIds) {
             $query->whereIn('sports.id', $topSportIds);
-        })->get();
+        })->limit(10)->get();
 
         return $clubsWithTopSports;
     }
