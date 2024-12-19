@@ -1,8 +1,8 @@
 from flask import Flask, request, jsonify
 import json
-from scraper.DecathlonScraper import run_scraper
+from DecathlonScraper import run_scraper
 
-app = Flask(__name__) 
+app = Flask(__name__)
 
 @app.route('/run-scraper', methods=['POST'])
 def run_scraper_endpoint():
