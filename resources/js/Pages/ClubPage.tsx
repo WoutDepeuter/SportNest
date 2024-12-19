@@ -19,32 +19,27 @@ interface ClubData {
         lat: number;
         lng: number;
     };
+    equipment: string[];
+    events: string[];
+    reviews: string[];
 }
 
 function ClubPage({ club }: { club: ClubData }): JSX.Element {
+    const { name, description, website, email, phone, equipment, events, reviews } = club;
+
     return (
         <div>
             {/* Club Information */}
-            <ClubInfo name={club.name} description={club.description} />
-
-            {/* Contact Information */}
-            <ContactInfo website={club.website} email={club.email} phone={club.phone} />
-
-            {/* Reviews Section */}
-            <section className="my-8">
-                <ReviewContainer />
-            </section>
-
-            {/* Placeholder Sections */}
-            <section className="my-8">
-                <h1 className="text-4xl font-extrabold">Equipment</h1>
-                {/* Add equipment content here */}
-            </section>
-
-            <section className="my-8">
-                <h1 className="text-4xl font-extrabold">Events and Training</h1>
-                {/* Add events and training content here */}
-            </section>
+            <ClubInfo
+                name={name}
+                description={description}
+                website={website}
+                email={email}
+                phone={phone}
+                equipment={equipment}
+                events={events}
+                reviews={reviews}
+            />
         </div>
     );
 }
