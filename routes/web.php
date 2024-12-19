@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\QuizController;
 use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
@@ -31,6 +32,8 @@ Route::get('/clubowner/club/add', [ClubOwnerController::class, 'ClubAdd'])->midd
 
 Route::post("/search/filter", [SearchController::class, "filter"]);
 Route::get("/search/filters", [SearchController::class, "filterItems"]);
+
+Route::get("/quiz", [QuizController::class, 'index']);
 
 // Route::get('/e', function () {
 //     return Inertia::render('Welcome', [
