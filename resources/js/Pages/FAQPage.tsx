@@ -9,6 +9,7 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Footer from "@/Components/Footer/Footer";
 import Navbar from "@/Components/Navigation/Navbar";
+import MainLayout from "@/Layouts/MainLayout";
 
 const FAQPage: React.FC = () => {
     const faqs = [
@@ -27,32 +28,30 @@ const FAQPage: React.FC = () => {
     ];
 
     return (
-        <div>
-            <Navbar />
-            <br />
-            <Box sx={{ pb: 8 }}>
-                {" "}
-                {/* Ensure padding at the bottom */}
-                <Typography variant="h4" component="h1" gutterBottom>
-                    Frequently Asked Questions
-                </Typography>
-                {faqs.map((faq, index) => (
-                    <Accordion key={index}>
-                        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                            <Typography variant="subtitle1">
-                                {faq.question}
-                            </Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                            <Typography variant="body2">
-                                {faq.answer}
-                            </Typography>
-                        </AccordionDetails>
-                    </Accordion>
-                ))}
-            </Box>
-            <Footer />
-        </div>
+        <MainLayout title="FAQ">
+            <div className="mt-8">
+                <Box sx={{ pb: 8 }}>
+                    {" "}
+                    <Typography variant="h4" component="h1" gutterBottom>
+                        Frequently Asked Questions
+                    </Typography>
+                    {faqs.map((faq, index) => (
+                        <Accordion key={index}>
+                            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                                <Typography variant="subtitle1">
+                                    {faq.question}
+                                </Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                <Typography variant="body2">
+                                    {faq.answer}
+                                </Typography>
+                            </AccordionDetails>
+                        </Accordion>
+                    ))}
+                </Box>
+            </div>
+        </MainLayout>
     );
 };
 
