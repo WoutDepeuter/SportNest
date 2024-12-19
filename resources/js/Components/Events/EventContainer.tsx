@@ -44,7 +44,7 @@ const EventContainer: React.FC = () => {
       {/* Display the events */}
       <div className="overflow-auto max-h-96">
         {events.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
             {events.map((event, index) => (
               <EventCard key={index} event={event} />
             ))}
