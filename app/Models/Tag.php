@@ -12,10 +12,6 @@ class Tag extends Model
         "description",
     ];
 
-    public string $name;
-
-    public string $description;
-
     /**
      * @param int $amount
      * @return Tag[]

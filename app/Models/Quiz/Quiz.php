@@ -3,6 +3,7 @@
 namespace App\Models\Quiz;
 
 use App\Models\Tag;
+use Nette\Utils\Random;
 
 class Quiz
 {
@@ -32,7 +33,14 @@ class Quiz
             )
         ));
 
+        $tags = Tag::Random(4);
+        $questions = array();
 
+        foreach ($tags as $tag) {
+            $questions[] = QuizQuestion::range("", "", $tag);
+        }
+
+        $this->addPage(new QuizPage("Hoe belangrijk is:", "", $questions));
     }
 
     public function addPage(QuizPage $page): void
