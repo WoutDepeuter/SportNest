@@ -7,8 +7,6 @@ import {
     Box,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import Footer from "@/Components/Footer/Footer";
-import Navbar from "@/Components/Navigation/Navbar";
 import MainLayout from "@/Layouts/MainLayout";
 
 const FAQPage: React.FC = () => {
@@ -29,7 +27,7 @@ const FAQPage: React.FC = () => {
 
     return (
         <MainLayout title="FAQ">
-            <div className="mt-8">
+            <div className="m-8">
                 <Box sx={{ pb: 8 }}>
                     {" "}
                     <Typography variant="h4" component="h1" gutterBottom>

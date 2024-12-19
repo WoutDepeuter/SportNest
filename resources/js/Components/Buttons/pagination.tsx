@@ -34,39 +34,37 @@ const Pagination: React.FC<PaginationProps> = ({
     }
   };
 
-  const pageNumbers = [];
-  for (let i = 1; i <= totalPages; i++) {
-    pageNumbers.push(i);
-  }
-
-  return (
-    <div className="pagination">
+    const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
+    return (
+    <div className="flex flex-row w-full mx-5 justify-center p-2">
       <button
         onClick={handlePrevClick}
         disabled={currentPage === 1}
-        className="prev-btn"
+        className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l"
       >
         Prev
       </button>
-      <ul className="page-numbers">
-        {pageNumbers.map((page) => (
-          <li key={page}>
+        {pageNumbers.map((page) => {
+            const active = currentPage === page;
+
+            const bg = active ? "bg-gray-400" : "bg-gray-300"
+            const hoverBg = active ? "bg-gray-600" : "bg-gray-400"
+            return (
             <button
-              onClick={() => handlePageChange(page)}
-              className={currentPage === page ? "active" : ""}
+                key={page}
+                onClick={() => handlePageChange(page)}
+                className={`${bg} hover:${hoverBg} text-gray-800 font-bold py-2 px-4`}
             >
-              {page}
+                {page}
             </button>
-          </li>
-        ))}
-      </ul>
-      <button
-        onClick={handleNextClick}
-        disabled={currentPage === totalPages}
-        className="next-btn"
-      >
-        Next
-      </button>
+            )})}
+        <button
+            onClick={handleNextClick}
+            disabled={currentPage === totalPages}
+            className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r"
+        >
+            Next
+        </button>
     </div>
   );
 };

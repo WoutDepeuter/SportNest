@@ -15,7 +15,7 @@ type FilterComponentProps = {
 
 function FilterClubsComponent() {
 
-    const pageSize = 10;
+    const pageSize = 12;
     const [page, setPage] = useState<number>(1);
 
     const [tags, setTags] = useState<Tag[]>([]);
@@ -115,7 +115,7 @@ function FilterClubsComponent() {
                     </div>
 
 
-                    <div className="grid grid-cols-2 gap-4 w-full">
+                    <div className="grid grid-cols-3 gap-4 w-full">
                         {clubs.filter((_, idx) => {
                             return idx >= (page - 1) * pageSize && idx < page * pageSize
                         }).map(c => {
