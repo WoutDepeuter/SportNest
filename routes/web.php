@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -27,6 +28,9 @@ Route::get('/clubowner', [ClubOwnerController::class, 'Home'])->middleware('auth
 
 #Club Owner Add Club route
 Route::get('/clubowner/club/add', [ClubOwnerController::class, 'ClubAdd'])->middleware('auth');
+
+Route::post("/search/filter", [SearchController::class, "filter"]);
+Route::get("/search/filters", [SearchController::class, "filterItems"]);
 
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->middleware('auth')
