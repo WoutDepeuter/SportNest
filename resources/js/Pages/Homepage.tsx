@@ -20,11 +20,11 @@ function Homepage(): JSX.Element {
             <div className="flex flex-grow justify-center items-center m-5 p-5">
                 <Map />
             </div>
-            {/* Add the DecathlonEquipment component
+
             <div className="flex flex-grow justify-center items-center m-5 p-5">
                 <DecathlonEquipment sport={sport} category={category} />
             </div>
-            */}
+
         </div>
     );
 }

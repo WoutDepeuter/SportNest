@@ -24,9 +24,7 @@ const DecathlonEquipment: React.FC<DecathlonEquipmentProps> = ({ sport, category
         setError(null);
 
         try {
-            console.log('Triggering scraper');
             const response = await axios.post('/run-scraper', { sport, category });
-            console.log('Scraper response:', response);
 
             if (response.status !== 200) {
                 throw new Error(`Failed to run scraper: ${response.statusText}`);
@@ -36,16 +34,13 @@ const DecathlonEquipment: React.FC<DecathlonEquipmentProps> = ({ sport, category
             if (!data) {
                 throw new Error('No data returned from scraper');
             }
-            console.log('Scraper triggered successfully, data:', data);
 
             setEquipmentData(data);
             setLoading(false);
         } catch (err) {
             if (err instanceof Error) {
-                console.error('Failed to run scraper:', err.message);
                 setError(`Failed to run scraper: ${err.message}`);
             } else {
-                console.error('Failed to run scraper:', err);
                 setError('Failed to run scraper');
             }
             setLoading(false);
@@ -53,7 +48,6 @@ const DecathlonEquipment: React.FC<DecathlonEquipmentProps> = ({ sport, category
     };
 
     useEffect(() => {
-        console.log('useEffect triggered');
         runScraper();
     }, [sport, category]);
 

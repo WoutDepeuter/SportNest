@@ -2,8 +2,7 @@ from flask import Flask, request, jsonify
 import json
 from DecathlonScraper import run_scraper
 
-app = Flask(__name__)
-app.config['DEBUG'] = True  # Enable debug mode
+app = Flask(__name__) 
 
 @app.route('/run-scraper', methods=['POST'])
 def run_scraper_endpoint():
