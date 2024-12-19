@@ -1,5 +1,12 @@
 import LeaveReviewButton from "@/Components/ClubPage/LeaveReviewButton";
 import ReportButton from "@/Components/ClubPage/ReportButton";
+import {EnvelopeIcon, GlobeAltIcon, PhoneIcon} from "@heroicons/react/16/solid";
+
+type ContactInfoProps = {
+    website: string;
+    email: string;
+    phone: string;
+};
 
 export default function ContactInfo({ website, email, phone }: ContactInfoProps) {
     return (
