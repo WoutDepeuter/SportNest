@@ -27,7 +27,7 @@ const FAQPage: React.FC = () => {
 
     return (
         <MainLayout title="FAQ">
-            <div className="mt-8">
+            <div className="m-8">
                 <Box sx={{ pb: 8 }}>
                     {" "}
                     <Typography variant="h4" component="h1" gutterBottom>
