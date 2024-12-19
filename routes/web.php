@@ -7,7 +7,9 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\UserController;
 use Inertia\Inertia;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\ClubController;
 
 #homepage route
 Route::get('/', [UserController::class, 'index']);
@@ -20,6 +22,8 @@ Route::get('/club/{id}', [UserController::class, 'club']);
 
 #FAQ page route
 Route::get('/faq', [UserController::class, 'faq']);
+#clubpage route
+Route::get('/club/{id}', [ClubController::class, 'ClubPage'])->name('club.page');
 
 #--------------------------------------------
 use App\Http\Controllers\ClubOwnerController;
@@ -36,19 +40,12 @@ Route::get("/search/filters", [SearchController::class, "filterItems"]);
 Route::get("/quiz", [QuizController::class, 'index']);
 Route::post("/quiz/result", [QuizController::class, 'findWithWeigh']);
 
-// Route::get('/e', function () {
-//     return Inertia::render('Welcome', [
-//         'canLogin' => Route::has('login'),
-//         'canRegister' => Route::has('register'),
-//         'laravelVersion' => Application::VERSION,
-//         'phpVersion' => PHP_VERSION,
-//     ]);
-// });
+Route::get("/admin/dashboard", [AdminController::class, "index"]);
+
 
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->middleware('auth')
     ->name('logout');
-
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -59,5 +56,10 @@ Route::middleware('auth')->group(function () {
     Route::patch('/clubowner/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/clubowner/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+#--------------------------------------------
+use App\Http\Controllers\ScraperController;
+
+Route::post('/run-scraper', [ScraperController::class, 'runScraper']);
 
 require __DIR__.'/auth.php';

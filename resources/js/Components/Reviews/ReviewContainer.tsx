@@ -1,32 +1,21 @@
-import React from 'react'
-import Reviewcard from './Reviewcard'
+// Reviewcard.tsx
+import Rating from "@/Components/Reviews/Rating";
 
-export default function ReviewContainer() {
-        return (
-            <div className="review-cont flex flex-wrap gap-x-4 gap-y-6 px-6 justify-center mx-8 bg-black">
-                <Reviewcard
-                    name="trissie"
-                    stars={2}
-                    review="error"
-                />
-                <Reviewcard
-                    name="wout"
-                    stars={5}
-                    review="dit is een test review ik ben letterlijk gods kleine soldaat raaaaaaaaaaaaaaaaaaagh"
-                />
-                <Reviewcard
-                    name="em"
-                    stars={3}
-                    review="dit is nog een test review meow miauw"
-                />
-                <Reviewcard
-                    name="trent"
-                    stars={4}
-                    review="iets review achtig"
-                />
-                <Reviewcard name={"Emma"} review={"Nu moet ik niet meer bang zijn van vreemde mannen"} stars={5}/>
+type ReviewcardProps = {
+    name: string;
+    review: string;
+    stars: number;
+};
+
+export default function Reviewcard({ name, review, stars }: ReviewcardProps) {
+    return (
+        <div className="review-card border-gray-400 border rounded-md w-64 p-4 mx-2 my-2">
+            <div className="review">
+                <Rating stars={stars} />
+                <h2 className="font-bold text-xl pt-2">{name}</h2>
+                <p className="break-words">{review}</p>
             </div>
-        )
-    }
 
-
+        </div>
+    );
+}
