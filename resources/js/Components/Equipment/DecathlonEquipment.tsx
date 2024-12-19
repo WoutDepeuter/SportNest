@@ -6,9 +6,16 @@ interface DecathlonEquipmentProps {
     category: string;
 }
 
+interface EquipmentItem {
+    name: string;
+    price: string;
+    image_url: string;
+    product_url: string;
+}
+
 const DecathlonEquipment: React.FC<DecathlonEquipmentProps> = ({ sport, category }) => {
     const [loading, setLoading] = useState(false);
-    const [csvData, setCsvData] = useState<any[]>([]);
+    const [equipmentData, setEquipmentData] = useState<EquipmentItem[]>([]);
     const [error, setError] = useState<string | null>(null);
     const scrollContainerRef = useRef<HTMLDivElement>(null);
 
@@ -31,7 +38,7 @@ const DecathlonEquipment: React.FC<DecathlonEquipmentProps> = ({ sport, category
             }
             console.log('Scraper triggered successfully, data:', data);
 
-            setCsvData(data);
+            setEquipmentData(data);
             setLoading(false);
         } catch (err) {
             if (err instanceof Error) {
@@ -53,15 +60,16 @@ const DecathlonEquipment: React.FC<DecathlonEquipmentProps> = ({ sport, category
     return (
         <div>
             {error && <p style={{ color: 'red' }}>{error}</p>}
+            {loading && <p>Loading...</p>}
 
             <div className="w-full flex justify-center items-center">
                 <div ref={scrollContainerRef} className="flex overflow-x-auto space-x-4 p-4" style={{ width: '100%', maxWidth: '100vw', overflowX: 'auto' }}>
-                    {csvData && csvData.slice(1).filter(row => row[2] && row[3]).map((row: any[], rowIndex: number) => (
-                        <div key={rowIndex} className="border p-4 rounded shadow min-w-[150px] max-w-[150px]">
-                            <img src={row[2]} alt={row[0]} className="w-full h-32 object-cover mb-4" />
-                            <h4 className="text-lg font-bold">{row[0]}</h4>
-                            <p className="text-gray-700">{row[1]}</p>
-                            <a href={row[3]} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
+                    {equipmentData && equipmentData.map((item, index) => (
+                        <div key={index} className="border p-4 rounded shadow min-w-[150px] max-w-[150px]">
+                            <img src={item.image_url} alt={item.name} className="w-full h-32 object-cover mb-4" />
+                            <h4 className="text-lg font-bold">{item.name}</h4>
+                            <p className="text-gray-700">{item.price}</p>
+                            <a href={item.product_url} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
                                 View Product
                             </a>
                         </div>

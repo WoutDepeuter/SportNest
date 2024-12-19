@@ -1,11 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
-import csv
 import logging
 import sys
-
-# Configure logging
-logging.basicConfig(filename='/var/www/html/SportNest/laravel/SportNest/storage/logs/scraper.log', level=logging.DEBUG)
+import json
 
 # Get sport and category from command-line arguments
 sport = sys.argv[1] if len(sys.argv) > 1 else "basketball"
@@ -80,16 +77,8 @@ def main():
     html_content = fetch_webpage(URL)
     if html_content:
         sports_equipment = parse_webpage(html_content)
-        # Save the results to a CSV file
-        try:
-            filepath = sys.argv[3]  # Get the filepath from command-line arguments
-            with open(filepath, "w", newline="", encoding="utf-8") as csvfile:
-                writer = csv.DictWriter(csvfile, fieldnames=["name", "price", "image_url", "product_url"])
-                writer.writeheader()
-                writer.writerows(sports_equipment)
-            logging.debug(f"Data saved to {filepath}")
-        except Exception as e:
-            logging.error(f"Failed to save data to CSV: {e}")
+        # Output the results as JSON
+        print(json.dumps(sports_equipment))
     else:
         logging.error("Failed to retrieve webpage content")
 
