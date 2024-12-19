@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Notifications\CustomResetPasswordNotification;
+use App\Models\UserRole;
 
 class User extends Authenticatable
 {
@@ -55,5 +56,9 @@ class User extends Authenticatable
     {
         // Send the custom reset password notification
         $this->notify(new CustomResetPasswordNotification($token));
+    }
+
+    public function roles(){
+        return $this->hasMany(UserRole::class);
     }
 }

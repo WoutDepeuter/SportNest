@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Models\UserRole;
 
 class ProfileController extends Controller
 {
@@ -54,6 +55,8 @@ class ProfileController extends Controller
         Auth::logout();
 
         $user->delete();
+
+        UserRole::where('user_id', $user->id)->delete();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
