@@ -8,6 +8,7 @@ use Illuminate\Foundation\Application;
 use App\Http\Controllers\UserController;
 use Inertia\Inertia;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\ClubController;
 
 #homepage route
 Route::get('/', [UserController::class, 'index']);
@@ -20,6 +21,8 @@ Route::get('/club/{id}', [UserController::class, 'club']);
 
 #FAQ page route
 Route::get('/faq', [UserController::class, 'faq']);
+#clubpage route
+Route::get('/club/{id}', [ClubController::class, 'ClubPage'])->name('club.page');
 
 #--------------------------------------------
 use App\Http\Controllers\ClubOwnerController;
