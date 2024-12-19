@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\UserController;
 use Inertia\Inertia;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ClubController;
 
@@ -38,14 +39,7 @@ Route::get("/search/filters", [SearchController::class, "filterItems"]);
 
 Route::get("/quiz", [QuizController::class, 'index']);
 
-// Route::get('/e', function () {
-//     return Inertia::render('Welcome', [
-//         'canLogin' => Route::has('login'),
-//         'canRegister' => Route::has('register'),
-//         'laravelVersion' => Application::VERSION,
-//         'phpVersion' => PHP_VERSION,
-//     ]);
-// });
+Route::get("/admin/dashboard", [AdminController::class, "index"]);
 
 
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
