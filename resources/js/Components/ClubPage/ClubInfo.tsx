@@ -37,7 +37,7 @@ export default function ClubInfo({ name, description, website, email, phone, equ
                 {/* Reviews Section */}
                 <div className="w-full md:w-2/3">
                     <h2 className="text-2xl font-bold mb-4">Reviews</h2>
-                    <ReviewContainer />
+                    <ReviewContainer/>
                 </div>
             </div>
 
