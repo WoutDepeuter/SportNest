@@ -1,0 +1,31 @@
+services:
+
+  laravel:
+    image: sportnest:laravel
+    restart: always
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./example.production.env:/app/.env
+    depends_on:
+      - mysql-db
+      - scraper
+
+  scraper:
+    image: sportnest:scraper
+    restart: always
+
+  mysql-db:
+    image: mysql
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: dev
+      MYSQL_DATABASE: laravel
+      MYSQL_USER: laravel
+    volumes:
+      - mysql-db-data:/var/lib/mysql
+
+volumes:
+  mysql-db-data: {}
