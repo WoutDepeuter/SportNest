@@ -4,9 +4,11 @@ import {Paragraphize, Titleize} from "@/Functions/strings";
 type HoverLabelProps = {
     text: ReactNode;
     hoverText: string;
+    onClick?: () => void;
+    className?: string;
 };
 
-export default function HoverLabel({ text, hoverText }: HoverLabelProps) {
+export default function HoverLabel({ text, hoverText, onClick, className }: HoverLabelProps) {
     const [isHovered, setIsHovered] = useState(false);
 
     if (typeof text === "string") {
@@ -15,9 +17,14 @@ export default function HoverLabel({ text, hoverText }: HoverLabelProps) {
 
     return (
         <div
-            className="relative inline-block w-full"
+            className={className ?? "relative inline-block w-full"}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
+            onClick={() => {
+                if (onClick) {
+                    onClick();
+                }
+            }}
         >
             <span className="text-gray-700 font-medium cursor-pointer">
                 {text}

@@ -1,22 +1,25 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\SportClub;
 use Inertia\Inertia;
-use Illuminate\Http\Request;
+use Inertia\Response;
 
 class ClubOwnerController extends Controller
 {
-    public function Home()
+    public function Home(): Response
     {
-        return Inertia::render('ClubOwner/ClubOwnerPage');
+        return Inertia::render('ClubOwner/ClubOwnerPage', [
+            "clubs" => SportClub::where("user_id", "=", auth()->user()->id)->get()
+        ]);
     }
 
-    public function ClubAdd()
+    public function ClubAdd(): Response
     {
         return Inertia::render('ClubOwner/AddClubPage');
     }
 
-    public function ClubEdit()
+    public function ClubEdit(): Response
     {
         return Inertia::render('ClubOwner/EditClubPage');
     }
