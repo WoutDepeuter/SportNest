@@ -12,7 +12,7 @@ fi
 docker build -t sportnest:laravel .
 
 cd scraper || exit 1
-docker build -it sportnest:scraper .
+docker build -t sportnest:scraper .
 
 cd ..
 cd scripts  || exit 1

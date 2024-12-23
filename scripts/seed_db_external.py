@@ -79,7 +79,11 @@ def first_csv():
 def tags():
     f = open("tags.sql", "r")
     sql = f.read()
-    cur.execute(sql, multi=True)
+    sql_statements = sql.split(';')
+    for statement in sql_statements:
+        if statement.strip():
+            cur.execute(statement)
+            print(f"Executed: {statement}")
 
 
 first_csv()
