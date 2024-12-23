@@ -1,8 +1,9 @@
+import os
 import csv
 import mysql.connector
 
 cnx = mysql.connector.connect(
-        host="127.0.0.1",
+        host=os.getenv("HOST", "127.0.0.1"),
         port=3306,
         user="root",
         password="dev",
@@ -78,8 +79,7 @@ def first_csv():
 def tags():
     f = open("tags.sql", "r")
     sql = f.read()
-    cnx.execute(sql)
-
+    cur.execute(sql, multi=True)
 
 
 first_csv()

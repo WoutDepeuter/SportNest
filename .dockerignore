@@ -1,3 +1,7 @@
 vendor
 node_modules
 .env
+full_setup.sh
+deploy
+scripts
+scraper
