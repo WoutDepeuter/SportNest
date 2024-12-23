@@ -10,7 +10,8 @@ class ClubOwnerController extends Controller
     public function Home(): Response
     {
         return Inertia::render('ClubOwner/ClubOwnerPage', [
-            "clubs" => SportClub::where("user_id", "=", auth()->user()->id)->get()
+            "clubs" => SportClub::where("user_id", "=", auth()->user()->id)->get(),
+            "name" => auth()->user()->name,
         ]);
     }
 

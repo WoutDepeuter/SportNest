@@ -9,10 +9,11 @@ import {StringListFilter} from "@/Components/Table/Filter/ListFilter";
 import HoverLabel from "@/Components/Forms/HoverLabel";
 
 type ClubOwnerPageProps = {
-    clubs: SportClub[]
+    clubs: SportClub[],
+    name: string,
 }
 
-function ClubOwnerPage({clubs}: ClubOwnerPageProps) {
+function ClubOwnerPage({clubs, name}: ClubOwnerPageProps) {
 
     function deleteClub(id: number) {}
     function editClub(id: number) {}
@@ -82,6 +83,8 @@ function ClubOwnerPage({clubs}: ClubOwnerPageProps) {
 
     return <div className="flex flex-grow flex-col">
         <div className="text-3xl font-bold p-8">
+            Hello, {name}
+            <br />
             Your Clubs
         </div>
         <div className="flex flex-grow justify-center p-12">
