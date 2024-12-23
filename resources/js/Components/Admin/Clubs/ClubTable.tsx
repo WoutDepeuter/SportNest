@@ -6,16 +6,43 @@ import {ListFilter, StringListFilter} from "@/Components/Table/Filter/ListFilter
 import {WrapFilter} from "@/Components/Table/Filter/WrapFilter";
 import HoverLabel from "@/Components/Forms/HoverLabel";
 import axios from "axios";
+import {useState} from "react";
 
 type ClubTableProps = {
     clubs: SportClub[],
 }
 
 export default function ClubTable(props: ClubTableProps) {
-    const clubs = props.clubs
+    const [clubs, setClubs] = useState(props.clubs)
 
     function verifyClub(clubId: number) {
-        axios.post(`/admin/verify/` + clubId);
+        // TODO: Configuration popup?
+
+        axios.post(`/admin/verify/` + clubId).catch(e => {
+            console.error(e)
+        }).then(res => {
+            if (!res) {
+                return;
+            }
+
+            if (res.status === 404) {
+                // TODO: Notification?
+                return;
+            }
+
+            if (res.status !== 200) {
+                return;
+            }
+
+            setClubs(clubs.map(club => {
+                if (club.id !== clubId) {
+                    return club;
+                }
+
+                club.verified = "1" // php is such bs
+                return club;
+            }))
+        })
     }
 
     const columns: ColumnFactory<SportClub>[] = [

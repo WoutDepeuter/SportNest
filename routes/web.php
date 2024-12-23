@@ -40,9 +40,12 @@ Route::get("/search/filters", [SearchController::class, "filterItems"]);
 Route::get("/quiz", [QuizController::class, 'index']);
 Route::post("/quiz/result", [QuizController::class, 'findWithWeigh']);
 
-Route::get("/admin/dashboard", [AdminController::class, "index"]);
-Route::post("/admin/verify/{id}", [AdminController::class, "verify"]);
-
+Route::middleware(['auth', 'isAdmin'])->group(function () {
+    Route::prefix('admin')->group(function () {
+       Route::get('/dashboard', [AdminController::class, 'index']);
+       Route::post("verify/{id}", [AdminController::class, 'verify']);
+    });
+});
 
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->middleware('auth')
