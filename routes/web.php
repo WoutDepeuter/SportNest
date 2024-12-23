@@ -41,6 +41,7 @@ Route::get("/quiz", [QuizController::class, 'index']);
 Route::post("/quiz/result", [QuizController::class, 'findWithWeigh']);
 
 Route::get("/admin/dashboard", [AdminController::class, "index"]);
+Route::post("/admin/verify/{id}", [AdminController::class, "verify"]);
 
 
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])

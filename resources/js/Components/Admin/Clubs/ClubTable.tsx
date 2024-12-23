@@ -5,6 +5,7 @@ import {CheckIcon, XMarkIcon} from "@heroicons/react/24/outline";
 import {ListFilter, StringListFilter} from "@/Components/Table/Filter/ListFilter";
 import {WrapFilter} from "@/Components/Table/Filter/WrapFilter";
 import HoverLabel from "@/Components/Forms/HoverLabel";
+import axios from "axios";
 
 type ClubTableProps = {
     clubs: SportClub[],
@@ -14,7 +15,7 @@ export default function ClubTable(props: ClubTableProps) {
     const clubs = props.clubs
 
     function verifyClub(clubId: number) {
-        throw new Error("Not implemented");
+        axios.post(`/admin/verify/` + clubId);
     }
 
     const columns: ColumnFactory<SportClub>[] = [
