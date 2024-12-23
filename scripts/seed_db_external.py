@@ -75,9 +75,14 @@ def first_csv():
         clubId = insert_club(row[0], adressId, row[5])
         link_club(clubId, sportId)
 
+def tags():
+    f = open("tags.sql", "r")
+    sql = f.read()
+    cnx.execute(sql)
 
 
 
 first_csv()
+tags()
 
 cnx.commit()
