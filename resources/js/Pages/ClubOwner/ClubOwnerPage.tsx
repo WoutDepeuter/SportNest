@@ -3,7 +3,7 @@ import React from "react";
 import MainLayout from "@/Layouts/MainLayout";
 import Table, {ColumnFactory} from "@/Components/Table/table_base";
 import StringFilter from "@/Components/Table/Filter/StringFilter";
-import {CheckIcon, PencilIcon, XMarkIcon} from "@heroicons/react/24/outline";
+import {CheckIcon, PencilIcon, TrashIcon, XMarkIcon} from "@heroicons/react/24/outline";
 import {WrapFilter} from "@/Components/Table/Filter/WrapFilter";
 import {StringListFilter} from "@/Components/Table/Filter/ListFilter";
 import HoverLabel from "@/Components/Forms/HoverLabel";
@@ -52,8 +52,8 @@ function ClubOwnerPage({clubs, name}: ClubOwnerPageProps) {
             render: (club) =>
                 <div className="flex flex-row justify-center">
                     {club.verified === "1" ?
-                        <CheckIcon className="w-8 h-8 text-green-400" /> :
-                        <XMarkIcon className="w-8 h-8 text-red-400" />
+                        <CheckIcon className="h-8 w-8 text-green-500 cursor-pointer hover:bg-green-100 hover:border hover:border-green-300" /> :
+                        <XMarkIcon className="h-8 w-8 text-red-500 cursor-pointer hover:bg-red-100 hover:border hover:border-red-300" />
                     }
                 </div>,
             filterNode: WrapFilter(new StringListFilter(["Verified", "Unverified"]),
@@ -66,7 +66,7 @@ function ClubOwnerPage({clubs, name}: ClubOwnerPageProps) {
                 </div>,
             render: (club) =>
                     <div className="flex flex-row space-x-4 justify-center">
-                        <HoverLabel text={<XMarkIcon className="w-8 h-8 text-red-400" />}
+                        <HoverLabel text={<TrashIcon className="h-8 w-8 text-red-500 hover:cursor-pointer" />}
                                     hoverText="Delete"
                                     onClick={() => deleteClub(club.id)}
                                     className="relative inline-block"
