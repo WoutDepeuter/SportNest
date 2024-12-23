@@ -22,8 +22,10 @@ function Homepage(): JSX.Element {
                 <Map />
             </div>
 
-            <div className="flex flex-grow justify-center items-center m-5 p-5">
-                <DecathlonEquipment sport={sport} category={category} />
+            <div className="flex flex-grow justify-center items-center m-10 p-5 rounded-lg">
+                <div className="w-full">
+                    <DecathlonEquipment sport={sport} category={category} />
+                </div>
             </div>
 
             <FilterClubsComponent />
