@@ -22,12 +22,16 @@ cd ..
 cd deploy || exit 1
 docker compose up -d
 
-echo "Waiting 5s, before seeding"
-sleep 5
-docker run --network=host  --name db-seeder sportnest:db-seeder
+if [ "$SEED" == "TRUE" ]; then
+    echo "Waiting 5s, before seeding"
+    sleep 5
+    docker run --network=host  --name db-seeder sportnest:db-seeder
 
-echo "Press enter to remove db-seeder container"
-read -r
-docker rm db-seeder
+    echo "Press enter to remove db-seeder container"
+    read -r
+    docker rm db-seeder
+else
+    echo "Not seeding, exiting..."
+fi
 
 
