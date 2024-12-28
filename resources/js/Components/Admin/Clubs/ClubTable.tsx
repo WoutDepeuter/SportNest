@@ -1,23 +1,49 @@
 import {SportClub} from "@/Models/club";
-import React from "react";
-import MainLayout from "@/Layouts/MainLayout";
 import Table, {ColumnFactory} from "@/Components/Table/table_base";
 import StringFilter from "@/Components/Table/Filter/StringFilter";
-import {CheckIcon, PencilIcon, TrashIcon, XMarkIcon} from "@heroicons/react/24/outline";
+import {CheckIcon, XMarkIcon} from "@heroicons/react/24/outline";
+import {ListFilter, StringListFilter} from "@/Components/Table/Filter/ListFilter";
 import {WrapFilter} from "@/Components/Table/Filter/WrapFilter";
-import {StringListFilter} from "@/Components/Table/Filter/ListFilter";
 import HoverLabel from "@/Components/Forms/HoverLabel";
+import axios from "axios";
+import {useState} from "react";
 
-type ClubOwnerPageProps = {
+type ClubTableProps = {
     clubs: SportClub[],
-    name: string,
 }
 
-function ClubOwnerPage({clubs, name}: ClubOwnerPageProps) {
+export default function ClubTable(props: ClubTableProps) {
+    const [clubs, setClubs] = useState(props.clubs)
 
-    function deleteClub(id: number) {}
-    function editClub(id: number) {}
+    function verifyClub(clubId: number) {
+        // TODO: Configuration popup?
 
+        axios.post(`/admin/verify/` + clubId).catch(e => {
+            console.error(e)
+        }).then(res => {
+            if (!res) {
+                return;
+            }
+
+            if (res.status === 404) {
+                // TODO: Notification?
+                return;
+            }
+
+            if (res.status !== 200) {
+                return;
+            }
+
+            setClubs(clubs.map(club => {
+                if (club.id !== clubId) {
+                    return club;
+                }
+
+                club.verified = "1" // php is such bs
+                return club;
+            }))
+        })
+    }
 
     const columns: ColumnFactory<SportClub>[] = [
         {
@@ -52,48 +78,24 @@ function ClubOwnerPage({clubs, name}: ClubOwnerPageProps) {
             render: (club) =>
                 <div className="flex flex-row justify-center">
                     {club.verified === "1" ?
-                        <CheckIcon className="h-8 w-8 text-green-500 cursor-pointer hover:bg-green-100 hover:border hover:border-green-300" /> :
-                        <XMarkIcon className="h-8 w-8 text-red-500 cursor-pointer hover:bg-red-100 hover:border hover:border-red-300" />
-                    }
+                        <CheckIcon className="w-8 h-8 text-green-400" /> :
+                        <div onClick={() => verifyClub(club.id)}>
+                            <HoverLabel text={<XMarkIcon
+                                className="w-8 h-8 text-red-400" />}
+                                        hoverText={"Click to verify"}
+
+                            />
+                        </div>
+                        }
                 </div>,
             filterNode: WrapFilter(new StringListFilter(["Verified", "Unverified"]),
                 (club) => club.verified === "1" ? "Verified" : "Unverified"),
-        },
-        {
-            header:
-                <div className="text-center text-xs text-gray-700 uppercase bg-gray-50">
-                    Actions
-                </div>,
-            render: (club) =>
-                    <div className="flex flex-row space-x-4 justify-center">
-                        <HoverLabel text={<TrashIcon className="h-8 w-8 text-red-500 hover:cursor-pointer" />}
-                                    hoverText="Delete"
-                                    onClick={() => deleteClub(club.id)}
-                                    className="relative inline-block"
-                        />
-                        <HoverLabel text={<PencilIcon className="w-8 h-8" />}
-                                    hoverText="Edit"
-                                    onClick={() => editClub(club.id)}
-                                    className="relative inline-block"
-                        />
-                    </div>
-
         }
     ];
 
     return <div className="flex flex-grow flex-col">
-        <div className="text-3xl font-bold p-8">
-            Hello, {name}
-            <br />
-            Your Clubs
-        </div>
-        <div className="flex flex-grow justify-center p-12">
+        <div className="flex flex-grow justify-center">
             <Table columnFactories={columns} values={clubs}/>
         </div>
     </div>
-
 }
-
-ClubOwnerPage.layout = (page: React.ReactNode) => <MainLayout children={page}/>;
-
-export default ClubOwnerPage;

@@ -19,6 +19,7 @@ class SearchController extends Controller
         $tagIds = $request->input('tags');
 
         $clubs = DB::table('sport_clubs')
+            ->where('verified', '=', true)
             ->when(!empty($sportsIds) || !empty($tagIds), function ($query) use ($sportsIds, $tagIds) {
                 $query->whereExists(function ($subQuery) use ($sportsIds, $tagIds) {
                     $subQuery->select(DB::raw(1))
