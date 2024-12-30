@@ -86,16 +86,23 @@ function QuizIndexComponent(props: QuizProps) {
                     </div>
 
                     <div className="flex flex-row w-full justify-center">
-                        <SoloPagination
-                            hasPrevious={() => pageIdx !== 0}
-                            back={() => setPageIdx(Math.max(0, pageIdx - 1) % props.quiz.pages.length)}
-                            next={() => setPageIdx(pageIdx + 1 % props.quiz.pages.length)}
-                            hasNext={() => pageIdx < props.quiz.pages.length - 1}
-                            classes="flex-row w-4/5"
-                        />
-                        <button onClick={() => submit()}>
-                            check
-                        </button>
+                        <div className="w-full h-full flex items-center ml-10">
+                            <SoloPagination
+                                hasPrevious={() => pageIdx !== 0}
+                                back={() => setPageIdx(Math.max(0, pageIdx - 1) % props.quiz.pages.length)}
+                                next={() => setPageIdx(pageIdx + 1 % props.quiz.pages.length)}
+                                hasNext={() => pageIdx < props.quiz.pages.length - 1}
+                                classes="flex-row w-4/5"
+                            />
+                        </div>
+                        <div className="flex justify-center mt-6">
+                            <button
+                                onClick={() => submit()}
+                                className={`px-6 py-3 text-white font-semibold rounded-lg shadow-md transition bg-blue-500 hover:bg-blue-600`}
+                            >
+                                Submit Quiz
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
