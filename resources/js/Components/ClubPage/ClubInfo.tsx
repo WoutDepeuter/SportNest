@@ -1,13 +1,44 @@
 import ReviewContainer from "@/Components/Reviews/ReviewContainer";
 import ContactInfo from "@/Components/ClubPage/ContactInfo";
+import DecathlonEquipment from "@/Components/Equipment/DecathlonEquipment";
+import Map from "@/Components/Map";
+import {SportClub} from "@/Models/club";
+import React, {useState} from "react";
 
-export default function ClubInfo({ name, description, website, email, phone, equipment, events, reviews }: ClubInfoProps) {
+
+function parseDMS(input: string): [number, number] {
+    // Regular expression to extract components of the coordinates
+    const regex = /([\d.]+)°([\d.]+)'([\d.]+)\"([ns])\s([\d.]+)°([\d.]+)'([\d.]+)\"([eo])/i;
+    const match = input.match(regex);
+
+    if (!match) {
+        throw new Error("Invalid format. Please provide coordinates in the format 50°52'10.8\"n 4°24'22.0\"o.");
+    }
+
+    const [_, latDeg, latMin, latSec, latDir, lonDeg, lonMin, lonSec, lonDir] = match;
+
+    // Convert latitude and longitude to decimal degrees
+    const latitude = (parseFloat(latDeg) + parseFloat(latMin) / 60 + parseFloat(latSec) / 3600) * (latDir.toLowerCase() === 's' ? -1 : 1);
+    const longitude = (parseFloat(lonDeg) + parseFloat(lonMin) / 60 + parseFloat(lonSec) / 3600) * (lonDir.toLowerCase() === 'w' || lonDir.toLowerCase() === 'o' ? -1 : 1);
+
+    return [latitude, Math.abs(longitude)];
+}
+
+export default function ClubInfo({club}: {club: SportClub}) {
+    const name = club.name;
+    const email = ''
+    const website = club.website_url
+    const phone = ''
+
+    const coords = parseDMS(club.address.coords)
+
+    const [sport, setSport] = useState("");
+    const [category, setCategory] = useState("");
+
     return (
         <div className="max-w-screen-lg mx-auto p-6 space-y-12">
-            {/* Club Banner and Description */}
             <div className="text-center space-y-4">
                 <h1 className="text-5xl font-extrabold">{name}</h1>
-                <p className="text-lg font-medium text-gray-700">{description}</p>
                 <img
                     src="/path/to/banner-image.jpg" // Replace with the actual image path
                     alt="Club Banner"
@@ -15,18 +46,13 @@ export default function ClubInfo({ name, description, website, email, phone, equ
                 />
             </div>
 
+            <div className="w-full flex flex-row items-center justify-center p-5 bg-gray-100 rounded-2xl">
+                <Map c1={coords[0]} c2={coords[1]} popup={name} />
+            </div>
+
             {/* Location and Contact Section */}
             <div className="flex flex-col md:flex-row gap-8 items-start">
                 <div className="w-full md:w-1/3">
-                    {/* Location */}
-                    <div className="bg-gray-100 p-4 rounded-lg shadow">
-                        <h2 className="text-xl font-bold mb-2">Location</h2>
-                        <img
-                            src="/path/to/map-image.jpg" // Replace with the actual map image path
-                            alt="Map"
-                            className="rounded-lg"
-                        />
-                    </div>
 
                     {/* Contact Information */}
                     <div className="bg-gray-100 p-4 rounded-lg shadow mt-4">
@@ -41,39 +67,38 @@ export default function ClubInfo({ name, description, website, email, phone, equ
                 </div>
             </div>
 
-            {/* Equipment Section */}
             <div>
-
+                <div
+                    className="mb-4 flex flex-col justify-start space-y-2 rounded bg-white p-5 shadow-sm ring-1 ring-inset ring-gray-300">
+                    <div className="flex min-w-full flex-row items-center justify-between">
+                        <input
+                            className="m-1 flex w-40 grow flex-row rounded-md bg-slate-200 p-2"
+                            placeholder="sport"
+                            onChange={(e) => {
+                                setSport(e.target.value)
+                            }}
+                        />
+                    </div>
+                </div>
+                <div
+                    className="mb-4 flex flex-col justify-start space-y-2 rounded bg-white p-5 shadow-sm ring-1 ring-inset ring-gray-300">
+                    <div className="flex min-w-full flex-row items-center justify-between">
+                        <input
+                            className="m-1 flex w-40 grow flex-row rounded-md bg-slate-200 p-2"
+                            placeholder="category"
+                            onChange={(e) => {
+                                setCategory(e.target.value)
+                            }}
+                        />
+                    </div>
+                </div>
             </div>
 
-            {/* Events and Training Section */}
-            <div>
-                <h2 className="text-2xl font-bold mb-4">Events and Training</h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                    {events && events.length > 0 ? (
-                        events.map((event, index) => (
-                            <div key={index} className="bg-gray-100 p-4 rounded-lg shadow">
-                                <img src="/path/to/event-image.jpg" alt="Event" className="rounded mb-4" />
-                                <p className="text-lg font-semibold">{event}</p>
-                            </div>
-                        ))
-                    ) : (
-                        <p>No events or training information available.</p>
-                    )}
+            <div className="flex flex-grow justify-center items-center m-10 p-5 rounded-lg">
+                <div className="w-full">
+                    <DecathlonEquipment sport={sport} category={category}/>
                 </div>
             </div>
         </div>
     );
-}
-
-// Example Props Type
-interface ClubInfoProps {
-    name: string;
-    description: string;
-    website?: string;
-    email?: string;
-    phone?: string;
-    equipment?: string[];
-    events?: string[];
-    reviews?: string[];
 }

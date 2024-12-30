@@ -8,6 +8,7 @@ import {Tag} from "@/Models/tag";
 import {SportClub} from "@/Models/club";
 import axios from "axios";
 import ClubPreview from "@/Components/Club/ClubPreview";
+import HoverLabel from "@/Components/Forms/HoverLabel";
 
 type QuizProps = {
     quiz: Quiz;
@@ -60,18 +61,27 @@ function QuizIndexComponent(props: QuizProps) {
     }
 
     if (res.length) {
-        return <div className="grid grid-cols-3 gap-4 w-full">
-            {res.map(c => {
-                return <ClubPreview club={c} key={c.id}/>
-            })}
+        return <div className="w-full p-6 bg-gray-100 rounded-lg shadow-md">
+            <div className="flex items-center justify-center mb-6">
+                <HoverLabel className="relative inline-block text-2xl font-bold text-gray-800" text={"Your Results"} hoverText={"Top 10 clubs!"} />
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {res.map((c) => (
+                    <ClubPreview
+                        club={c}
+                        key={c.id}
+                    />
+                ))}
+            </div>
         </div>
+
     }
 
     return (
         <div className="flex flex-col flex-grow h-full items-center justify-between py-10 space-y-2">
 
             <div className="w-full px-5">
-            <h1 className="text-2xl">Orientation Quiz</h1> {/** TODO: Style?? **/}
+                <h1 className="text-2xl">Orientation Quiz</h1> {/** TODO: Style?? **/}
             </div>
 
             <div className="flex flex-row space-x-5 w-full justify-between h-full px-20">
@@ -86,16 +96,23 @@ function QuizIndexComponent(props: QuizProps) {
                     </div>
 
                     <div className="flex flex-row w-full justify-center">
-                        <SoloPagination
-                            hasPrevious={() => pageIdx !== 0}
-                            back={() => setPageIdx(Math.max(0, pageIdx - 1) % props.quiz.pages.length)}
-                            next={() => setPageIdx(pageIdx + 1 % props.quiz.pages.length)}
-                            hasNext={() => pageIdx < props.quiz.pages.length - 1}
-                            classes="flex-row w-4/5"
-                        />
-                        <button onClick={() => submit()}>
-                            check
-                        </button>
+                        <div className="w-full h-full flex items-center ml-10">
+                            <SoloPagination
+                                hasPrevious={() => pageIdx !== 0}
+                                back={() => setPageIdx(Math.max(0, pageIdx - 1) % props.quiz.pages.length)}
+                                next={() => setPageIdx(pageIdx + 1 % props.quiz.pages.length)}
+                                hasNext={() => pageIdx < props.quiz.pages.length - 1}
+                                classes="flex-row w-4/5"
+                            />
+                        </div>
+                        <div className="flex justify-center mt-6">
+                            <button
+                                onClick={() => submit()}
+                                className={`px-6 py-3 text-white font-semibold rounded-lg shadow-md transition bg-blue-500 hover:bg-blue-600`}
+                            >
+                                Submit Quiz
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
