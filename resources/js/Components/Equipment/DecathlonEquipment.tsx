@@ -48,6 +48,10 @@ const DecathlonEquipment: React.FC<DecathlonEquipmentProps> = ({ sport, category
     };
 
     useEffect(() => {
+        if (sport === "" || category === "") {
+            return
+        }
+
         runScraper();
     }, [sport, category]);
 

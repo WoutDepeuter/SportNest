@@ -3,6 +3,7 @@ import ContactInfo from "@/Components/ClubPage/ContactInfo";
 import DecathlonEquipment from "@/Components/Equipment/DecathlonEquipment";
 import Map from "@/Components/Map";
 import {SportClub} from "@/Models/club";
+import React, {useState} from "react";
 
 
 function parseDMS(input: string): [number, number] {
@@ -20,7 +21,7 @@ function parseDMS(input: string): [number, number] {
     const latitude = (parseFloat(latDeg) + parseFloat(latMin) / 60 + parseFloat(latSec) / 3600) * (latDir.toLowerCase() === 's' ? -1 : 1);
     const longitude = (parseFloat(lonDeg) + parseFloat(lonMin) / 60 + parseFloat(lonSec) / 3600) * (lonDir.toLowerCase() === 'w' || lonDir.toLowerCase() === 'o' ? -1 : 1);
 
-    return [latitude, -longitude];
+    return [latitude, Math.abs(longitude)];
 }
 
 export default function ClubInfo({club}: {club: SportClub}) {
@@ -30,6 +31,9 @@ export default function ClubInfo({club}: {club: SportClub}) {
     const phone = ''
 
     const coords = parseDMS(club.address.coords)
+
+    const [sport, setSport] = useState("");
+    const [category, setCategory] = useState("");
 
     return (
         <div className="max-w-screen-lg mx-auto p-6 space-y-12">
@@ -63,10 +67,36 @@ export default function ClubInfo({club}: {club: SportClub}) {
                 </div>
             </div>
 
-            {/* Equipment Section */}
+            <div>
+                <div
+                    className="mb-4 flex flex-col justify-start space-y-2 rounded bg-white p-5 shadow-sm ring-1 ring-inset ring-gray-300">
+                    <div className="flex min-w-full flex-row items-center justify-between">
+                        <input
+                            className="m-1 flex w-40 grow flex-row rounded-md bg-slate-200 p-2"
+                            placeholder="sport"
+                            onChange={(e) => {
+                                setSport(e.target.value)
+                            }}
+                        />
+                    </div>
+                </div>
+                <div
+                    className="mb-4 flex flex-col justify-start space-y-2 rounded bg-white p-5 shadow-sm ring-1 ring-inset ring-gray-300">
+                    <div className="flex min-w-full flex-row items-center justify-between">
+                        <input
+                            className="m-1 flex w-40 grow flex-row rounded-md bg-slate-200 p-2"
+                            placeholder="category"
+                            onChange={(e) => {
+                                setCategory(e.target.value)
+                            }}
+                        />
+                    </div>
+                </div>
+            </div>
+
             <div className="flex flex-grow justify-center items-center m-10 p-5 rounded-lg">
                 <div className="w-full">
-                    <DecathlonEquipment sport={""} category={""}/>
+                    <DecathlonEquipment sport={sport} category={category}/>
                 </div>
             </div>
         </div>
