@@ -1,0 +1,48 @@
+services:
+
+  laravel:
+    image: sportnest:laravel
+    restart: always
+    ports:
+      - "8000:8000"
+    networks:
+      - production-network
+    volumes:
+      - ./example.production.env:/app/.env
+    depends_on:
+      mysql-db:
+        condition: service_healthy
+      scraper:
+        condition: service_started
+
+  scraper:
+    image: sportnest:scraper
+    restart: always
+    networks:
+      - production-network
+
+  mysql-db:
+    image: mysql
+    restart: always
+    ports:
+      - "3306:3306"
+    networks:
+      - production-network
+    environment:
+      MYSQL_ROOT_PASSWORD: dev
+      MYSQL_DATABASE: laravel
+      MYSQL_USER: laravel
+    volumes:
+      - mysql-db-data:/var/lib/mysql
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD
+      start_period: 5s
+      interval: 5s
+      timeout: 5s
+      retries: 55
+
+volumes:
+  mysql-db-data: {}
+
+networks:
+  production-network: {}

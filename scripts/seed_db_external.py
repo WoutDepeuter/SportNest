@@ -1,8 +1,9 @@
+import os
 import csv
 import mysql.connector
 
 cnx = mysql.connector.connect(
-        host="127.0.0.1",
+        host=os.getenv("HOST", "127.0.0.1"),
         port=3306,
         user="root",
         password="dev",
@@ -75,9 +76,17 @@ def first_csv():
         clubId = insert_club(row[0], adressId, row[5])
         link_club(clubId, sportId)
 
-
+def tags():
+    f = open("tags.sql", "r")
+    sql = f.read()
+    sql_statements = sql.split(';')
+    for statement in sql_statements:
+        if statement.strip():
+            cur.execute(statement)
+            print(f"Executed: {statement}")
 
 
 first_csv()
+tags()
 
 cnx.commit()

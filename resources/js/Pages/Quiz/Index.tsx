@@ -1,10 +1,13 @@
 import {Quiz, QuizPage, QuizResult} from "@/Models/quiz";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {WaitingGlass} from "@/Components/Animations/LoadingHourGlass";
 import QuizPageComponent from "@/Components/Quiz/QuizPage";
-import {SoloPagination} from "@/Components/Buttons/pagination";
+import Pagination, {SoloPagination} from "@/Components/Buttons/pagination";
 import MainLayout from "@/Layouts/MainLayout";
 import {Tag} from "@/Models/tag";
+import {SportClub} from "@/Models/club";
+import axios from "axios";
+import ClubPreview from "@/Components/Club/ClubPreview";
 
 type QuizProps = {
     quiz: Quiz;
@@ -21,13 +24,22 @@ function QuizIndexComponent(props: QuizProps) {
     const [page, setPage] = useState<QuizPage | null>(null);
     const [quizResult, _] = useState<QuizResult>(new QuizResult());
 
+    const [res, setRes] = useState<SportClub[]>([])
+
     function updateWeight(tag: Tag, weight: number) {
         quizResult.addResult(tag, weight);
     }
 
     function submit() {
         console.log(quizResult)
-        // Make http request, store result in local storage? redirect to page? idk?
+        axios.post("/quiz/result", quizResult)
+            .catch(err => {
+                console.log(err)
+            }).then(res =>  {
+                if (res && res.data) {
+                    setRes(res.data)
+                }
+            })
     }
 
     useEffect(() => {
@@ -47,11 +59,19 @@ function QuizIndexComponent(props: QuizProps) {
         </div>
     }
 
+    if (res.length) {
+        return <div className="grid grid-cols-3 gap-4 w-full">
+            {res.map(c => {
+                return <ClubPreview club={c} key={c.id}/>
+            })}
+        </div>
+    }
+
     return (
         <div className="flex flex-col flex-grow h-full items-center justify-between py-10 space-y-2">
 
             <div className="w-full px-5">
-                <h1 className="text-2xl">Orientation Quiz</h1> {/** TODO: Style?? **/}
+            <h1 className="text-2xl">Orientation Quiz</h1> {/** TODO: Style?? **/}
             </div>
 
             <div className="flex flex-row space-x-5 w-full justify-between h-full px-20">

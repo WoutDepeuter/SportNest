@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Sport extends Model
@@ -15,9 +16,9 @@ class Sport extends Model
     /**
      * @return Tag[]
      */
-    public function tags(): HasMany
+    public function tags(): BelongsToMany
     {
-        return $this->HasMany(Tag::class);
+        return $this->belongsToMany(Tag::class, 'sport_tags');
     }
 
 }
