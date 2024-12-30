@@ -1,35 +1,12 @@
 import React from 'react';
 import ClubInfo from '../Components/ClubPage/ClubInfo';
+import MainLayout from "@/Layouts/MainLayout";
+import {SportClub} from "@/Models/club";
 
-interface ClubData {
-    name: string;
-    description: string;
-    website: string;
-    email: string;
-    phone: string;
-    equipment: string[];
-    events: string[];
-    reviews: string[];
+function ClubPage({ club }: { club: SportClub }): JSX.Element {
+    return <ClubInfo club={club} />
 }
 
-function ClubPage({ club }: { club: ClubData }): JSX.Element {
-    const { name, description, website, email, phone, equipment, events, reviews } = club;
-
-    return (
-        <div>
-            {/* Club Information */}
-            <ClubInfo
-                name={name}
-                description={description}
-                website={website}
-                email={email}
-                phone={phone}
-                equipment={equipment}
-                events={events}
-                reviews={reviews}
-            />
-        </div>
-    );
-}
+ClubPage.layout = (page: React.ReactNode) => <MainLayout children={page}/>;
 
 export default ClubPage;

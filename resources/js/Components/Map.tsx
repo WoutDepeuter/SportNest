@@ -15,20 +15,26 @@ const customIcon = new L.Icon({
   shadowSize: [41, 41], // Adjust the shadow size as needed
 });
 
-export default function Map() {
-  const center: [number, number] = [50.8503, 4.3517]; // Brussels coordinates
+type params = {
+    c1?: number;
+    c2?: number;
+    popup?: string;
+}
 
-  return (
-    <div style={{ height: '50vh', width: '50%' }}> {/* Full viewport height */}
+export default function Map(p: params) {
+    const center: [number, number] = p.c1 && p.c2 ? [p.c1, p.c2] : [50.8503, 4.3517]
+
+    return (
+    <div style={{ height: '50vh', width: '100%' }}>
       <MapContainer center={center} zoom={12} style={{ height: '100%', width: '100%' }}>
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
         <Marker position={center} icon={customIcon}>
-          <Popup>Welcome to Brussels!</Popup>
+          <Popup>{p.popup ? p.popup : "Welcome to Brussels!"}</Popup>
         </Marker>
       </MapContainer>
     </div>
-  );
+    );
 }
