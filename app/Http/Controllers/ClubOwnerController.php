@@ -20,8 +20,12 @@ class ClubOwnerController extends Controller
         return Inertia::render('ClubOwner/AddClubPage');
     }
 
-    public function ClubEdit(): Response
+    public function ClubEdit($id): Response
     {
-        return Inertia::render('ClubOwner/EditClubPage');
+        $club = SportClub::findOrFail($id);
+
+        return Inertia::render('ClubOwner/EditClubPage', [
+            "club" => $club,
+        ]);
     }
 }
