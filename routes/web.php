@@ -32,6 +32,7 @@ Route::post("/quiz/result", [QuizController::class, 'findWithWeigh']);
 Route::middleware(['auth'])->prefix('clubowner')->group(function () {
     Route::get('/', [ClubOwnerController::class, 'home']);
     Route::get('/club/add', [ClubOwnerController::class, 'ClubAdd']);
+    Route::get("/club/new", [ClubOwnerController::class, 'ClubNew'])->name('club.new');
     Route::get("/club/edit/{id}", [ClubOwnerController::class, 'ClubEdit']);
     Route::put("/club/update", [ClubOwnerController::class, 'Update'])->name('club.update');
     Route::delete("/club/delete/{id}", [ClubOwnerController::class, 'DeleteClub'])->name('club.delete');

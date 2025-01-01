@@ -12,7 +12,7 @@ class SportClub extends Model
 
     public $fillable = [
         "name",
-        "url",
+        "website_url",
         "verified",
     ];
 

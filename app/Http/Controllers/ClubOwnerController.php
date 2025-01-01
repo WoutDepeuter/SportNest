@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Address;
 use App\Models\SportClub;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -18,9 +19,13 @@ class ClubOwnerController extends Controller
         ]);
     }
 
-    public function ClubAdd(): Response
+    public function ClubNew()
     {
-        return Inertia::render('ClubOwner/AddClubPage');
+        $club = new SportClub();
+        $club->address = new Address();
+        return Inertia::render('ClubOwner/EditClubPage', [
+            "club" => $club,
+        ]);
     }
 
     public function ClubEdit($id)
@@ -62,18 +67,25 @@ class ClubOwnerController extends Controller
             $sportClub = new SportClub();
         }
 
-        $sportClub->fill($data);
-        $sportClub->save();
+
+        $address = null;
 
         if (isset($data['address'])) {
-            $sportClub->address()->updateOrCreate(
-                ['id' => $data['address']['id'] ?? null],
-                $data['address']
+            $addressData = $data['address'];
+            $address = Address::updateOrCreate(
+                ['id' => $addressData['id'] ?? null],
+                $addressData
             );
         }
 
+        $sportClub->fill($data);
+        $sportClub->address_id = $address->id;
+        $sportClub->user_id = auth()->user()->id;
+        $sportClub->save();
+
         Log::info($sportClub);
 
-        return $this->ClubEdit($sportClub->id);
+        return Inertia::location('/club/' . $sportClub->id);
     }
+
 }

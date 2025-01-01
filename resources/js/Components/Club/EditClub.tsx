@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import DeleteClubPopup from "../Popups/DeleteClub";
 import { Pagination } from "@mui/material";
-import {SportClub} from "@/Models/club";
-import {useForm} from "@inertiajs/react";
-import {VisitOptions} from "@inertiajs/core";
+import { SportClub } from "@/Models/club";
+import { useForm } from "@inertiajs/react";
+import { VisitOptions } from "@inertiajs/core";
 
-function EditClub({club}: {club: SportClub}) {
-    const {data,
+function EditClub({ club }: { club: SportClub }) {
+    const {
+        data,
         setData,
         delete: destroy,
         errors,
@@ -14,8 +15,7 @@ function EditClub({club}: {club: SportClub}) {
         reset,
         processing,
         recentlySuccessful,
-    }
-        = useForm(club);
+    } = useForm(club);
 
     const [clubImages, setClubImages] = useState<File[]>([]); // To hold images
     const [imagePreview, setImagePreview] = useState<string[]>([]); // To hold image previews
@@ -46,19 +46,19 @@ function EditClub({club}: {club: SportClub}) {
         e.preventDefault();
         put(route("club.update"), {
             preserveScroll: true,
-            onError: e => {
-                console.log(e)
-            }
+            onError: (e) => {
+                console.log(e);
+            },
         });
     };
 
     const handleDeleteClub = () => {
         destroy(route("club.delete", club.id), {
             preserveScroll: true,
-            onError: e => {
-                console.log(e)
-            }
-        })
+            onError: (e) => {
+                console.log(e);
+            },
+        });
     };
 
     return (
@@ -83,27 +83,77 @@ function EditClub({club}: {club: SportClub}) {
                     />
                 </div>
 
-                {/* Club Description Input
-
-                TODO: FIX, needs to use actual dress object
-
+                {/* Club Description Input */}
+                {/* TODO: FIX, needs to use actual address object */}
                 <div className="mb-4">
                     <label
-                        htmlFor="clubAdress"
+                        htmlFor="clubAddress"
                         className="block text-sm font-medium text-gray-700"
                     >
-                        Club Adress
+                        Club Address
                     </label>
                     <input
-                        id="clubAdress"
+                        id="clubAddress"
                         type="text"
-                        value={clubAdress}
-                        onChange={handleAdressChange}
+                        value={data.address.address}
+                        onChange={(event) => setData("address", { ...data.address, address: event.target.value })}
                         className="mt-1 p-2 w-full border rounded-md"
                         required
                     />
                 </div>
-                */}
+
+                <div className="flex flew-row justify-between space-x-5">
+                    <div className="mb-4 w-full">
+                        <label
+                            htmlFor="clubNr"
+                            className="block text-sm font-medium text-gray-700"
+                        >
+                            Address Nr
+                        </label>
+                        <input
+                            id="clubNr"
+                            type="text"
+                            value={data.address.nr}
+                            onChange={(event) => setData("address", {...data.address, nr: event.target.value})}
+                            className="mt-1 p-2 w-full border rounded-md"
+                            required
+                        />
+                    </div>
+
+                    <div className="mb-4 w-full">
+                        <label
+                            htmlFor="clubPostcode"
+                            className="block text-sm font-medium text-gray-700"
+                        >
+                            Postcode
+                        </label>
+                        <input
+                            id="clubPostcode"
+                            type="text"
+                            value={data.address.postcode}
+                            onChange={(event) => setData("address", {...data.address, postcode: event.target.value})}
+                            className="mt-1 p-2 w-full border rounded-md"
+                            required
+                        />
+                    </div>
+
+                    <div className="mb-4 w-full">
+                        <label
+                            htmlFor="clubCoords"
+                            className="block text-sm font-medium text-gray-700"
+                        >
+                            Coordinates
+                        </label>
+                        <input
+                            id="clubCoords"
+                            type="text"
+                            value={data.address.coords}
+                            onChange={(event) => setData("address", {...data.address, coords: event.target.value})}
+                            className="mt-1 p-2 w-full border rounded-md"
+                            required
+                        />
+                    </div>
+                </div>
 
                 {/* Club URL Input */}
                 <div className="mb-4">
@@ -119,41 +169,40 @@ function EditClub({club}: {club: SportClub}) {
                         value={data.website_url}
                         onChange={(e) => setData("website_url", e.target.value)}
                         className="mt-1 p-2 w-full border rounded-md"
+                        required
                     />
                 </div>
 
-
-
                 <div className="mb-6">
-                <div className="text-sm font-medium mb-2">CLUB PICTURES</div>
-                <div className="grid grid-cols-5 gap-2">
-                    {/* Render Image Previews */}
-                    {imagePreview.map((preview, index) => (
-                        <div
-                            key={index}
-                            className="w-20 h-20 bg-gray-200 rounded-md overflow-hidden"
-                        >
-                            <img
-                                src={preview}
-                                alt={`Preview ${index}`}
-                                className="w-full h-full object-cover"
-                            />
-                        </div>
-                    ))}
+                    <div className="text-sm font-medium mb-2">CLUB PICTURES</div>
+                    <div className="grid grid-cols-5 gap-2">
+                        {/* Render Image Previews */}
+                        {imagePreview.map((preview, index) => (
+                            <div
+                                key={index}
+                                className="w-20 h-20 bg-gray-200 rounded-md overflow-hidden"
+                            >
+                                <img
+                                    src={preview}
+                                    alt={`Preview ${index}`}
+                                    className="w-full h-full object-cover"
+                                />
+                            </div>
+                        ))}
 
-                    {/* Add Pictures Button */}
-                    <label className="w-20 h-20 bg-gray-200 flex items-center justify-center rounded-md cursor-pointer">
-                        <span className="text-gray-500 text-xl font-bold">+</span>
-                        <input
-                            type="file"
-                            accept="image/*"
-                            onChange={handleImageChange}
-                            multiple
-                            className="hidden"
-                        />
-                    </label>
+                        {/* Add Pictures Button */}
+                        <label className="w-20 h-20 bg-gray-200 flex items-center justify-center rounded-md cursor-pointer">
+                            <span className="text-gray-500 text-xl font-bold">+</span>
+                            <input
+                                type="file"
+                                accept="image/*"
+                                onChange={handleImageChange}
+                                multiple
+                                className="hidden"
+                            />
+                        </label>
+                    </div>
                 </div>
-            </div>
 
                 <div className="flex justify-between items-center">
                     <button
@@ -181,6 +230,6 @@ function EditClub({club}: {club: SportClub}) {
             </form>
         </>
     );
-};
+}
 
 export default EditClub;
