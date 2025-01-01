@@ -16,6 +16,11 @@ class SportClub extends Model
         "verified",
     ];
 
+    public static function get(int $id): SportClub
+    {
+        return SportClub::with('address')->findOrFail($id);
+    }
+
     /**
      * @return Address
      */

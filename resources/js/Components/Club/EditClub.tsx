@@ -2,32 +2,25 @@ import React, { useState } from "react";
 import DeleteClubPopup from "../Popups/DeleteClub";
 import { Pagination } from "@mui/material";
 import {SportClub} from "@/Models/club";
+import {useForm} from "@inertiajs/react";
+import {VisitOptions} from "@inertiajs/core";
 
 function EditClub({club}: {club: SportClub}) {
-    const [clubName, setClubName] = useState(club.name);
-    const [clubAdress, setClubAdress] = useState(""); // For storing the club URL
-    const [clubUrl, setClubUrl] = useState(club.website_url); // For storing the club URL
+    const {data,
+        setData,
+        delete: destroy,
+        errors,
+        put,
+        reset,
+        processing,
+        recentlySuccessful,
+    }
+        = useForm(club);
+
     const [clubImages, setClubImages] = useState<File[]>([]); // To hold images
     const [imagePreview, setImagePreview] = useState<string[]>([]); // To hold image previews
     const [isModalOpen, setModalOpen] = useState(false);
 
-    // Handle name change
-    const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setClubName(e.target.value);
-    };
-
-    const handleAdressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setClubAdress(e.target.value);
-    };
-
-
-
-    // Handle URL change
-    const handleUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setClubUrl(e.target.value);
-    };
-
-    // Handle image changes
     const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const files = event.target.files;
         if (files) {
@@ -49,21 +42,23 @@ function EditClub({club}: {club: SportClub}) {
         }
     };
 
-    // Handle form submission (save data or send to backend)
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        console.log({
-            clubName,
-            clubAdress,
-            clubUrl,
-            clubImages,
+        put(route("club.update"), {
+            preserveScroll: true,
+            onError: e => {
+                console.log(e)
+            }
         });
-        alert("Club information saved successfully!");
     };
 
     const handleDeleteClub = () => {
-        console.log("Club deleted!");
-        // Add your deletion logic
+        destroy(route("club.delete", club.id), {
+            preserveScroll: true,
+            onError: e => {
+                console.log(e)
+            }
+        })
     };
 
     return (
@@ -81,14 +76,17 @@ function EditClub({club}: {club: SportClub}) {
                     <input
                         id="clubName"
                         type="text"
-                        value={clubName}
-                        onChange={handleNameChange}
+                        value={data.name}
+                        onChange={(event) => setData("name", event.target.value)}
                         className="mt-1 p-2 w-full border rounded-md"
                         required
                     />
                 </div>
 
-                {/* Club Description Input */}
+                {/* Club Description Input
+
+                TODO: FIX, needs to use actual dress object
+
                 <div className="mb-4">
                     <label
                         htmlFor="clubAdress"
@@ -105,6 +103,7 @@ function EditClub({club}: {club: SportClub}) {
                         required
                     />
                 </div>
+                */}
 
                 {/* Club URL Input */}
                 <div className="mb-4">
@@ -116,11 +115,10 @@ function EditClub({club}: {club: SportClub}) {
                     </label>
                     <input
                         id="clubUrl"
-                        type="url"
-                        value={clubUrl}
-                        onChange={handleUrlChange}
+                        type="text"
+                        value={data.website_url}
+                        onChange={(e) => setData("website_url", e.target.value)}
                         className="mt-1 p-2 w-full border rounded-md"
-                        required
                     />
                 </div>
 
@@ -178,7 +176,7 @@ function EditClub({club}: {club: SportClub}) {
                     open={isModalOpen}
                     onClose={() => setModalOpen(false)}
                     onDelete={handleDeleteClub}
-                    clubName={clubName}
+                    clubName={data.name}
                 />
             </form>
         </>
