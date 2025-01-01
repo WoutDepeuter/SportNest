@@ -5,6 +5,8 @@ import { SportClub } from "@/Models/club";
 import { useForm } from "@inertiajs/react";
 import { VisitOptions } from "@inertiajs/core";
 
+const regex = /([\d.]+)°([\d.]+)'([\d.]+)\"([ns])\s([\d.]+)°([\d.]+)'([\d.]+)\"([eo])/i;
+
 function EditClub({ club }: { club: SportClub }) {
     const {
         data,
@@ -44,6 +46,12 @@ function EditClub({ club }: { club: SportClub }) {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+
+        if (!regex.test(data.address.coords)) {
+            // TODO: Notification idk??
+            return;
+        }
+
         put(route("club.update"), {
             preserveScroll: true,
             onError: (e) => {
@@ -83,8 +91,6 @@ function EditClub({ club }: { club: SportClub }) {
                     />
                 </div>
 
-                {/* Club Description Input */}
-                {/* TODO: FIX, needs to use actual address object */}
                 <div className="mb-4">
                     <label
                         htmlFor="clubAddress"
@@ -102,7 +108,7 @@ function EditClub({ club }: { club: SportClub }) {
                     />
                 </div>
 
-                <div className="flex flew-row justify-between space-x-5">
+                <div className="flex flex-row justify-between space-x-5">
                     <div className="mb-4 w-full">
                         <label
                             htmlFor="clubNr"
