@@ -12,7 +12,8 @@ function parseDMS(input: string): [number, number] {
     const match = input.match(regex);
 
     if (!match) {
-        throw new Error("Invalid format. Please provide coordinates in the format 50°52'10.8\"n 4°24'22.0\"o.");
+        // TODO: Communicate with user
+        return [0, 0]
     }
 
     const [_, latDeg, latMin, latSec, latDir, lonDeg, lonMin, lonSec, lonDir] = match;
