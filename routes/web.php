@@ -34,7 +34,6 @@ Route::middleware(['auth'])->prefix('clubowner')->group(function () {
     Route::get('/club/add', [ClubOwnerController::class, 'ClubAdd']);
     Route::get("/club/edit/{id}", [ClubOwnerController::class, 'ClubEdit']);
 
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
@@ -57,9 +56,7 @@ Route::middleware(['auth', 'isAdmin'])->prefix('admin')->group(function () {
 # Authenticated User Routes
 #-------------------------------------------------------
 Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->middleware('verified')->name('dashboard');
+    Route::get('/dashboard', [UserController::class, 'Dashboard'])->middleware('verified')->name('dashboard');
 
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 });
