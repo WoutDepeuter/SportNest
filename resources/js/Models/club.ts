@@ -11,4 +11,6 @@ export type SportClub = {
 export type Address = {
     coords: string;
     address: string;
+    nr: string;
+    postcode: string;
 }

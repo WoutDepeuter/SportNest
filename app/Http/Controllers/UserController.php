@@ -1,11 +1,20 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\SportClub;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+
+    public function Dashboard()
+    {
+        return Inertia::render('Dashboard', [
+            'clubs' => SportClub::where("user_id", "=", request()->user()->id)->get()
+        ]);
+    }
+
     public function index()
     {
         return Inertia::render('Homepage');

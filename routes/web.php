@@ -17,7 +17,7 @@ use App\Http\Controllers\{
 #-------------------------------------------------------
 # Public Routes
 #-------------------------------------------------------
-Route::get('/', [UserController::class, 'index']);
+Route::get('/', [UserController::class, 'index'])->name('home');
 Route::get('/search', [UserController::class, 'search']);
 Route::get('/club/{id}', [ClubController::class, 'ClubPage'])->name('club.page');
 Route::get('/faq', [UserController::class, 'faq']);
@@ -32,8 +32,11 @@ Route::post("/quiz/result", [QuizController::class, 'findWithWeigh']);
 Route::middleware(['auth'])->prefix('clubowner')->group(function () {
     Route::get('/', [ClubOwnerController::class, 'home']);
     Route::get('/club/add', [ClubOwnerController::class, 'ClubAdd']);
+    Route::get("/club/new", [ClubOwnerController::class, 'ClubNew'])->name('club.new');
+    Route::get("/club/edit/{id}", [ClubOwnerController::class, 'ClubEdit']);
+    Route::put("/club/update", [ClubOwnerController::class, 'Update'])->name('club.update');
+    Route::delete("/club/delete/{id}", [ClubOwnerController::class, 'DeleteClub'])->name('club.delete');
 
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
@@ -56,9 +59,7 @@ Route::middleware(['auth', 'isAdmin'])->prefix('admin')->group(function () {
 # Authenticated User Routes
 #-------------------------------------------------------
 Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->middleware('verified')->name('dashboard');
+    Route::get('/dashboard', [UserController::class, 'Dashboard'])->middleware('verified')->name('dashboard');
 
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 });

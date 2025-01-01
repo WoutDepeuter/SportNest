@@ -1,46 +1,36 @@
 import MainLayout from '@/Layouts/MainLayout';
-import { useForm } from '@inertiajs/react';
 import { PageProps } from '@/types';
-import { Link } from '@inertiajs/react';
+import ActionActionsComponent from "@/Components/Auth/AccountActions";
+import {SportClub} from "@/Models/club";
+import ClubTable from "@/Components/Admin/Clubs/ClubTable";
 
-export default function Dashboard({
-    mustVerifyEmail,
-    status,
-}: PageProps<{ mustVerifyEmail: boolean; status?: string }>) {
-    const { post } = useForm();
 
-    const handleLogout = () => {
-        post('/logout');
-    };
+type embeddedProps = { mustVerifyEmail: boolean; status?: string, clubs: SportClub[] }
+function Dashboard(props: PageProps<embeddedProps>) {
 
     return (
-        <MainLayout title="Dashboard">
-            <div className="py-12">
-                <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    <div className="overflow-hidden bg-white shadow-md sm:rounded-lg">
-                        <div className="p-6 text-gray-900">
-                            You're logged in!
-                        </div>
-                    </div>
-
-                    <div className="mt-6 flex justify-center">
-                        <Link href="/clubowner/profile">
-                            <a className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-lg text-xl">
-                                Go to your profile
-                            </a>
-                        </Link>
-                    </div>
-
-                    <div className="mt-6 flex justify-center">
-                        <button
-                            onClick={handleLogout}
-                            className="bg-red-500 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-lg text-xl"
-                        >
-                            Logout
-                        </button>
-                    </div>
+        <div className="flex flex-col space-y-5">
+            <div className="m-20 p-2 bg-gray-200 rounded-2xl flex flex-col">
+                <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 leading-tight mb-2 pb-4 relative w-3/4">
+                    <span
+                        className="bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-pink-500 dark:from-purple-400 dark:to-pink-400">Your clubs:</span>
+                    <span
+                        className="absolute bottom-0 left-0 w-1/3 h-1 bg-gradient-to-r from-purple-500 to-pink-500 dark:from-purple-400 dark:to-pink-400"></span>
+                </h1>
+                <ClubTable clubs={props.clubs} edit={true}/>
+                <div className="flex justify-end mt-4">
+                    <a
+                        href={route("club.new")}
+                        className="px-4 py-2 bg-gradient-to-r from-green-500 to-blue-500 text-white rounded-lg shadow-md hover:from-green-600 hover:to-blue-600 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2 hover:cursor-pointer">
+                        + Add Club
+                    </a>
                 </div>
             </div>
-        </MainLayout>
+            <ActionActionsComponent mustVerifyEmail={props.mustVerifyEmail} status={props.status}/>
+        </div>
     );
 }
+
+Dashboard.layout = (page: React.ReactNode) => <MainLayout children={page} title="Dashboard"/>
+
+export default Dashboard;

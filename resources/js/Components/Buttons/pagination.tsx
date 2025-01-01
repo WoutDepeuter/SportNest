@@ -104,3 +104,7 @@ export function SoloPagination(props: SoloPaginationProps) {
         </div>
     );
 }
+
+
+
+

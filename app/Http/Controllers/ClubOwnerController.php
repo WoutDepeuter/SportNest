@@ -1,7 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Address;
 use App\Models\SportClub;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -15,13 +19,73 @@ class ClubOwnerController extends Controller
         ]);
     }
 
-    public function ClubAdd(): Response
+    public function ClubNew()
     {
-        return Inertia::render('ClubOwner/AddClubPage');
+        $club = new SportClub();
+        $club->address = new Address();
+        return Inertia::render('ClubOwner/EditClubPage', [
+            "club" => $club,
+        ]);
     }
 
-    public function ClubEdit(): Response
+    public function ClubEdit($id)
     {
-        return Inertia::render('ClubOwner/EditClubPage');
+        $club = SportClub::get($id);
+
+        if ($club->user_id != auth()->user()->id) {
+            return Inertia::location('/');
+        }
+
+        return Inertia::render('ClubOwner/EditClubPage', [
+            "club" => SportClub::get($id),
+        ]);
     }
+
+    public function DeleteClub($id)
+    {
+        $club = SportClub::get($id);
+
+        if ($club->user_id != auth()->user()->id) {
+            return Inertia::location('/');
+        }
+
+        $club->delete();
+        return Redirect::route('dashboard');
+    }
+
+    public function Update(Request $request)
+    {
+        Log::info($request);
+        $data = $request->all();
+
+        if (isset($data['id'])) {
+            $sportClub = SportClub::find($data['id']);
+            if (!$sportClub || $sportClub->user_id !== Auth::id()) {
+                return Inertia::location('/');
+            }
+        } else {
+            $sportClub = new SportClub();
+        }
+
+
+        $address = null;
+
+        if (isset($data['address'])) {
+            $addressData = $data['address'];
+            $address = Address::updateOrCreate(
+                ['id' => $addressData['id'] ?? null],
+                $addressData
+            );
+        }
+
+        $sportClub->fill($data);
+        $sportClub->address_id = $address->id;
+        $sportClub->user_id = auth()->user()->id;
+        $sportClub->save();
+
+        Log::info($sportClub);
+
+        return Inertia::location('/club/' . $sportClub->id);
+    }
+
 }

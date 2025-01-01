@@ -12,9 +12,14 @@ class SportClub extends Model
 
     public $fillable = [
         "name",
-        "url",
+        "website_url",
         "verified",
     ];
+
+    public static function get(int $id): SportClub
+    {
+        return SportClub::with('address')->findOrFail($id);
+    }
 
     /**
      * @return Address
