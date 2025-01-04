@@ -126,13 +126,15 @@ function FilterClubsComponent() {
                         })}
                     </div>
 
-                    <Pagination itemsPerPage={pageSize} currentPage={page} totalItems={clubs.length}
-                                onPageChange={(p) => {
-                                    setPage(p)
-                                }}/>
                 </div>
 
             </div>
+        <div className={"align-self-start"}><Pagination
+            itemsPerPage={pageSize} currentPage={page} totalItems={clubs.length}
+            onPageChange={(p) => {setPage(p)
+            }}/>
+        </div>
+
     </div>
 
 }
