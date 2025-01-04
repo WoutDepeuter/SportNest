@@ -46,7 +46,7 @@ def insert_adress(adres, nr, postcode, loc, c) -> int:
     return cur.lastrowid
 
 def insert_club(name, adressId, url):
-    sql = f"INSERT INTO `sport_clubs` (name, address_id, website_url) VALUES ('{normalize(name)}', {adressId}, '{url}')"
+    sql = f"INSERT INTO `sport_clubs` (name, address_id, website_url, verified) VALUES ('{normalize(name)}', {adressId}, '{url}', true)"
     print(sql)
     cur.execute(sql)
     return cur.lastrowid
