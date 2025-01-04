@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table("sport_clubs", function (Blueprint $table) {
-            $table->string("verified")->default(false)->change();
+            $table->string("verified")->default(false);
         });
 
         DB::table('sport_clubs')->update(['verified' => true]);
