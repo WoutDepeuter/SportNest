@@ -24,3 +24,4 @@ yarn-error.log
 *.csv
 *Zone.Identifier
 __pycache__/
+.DS_Store
