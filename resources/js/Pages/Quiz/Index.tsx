@@ -95,7 +95,7 @@ function QuizIndexComponent(props: QuizProps) {
                         <QuizPageComponent page={page} callback={updateWeight}/>
                     </div>
 
-                    <div className="flex flex-row w-full justify-center">
+                    <div className="flex flex-row w-full justify-center text-3xl">
                         <div className="w-full h-full flex items-center ml-10">
                             <SoloPagination
                                 hasPrevious={() => pageIdx !== 0}

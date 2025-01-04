@@ -1,5 +1,4 @@
 import React, { JSX } from 'react';
-import Map from '../Components/Map'; // Import the Map component
 import '../../css/app.css';
 import MainLayout from "@/Layouts/MainLayout";
 import FilterClubsComponent from "@/Components/Filter/FilterComponent";
