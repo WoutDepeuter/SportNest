@@ -2,8 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use App\Http\Controllers\{
-    AdminController,
+use App\Http\Controllers\{AdminController,
     Auth\AuthenticatedSessionController,
     ClubController,
     ClubOwnerController,
@@ -11,8 +10,9 @@ use App\Http\Controllers\{
     QuizController,
     ScraperController,
     SearchController,
-    UserController
-};
+    SportController,
+    TagController,
+    UserController};
 
 #-------------------------------------------------------
 # Public Routes
@@ -26,6 +26,18 @@ Route::get('/isAdmin', [AdminController::class, 'isAdmin'])->name('isAdmin');
 # Quiz Routes
 Route::get("/quiz", [QuizController::class, 'index']);
 Route::post("/quiz/result", [QuizController::class, 'findWithWeigh']);
+
+Route::middleware(['auth'])->group(function () {
+
+    Route::post('/sports', [SportController::class, 'create']);
+    Route::put('/sports/{id}', [SportController::class, 'update']);
+    Route::delete('/sports/{id}', [SportController::class, 'delete']);
+
+    Route::post('/tags', [TagController::class, 'create']);
+    Route::put('/tags/{id}', [TagController::class, 'update']);
+    Route::delete('/tags/{id}', [TagController::class, 'delete']);
+});
+
 
 #-------------------------------------------------------
 # Club Owner Routes (Requires Authentication)

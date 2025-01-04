@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Sport;
 use App\Models\SportClub;
+use App\Models\Tag;
 use App\Models\UserRole;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
@@ -14,6 +16,8 @@ class AdminController extends Controller
     {
         return Inertia::render('Admin/Dashboard', [
             "clubs" => SportClub::all(),
+            "sports" => Sport::all(),
+            "tags" => Tag::all(),
         ]);
     }
 

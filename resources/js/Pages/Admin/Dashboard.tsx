@@ -7,8 +7,17 @@ import {
 import ClubTable from "@/Components/Admin/Clubs/ClubTable";
 import {SportClub} from "@/Models/club";
 import {useState} from "react";
+import {Sport} from "@/Models/sport";
+import {Tag} from "@/Models/tag";
+import SportAndTagTable from "@/Components/Admin/SportAndTags";
 
-export default function Dashboard({clubs}: {clubs: SportClub[]}) {
+type Props = {
+    clubs: SportClub[],
+    sports: Sport[],
+    tags: Tag[],
+}
+
+export default function Dashboard({clubs, sports, tags}: Props) {
     const [showClubs, setShowClubs] = useState(true)
 
 
@@ -42,6 +51,8 @@ export default function Dashboard({clubs}: {clubs: SportClub[]}) {
                   Show clubs
               </button>
           </div>}
+
+          <SportAndTagTable sports={sports} tags={tags} />
 
       </MainLayout>
   );

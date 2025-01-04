@@ -7,6 +7,8 @@ import {WrapFilter} from "@/Components/Table/Filter/WrapFilter";
 import HoverLabel from "@/Components/Forms/HoverLabel";
 import axios from "axios";
 import {useState} from "react";
+import {Sport} from "@/Models/sport";
+import {Tag} from "@/Models/tag";
 
 type ClubTableProps = {
     clubs: SportClub[],
