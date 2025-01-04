@@ -21,6 +21,7 @@ Route::get('/', [UserController::class, 'index'])->name('home');
 Route::get('/search', [UserController::class, 'search']);
 Route::get('/club/{id}', [ClubController::class, 'ClubPage'])->name('club.page');
 Route::get('/faq', [UserController::class, 'faq']);
+Route::get('/isAdmin', [AdminController::class, 'isAdmin'])->name('isAdmin');
 
 # Quiz Routes
 Route::get("/quiz", [QuizController::class, 'index']);
@@ -51,7 +52,7 @@ Route::get("/search/filters", [SearchController::class, "filterItems"]);
 # Admin Routes (Requires Admin Role)
 #-------------------------------------------------------
 Route::middleware(['auth', 'isAdmin'])->prefix('admin')->group(function () {
-    Route::get('/dashboard', [AdminController::class, 'index']);
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::post('/verify/{id}', [AdminController::class, 'verify']);
 });
 
