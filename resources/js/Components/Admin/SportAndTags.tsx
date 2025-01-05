@@ -115,10 +115,10 @@ export default function SportAndTagTable(props: Props) {
             header: <div className="text-center text-xs text-gray-700 uppercase bg-gray-50">
                 Name
             </div>,
-            render: (sport) => <div className="flex justify-center">
+            render: (tag) => <div className="flex justify-center">
                 <EditableCell
-                    value={sport.name}
-                    onSave={(value) => handleSportSave(sport, "name", value)}/>
+                    value={tag.name}
+                    onSave={(value) => handleTagSave(tag, "name", value)}/>
             </div>,
             filterNode: new StringFilter((s, str) => s.name.toLowerCase().includes(str)),
             compare: (a, b) => a.name.localeCompare(b.name)
@@ -127,10 +127,10 @@ export default function SportAndTagTable(props: Props) {
             header: <div className="text-center text-xs text-gray-700 uppercase bg-gray-50">
                 Description
             </div>,
-            render: (sport) => <div className="flex justify-center">
+            render: (tag) => <div className="flex justify-center">
                 <EditableCell
-                    value={sport.description}
-                    onSave={(value) => handleSportSave(sport, "description", value)} />
+                    value={tag.description}
+                    onSave={(value) => handleTagSave(tag, "description", value)} />
             </div>,
             filterNode: new StringFilter((s, str) => s.description.toLowerCase().includes(str)),
             compare: (a, b) => a.description.localeCompare(b.description)
@@ -158,6 +158,17 @@ export default function SportAndTagTable(props: Props) {
                     </div>
                 </div>
                 <Table values={sports} columnFactories={sportColumns}/>
+                <div className="flex justify-end my-4 mr-12">
+                    <button
+                        onClick={() => {
+                            const copy = [...sports]
+                            copy.push({id: 0, name: "", description: ""})
+                            setSports(copy)
+                        }}
+                        className="px-4 py-2 bg-gradient-to-r from-green-500 to-blue-500 text-white rounded-lg shadow-md hover:from-green-600 hover:to-blue-600 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2 hover:cursor-pointer">
+                        + New Sport
+                    </button>
+                </div>
             </div>}
 
             {!showSports && <div className="flex justify-end mt-4 mr-12">
@@ -187,6 +198,17 @@ export default function SportAndTagTable(props: Props) {
                     </div>
                 </div>
                 <Table values={tags} columnFactories={tagsColumns}/>
+                <div className="flex justify-end my-4 mr-12">
+                    <button
+                        onClick={() => {
+                            const copy = [...tags]
+                            copy.push({id: 0, name: "", description: ""})
+                            setTags(copy)
+                        }}
+                        className="px-4 py-2 bg-gradient-to-r from-green-500 to-blue-500 text-white rounded-lg shadow-md hover:from-green-600 hover:to-blue-600 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2 hover:cursor-pointer">
+                        + New Tag
+                    </button>
+                </div>
             </div>}
 
             {!showTags && <div className="flex justify-end mt-4 mr-12">
