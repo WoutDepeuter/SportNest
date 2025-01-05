@@ -5,11 +5,14 @@ import {SportClub} from "@/Models/club";
 import ClubTable from "@/Components/Admin/Clubs/ClubTable";
 import {useEffect, useState} from "react";
 import axios from "axios";
+import {useForm} from "@inertiajs/react";
 
 
 type embeddedProps = { mustVerifyEmail: boolean; status?: string, clubs: SportClub[] }
 function Dashboard(props: PageProps<embeddedProps>) {
     const [admin, setAdmin] = useState(false)
+    const { post } = useForm();
+
     function loadAdmin() {
         axios.get('/isAdmin').then(res => {
             if (res && res.data) {
@@ -24,13 +27,24 @@ function Dashboard(props: PageProps<embeddedProps>) {
 
     return (
         <div className="flex flex-col space-y-5">
-            {admin && <div className="flex justify-end mt-4 mr-12">
-                <a
-                    href={route("admin.dashboard")}
-                    className="px-4 py-2 bg-gradient-to-r from-green-500 to-blue-500 text-white rounded-lg shadow-md hover:from-green-600 hover:to-blue-600 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2 hover:cursor-pointer">
-                    Admin
-                </a>
-            </div>}
+
+            <div className="flex flex-row justify-end">
+                {admin && <div className="flex justify-end mt-4 mr-12">
+                    <a
+                        href={route("admin.dashboard")}
+                        className="px-4 py-2 bg-gradient-to-r from-green-500 to-blue-500 text-white rounded-lg shadow-md hover:from-green-600 hover:to-blue-600 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2 hover:cursor-pointer">
+                        Admin
+                    </a>
+                </div>}
+                <div className="flex justify-end mt-4 mr-12">
+                    <button
+                        onClick={() => post('/logout')}
+                        className="px-4 py-2 bg-gradient-to-r from-green-500 to-blue-500 text-white rounded-lg shadow-md hover:from-green-600 hover:to-blue-600 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2 hover:cursor-pointer">
+                        Logout
+                    </button>
+                </div>
+            </div>
+
             <div className="m-20 p-2 bg-gray-200 rounded-2xl flex flex-col">
                 <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 leading-tight mb-2 pb-4 relative w-3/4">
                     <span
