@@ -66,6 +66,7 @@ Route::get("/search/filters", [SearchController::class, "filterItems"]);
 Route::middleware(['auth', 'isAdmin'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::post('/verify/{id}', [AdminController::class, 'verify']);
+    Route::post('/unverify/{id}', [AdminController::class, 'unverify']);
 });
 
 #-------------------------------------------------------

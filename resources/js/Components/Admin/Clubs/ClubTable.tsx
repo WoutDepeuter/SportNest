@@ -65,6 +65,50 @@ export default function ClubTable(props: ClubTableProps) {
         return <XMarkIcon className="w-8 h-8 text-red-400"/>
     }
 
+    function unverifyClub(clubId: number) {
+        // TODO: Configuration popup?
+
+        axios.post(`/admin/unverify/` + clubId).catch(e => {
+            console.error(e)
+        }).then(res => {
+            if (!res) {
+                return;
+            }
+
+            if (res.status === 404) {
+                // TODO: Notification?
+                return;
+            }
+
+            if (res.status !== 200) {
+                return;
+            }
+
+            setClubs(clubs.map(club => {
+                if (club.id !== clubId) {
+                    return club;
+                }
+
+                club.verified = "0" // php is such bs
+                return club;
+            }))
+        })
+    }
+
+    function unverifyComponent(club: SportClub) {
+        if (canVerify) {
+            return <div onClick={() => unverifyClub(club.id)}>
+                <HoverLabel text={<CheckIcon
+                    className="w-8 h-8 text-green-400"/>}
+                            hoverText={"Click to unverify"}
+
+                />
+            </div>
+        }
+
+        return <CheckIcon className="w-8 h-8 text-green-400"/>
+    }
+
     const columns: ColumnFactory<SportClub>[] = [
         {
             header:
@@ -98,7 +142,7 @@ export default function ClubTable(props: ClubTableProps) {
             render: (club) =>
                 <div className="flex flex-row justify-center">
                     {club.verified === "1" ?
-                        <CheckIcon className="w-8 h-8 text-green-400" /> :
+                        unverifyComponent(club) :
                         verifyComponent(club)}
                 </div>,
             filterNode: WrapFilter(new StringListFilter(["Verified", "Unverified"]),

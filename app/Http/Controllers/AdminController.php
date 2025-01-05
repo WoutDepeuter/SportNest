@@ -35,6 +35,17 @@ class AdminController extends Controller
         ]);
     }
 
+    public function unverify(int $id): JsonResponse
+    {
+        $club = SportClub::find($id);
+        if ($club) {
+            $club->update(['verified' => false]);
+            return response()->json();
+        }
+
+        return response()->json([], 404);
+    }
+
     public function verify(int $id): JsonResponse
     {
         $club = SportClub::find($id);
