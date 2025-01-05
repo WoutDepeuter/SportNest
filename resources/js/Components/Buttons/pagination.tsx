@@ -14,7 +14,7 @@ const Pagination: React.FC<PaginationProps> = ({
   currentPage,
   onPageChange,
 }) => {
-  const totalPages = Math.ceil(totalItems / itemsPerPage); // Calculate total number of pages
+  const totalPages = Math.ceil(totalItems / itemsPerPage)-1; // Calculate total number of pages
 
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) {
