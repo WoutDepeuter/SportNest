@@ -3,6 +3,7 @@ import {Sport} from "@/Models/sport";
 import {Tag} from "@/Models/tag";
 import Table, {ColumnFactory} from "@/Components/Table/table_base";
 import StringFilter from "@/Components/Table/Filter/StringFilter";
+import axios from "axios";
 
 type Props = {
     sports: Sport[],
@@ -10,11 +11,25 @@ type Props = {
 }
 
 function submitSport(sport: Sport) {
-    console.log(sport)
+    let res;
+    if (sport.id === 0) {
+        res = axios.post('/sports', sport);
+    } else {
+        res = axios.put('/sports/'+sport.id, sport)
+    }
+
+    res.then(res => console.log(res))
 }
 
 function submitTag(tag: Tag) {
-    console.log(tag)
+    let res;
+    if (tag.id === 0) {
+        res = axios.post('/tags', tag);
+    } else {
+        res = axios.put('/tags/'+tag.id, tag)
+    }
+
+    res.then(res => console.log(res))
 }
 
 function EditableCell({ value, onSave }: { value: string; onSave: (newValue: string) => void }) {
@@ -37,7 +52,7 @@ function EditableCell({ value, onSave }: { value: string; onSave: (newValue: str
         />
     ) : (
         <span onClick={() => setIsEditing(true)} className="cursor-pointer">
-      {value}
+      {!value ? "no value" : value}
     </span>
     );
 }
@@ -123,7 +138,7 @@ export default function SportAndTagTable(props: Props) {
     ]
 
     return (
-        <div className="flex flex-col space-y-5">
+        <div className="flex flex-col space-y-5 mb-12">
 
             {showSports && <div className="m-20 p-2 bg-gray-200 rounded-2xl flex flex-col">
                 <div className="flex flex-row justify-between">
