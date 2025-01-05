@@ -1,5 +1,4 @@
 import React, { JSX } from 'react';
-import Map from '../Components/Map'; // Import the Map component
 import '../../css/app.css';
 import MainLayout from "@/Layouts/MainLayout";
 import FilterClubsComponent from "@/Components/Filter/FilterComponent";
@@ -9,7 +8,7 @@ function Homepage(): JSX.Element {
         <div className="flex flex-col w-full flex-grow">
             <div className="relative flex items-center justify-center w-screen h-[31.25rem] p-2 bg-cover bg-center mx-auto" style={{ backgroundImage: "url('/images/homepage/Sport-banner.jpg')", backgroundSize: 'cover', backgroundPosition: 'center' }}>
                 <a href="/quiz/"
-                    className="absolute bottom-4 bg-red-500 text-white font-bold py-4 px-8 rounded hover:bg-red-600">
+                   className="absolute bottom-4 bg-red-500 text-white font-bold py-4 px-8 rounded hover:bg-red-600">
                     Take Quiz
                 </a>
             </div>
@@ -21,8 +20,10 @@ function Homepage(): JSX.Element {
                     <span
                         className="absolute bottom-0 left-0 w-1/3 h-1 bg-gradient-to-r from-purple-500 to-pink-500 dark:from-purple-400 dark:to-pink-400"></span>
                 </h1>
+                <div className="self-start mt-10">
+                    <FilterClubsComponent />
+                </div>
             </div>
-            <FilterClubsComponent/>
         </div>
     );
 }

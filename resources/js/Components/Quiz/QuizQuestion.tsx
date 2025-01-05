@@ -43,7 +43,7 @@ function MultiQuizQuestion(props: QuizProps) {
             <h2 className="text-xl font-semibold">{Titleize(question.label)}</h2>
             <p className="text-gray-600 mb-4">{Paragraphize(question.description)}</p>
 
-            <div className="space-y-2">
+            <div className="space-y-2 text-3xl mb-8">
                 {tags.map((tag: Tag, index: number) => (
                     <div key={index} className="flex items-center space-x-3 p-2 rounded-md hover:bg-gray-100 cursor-pointer border border-gray-200">
                         <input
@@ -70,9 +70,9 @@ function RangeQuizQuestion(props: QuizProps) {
     }, [weight]);
 
     return (
-        <div className="space-y-4">
-            <h2 className="text-xl font-semibold">{question.label}</h2>
-            <p className="text-gray-600 mb-4">{question.description}</p>
+        <div className="space-y-4 text-4xl">
+            <h2 className="text-xl font-semibold text-blue-500">{question.label}</h2>
+            <p className="text-gray-600 mb-4 text-blue-500">{question.description}</p>
 
             <div className="flex flex-col space-y-4">
                 <HoverLabel text={tag.name} hoverText={tag.description}/>
