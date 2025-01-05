@@ -38,7 +38,7 @@ function WobbleFloat<T>(props: WobbleFloatProps<T>) {
 
 function WobbleFloats<T>(props: WobbleFloatsProps<T>) {
     return (
-        <div className="flex flex-row justify-start">
+        <div className="flex flex-row justify-start space-x-2">
             {props.selected.map((value, i) => (
                 <WobbleFloat
                     key={"wobblefloat_" + i}
@@ -59,7 +59,7 @@ export default function WobbleFloatFleet<T>(
     }
 
     return (
-        <div className="flex flex-row space-x-4 px-10">
+        <div className="flex flex-col md:flex-row md:space-x-4 md:px-10 space-y-2">
             {anySelected() && (
                 <div
                     className={floatClassNames}
