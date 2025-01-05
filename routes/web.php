@@ -2,8 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use App\Http\Controllers\{
-    AdminController,
+use App\Http\Controllers\{AdminController,
     Auth\AuthenticatedSessionController,
     ClubController,
     ClubOwnerController,
@@ -11,8 +10,9 @@ use App\Http\Controllers\{
     QuizController,
     ScraperController,
     SearchController,
-    UserController
-};
+    SportController,
+    TagController,
+    UserController};
 
 #-------------------------------------------------------
 # Public Routes
@@ -21,10 +21,23 @@ Route::get('/', [UserController::class, 'index'])->name('home');
 Route::get('/search', [UserController::class, 'search']);
 Route::get('/club/{id}', [ClubController::class, 'ClubPage'])->name('club.page');
 Route::get('/faq', [UserController::class, 'faq']);
+Route::get('/isAdmin', [AdminController::class, 'isAdmin'])->name('isAdmin');
 
 # Quiz Routes
 Route::get("/quiz", [QuizController::class, 'index']);
 Route::post("/quiz/result", [QuizController::class, 'findWithWeigh']);
+
+Route::middleware(['auth'])->group(function () {
+
+    Route::post('/sports', [SportController::class, 'create']);
+    Route::put('/sports/{id}', [SportController::class, 'update']);
+    Route::delete('/sports/{id}', [SportController::class, 'delete']);
+
+    Route::post('/tags', [TagController::class, 'create']);
+    Route::put('/tags/{id}', [TagController::class, 'update']);
+    Route::delete('/tags/{id}', [TagController::class, 'delete']);
+});
+
 
 #-------------------------------------------------------
 # Club Owner Routes (Requires Authentication)
@@ -51,8 +64,9 @@ Route::get("/search/filters", [SearchController::class, "filterItems"]);
 # Admin Routes (Requires Admin Role)
 #-------------------------------------------------------
 Route::middleware(['auth', 'isAdmin'])->prefix('admin')->group(function () {
-    Route::get('/dashboard', [AdminController::class, 'index']);
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::post('/verify/{id}', [AdminController::class, 'verify']);
+    Route::post('/unverify/{id}', [AdminController::class, 'unverify']);
 });
 
 #-------------------------------------------------------
