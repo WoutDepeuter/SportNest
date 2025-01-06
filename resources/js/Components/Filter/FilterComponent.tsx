@@ -62,8 +62,8 @@ function FilterClubsComponent() {
         updateClubs()
     }, [selectedSports, selectedTags]);
 
-    return <div className="w-full mb-5">
-        <div className="flex flex-col md:flex-row justify-center px-5 space-x-5">
+    return <div className="w-full mb-5 flex flex-col justify-start">
+        <div className="flex flex-col md:flex-row justify-center px-5 md:space-x-5">
             <div className="flex flex-col">
                 <div
                     className="mb-4 flex flex-col justify-start space-y-2 rounded bg-white p-5 shadow-sm ring-1 ring-inset ring-gray-300">
@@ -118,7 +118,7 @@ function FilterClubsComponent() {
                 </div>
 
 
-                <div className="grid grid-cols-3 gap-4 w-full">
+                <div className="grid md:grid-cols-3 gap-4 w-full">
                     {clubs.filter((_, idx) => {
                         return idx >= (page - 1) * pageSize && idx < page * pageSize
                     }).map(c => {
@@ -126,16 +126,17 @@ function FilterClubsComponent() {
                     })}
                 </div>
 
+                {clubs.length > 0 && (
+                    <div className="self-center"><Pagination
+                        itemsPerPage={pageSize} currentPage={page} totalItems={clubs.length}
+                        onPageChange={(p) => {setPage(p)
+                        }}/>
+                    </div>
+                )}
+
             </div>
 
         </div>
-        {clubs.length > 0 && (
-            <div className={"align-self-start"}><Pagination
-                itemsPerPage={pageSize} currentPage={page} totalItems={clubs.length}
-                onPageChange={(p) => {setPage(p)
-                }}/>
-            </div>
-        )}
     </div>
 
 }

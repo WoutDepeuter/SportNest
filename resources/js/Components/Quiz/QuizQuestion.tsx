@@ -5,6 +5,18 @@ import HoverLabel from "@/Components/Forms/HoverLabel";
 import RangeSlider from "@/Components/Buttons/slider";
 import {Paragraphize, Titleize} from "@/Functions/strings";
 
+function tagFormatter(s: string): string {
+    if (s.startsWith("moeilijkheid_")) {
+        s = s.substring("moeilijkheid_".length);
+    }
+
+    if (s.startsWith("uithoudingsvermogen_")) {
+        s = s.substring("uithoudingsvermogen_".length)
+    }
+
+    return s
+}
+
 export function formatQuizQuestion(question: QuizQuestion, f: (tag: Tag, weight: number) => void) {
     switch (question.type) {
         case QuizQuestionType.MULTI:
@@ -52,7 +64,7 @@ function MultiQuizQuestion(props: QuizProps) {
                             checked={selectedTags.includes(tag)}
                             onChange={() => handleCheckboxChange(tag)}
                         />
-                        <HoverLabel text={tag.name} hoverText={tag.description}/>
+                        <HoverLabel text={tagFormatter(tag.name)} hoverText={tag.description}/>
                     </div>
                 ))}
             </div>
@@ -75,7 +87,7 @@ function RangeQuizQuestion(props: QuizProps) {
             <p className="text-gray-600 mb-4 text-blue-500">{question.description}</p>
 
             <div className="flex flex-col space-y-4">
-                <HoverLabel text={tag.name} hoverText={tag.description}/>
+                <HoverLabel text={tagFormatter(tag.name)} hoverText={tag.description}/>
                 <div className="flex flex-row space-x-5 justify-center items-center">
                     <div>0</div>
                     <RangeSlider
@@ -84,7 +96,7 @@ function RangeQuizQuestion(props: QuizProps) {
                         step={1}
                         value={[weight]}
                         formatValue={(i) => `${i}`}
-                        label={tag.name}
+                        label={tagFormatter(tag.name)}
                         onChange={(value: number[]) => {
                             const v = value.length > 0 ? value[0] : 0;
                             setWeight(v);
