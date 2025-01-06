@@ -6,7 +6,7 @@ export default function ReportButton() {
             href="/report"
             className="inline-flex items-center bg-white text-2xl font-bold px-6 py-3 border border-gray-400 rounded-lg m-4 shadow-md hover:bg-gray-300"
         >
-            REPORT A ISSUE
+            REPORT AN ISSUE
             <ChatBubbleBottomCenterTextIcon />
         </a>
     );
