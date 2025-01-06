@@ -12,7 +12,8 @@ use App\Http\Controllers\{AdminController,
     SearchController,
     SportController,
     TagController,
-    UserController};
+    UserController,
+    Reviewcontroller};
 
 #-------------------------------------------------------
 # Public Routes
@@ -22,6 +23,11 @@ Route::get('/search', [UserController::class, 'search']);
 Route::get('/club/{id}', [ClubController::class, 'ClubPage'])->name('club.page');
 Route::get('/faq', [UserController::class, 'faq']);
 Route::get('/isAdmin', [AdminController::class, 'isAdmin'])->name('isAdmin');
+
+# Review Routes
+Route::middleware(['auth'])->group(function () {
+    Route::post('/review', [Reviewcontroller::class, 'store'])->name('review.store');
+});
 
 # Quiz Routes
 Route::get("/quiz", [QuizController::class, 'index']);

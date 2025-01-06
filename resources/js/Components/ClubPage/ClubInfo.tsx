@@ -57,7 +57,7 @@ export default function ClubInfo({club}: {club: SportClub}) {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="col-span-1 bg-gray-100 shadow-lg rounded-lg p-6">
                     <h2 className="text-2xl font-bold mb-4">Contact Information</h2>
-                    <ContactInfo email={email || ""} website={website || ""} phone={phone || ""} />
+                    <ContactInfo email={email || ""} website={website || ""} phone={phone || ""} sportClubId={club.id}  />
                 </div>
 
                 <div className="col-span-2 bg-gray-100 shadow-lg rounded-lg p-6">
