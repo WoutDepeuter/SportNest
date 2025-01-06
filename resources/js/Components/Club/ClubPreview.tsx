@@ -8,7 +8,7 @@ type ClubPreviewProps = {
 export default function ClubPreview(props: ClubPreviewProps) {
     const club = props.club;
 
-    return  <div className="flex items-center p-4 border border-gray-200 rounded-lg shadow-lg bg-white w-96 h-32">
+    return  <div className="flex items-center p-4 border border-gray-200 rounded-lg shadow-lg bg-white md:w-96 md:h-32">
         <div className="flex-1">
             <a href={"/club/" + club.id} className="text-xl font-bold hover:underline">{Titleize(club.name)}</a>
             <p className="text-gray-600">

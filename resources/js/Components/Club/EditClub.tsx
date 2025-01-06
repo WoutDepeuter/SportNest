@@ -47,7 +47,7 @@ function EditClub({ club }: { club: SportClub }) {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        if (!regex.test(data.address.coords)) {
+        if (data.address.coords !== "" && !regex.test(data.address.coords)) {
             // TODO: Notification idk??
             return;
         }
