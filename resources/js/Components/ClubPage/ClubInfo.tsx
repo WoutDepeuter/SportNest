@@ -37,68 +37,55 @@ export default function ClubInfo({club}: {club: SportClub}) {
     const [category, setCategory] = useState("");
 
     return (
-        <div className="max-w-screen-lg mx-auto p-6 space-y-12">
-            <div className="text-center space-y-4">
-                <h1 className="text-5xl font-extrabold">{name}</h1>
+        <div className="max-w-screen-lg bg-white mx-auto p-6 space-y-12">
+            <div className="text-center space-y-6">
+                <h1 className="text-4xl font-extrabold text-gray-800">{name}</h1>
                 <img
-                    src="/path/to/banner-image.jpg" // Replace with the actual image path
-                    alt="Club Banner"
-                    className="rounded-lg shadow-md mx-auto"
+                    src="/path/to/banner-image.jpg" // Replace with the actual image path -> do we store images?
+                    alt="Club Banner Image"
+                    className="rounded-lg mx-auto"
                 />
             </div>
 
-            <div className="w-full flex flex-row items-center justify-center p-5 bg-gray-100 rounded-2xl">
-                <Map c1={coords[0]} c2={coords[1]} popup={name} />
+            <div className="bg-gray-100 shadow-lg rounded-lg p-6">
+                <h2 className="text-2xl font-bold mb-4">Location</h2>
+                <div className="w-full rounded-lg overflow-hidden">
+                    <Map c1={coords[0]} c2={coords[1]} popup={name} />
+                </div>
             </div>
 
-            {/* Location and Contact Section */}
-            <div className="flex flex-col md:flex-row gap-8 items-start">
-                <div className="w-full md:w-1/3">
-
-                    {/* Contact Information */}
-                    <div className="bg-gray-100 p-4 rounded-lg shadow mt-4">
-                        <ContactInfo email={email || ''} website={website || ''} phone={phone || ''} />
-                    </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="col-span-1 bg-gray-100 shadow-lg rounded-lg p-6">
+                    <h2 className="text-2xl font-bold mb-4">Contact Information</h2>
+                    <ContactInfo email={email || ""} website={website || ""} phone={phone || ""} />
                 </div>
 
-                {/* Reviews Section */}
-                <div className="w-full md:w-2/3">
+                <div className="col-span-2 bg-gray-100 shadow-lg rounded-lg p-6">
                     <h2 className="text-2xl font-bold mb-4">Reviews</h2>
-                    {/* <ReviewContainer/> */}
                 </div>
             </div>
 
-            <div>
-                <div
-                    className="mb-4 flex flex-col justify-start space-y-2 rounded bg-white p-5 shadow-sm ring-1 ring-inset ring-gray-300">
-                    <div className="flex min-w-full flex-row items-center justify-between">
-                        <input
-                            className="m-1 flex w-40 grow flex-row rounded-md bg-slate-200 p-2"
-                            placeholder="sport"
-                            onChange={(e) => {
-                                setSport(e.target.value)
-                            }}
-                        />
-                    </div>
-                </div>
-                <div
-                    className="mb-4 flex flex-col justify-start space-y-2 rounded bg-white p-5 shadow-sm ring-1 ring-inset ring-gray-300">
-                    <div className="flex min-w-full flex-row items-center justify-between">
-                        <input
-                            className="m-1 flex w-40 grow flex-row rounded-md bg-slate-200 p-2"
-                            placeholder="category"
-                            onChange={(e) => {
-                                setCategory(e.target.value)
-                            }}
-                        />
-                    </div>
+            <div className="bg-gray-100 shadow-lg rounded-lg p-6 space-y-4">
+                <h2 className="text-2xl font-bold mb-4">Filters</h2>
+                <div className="flex flex-col md:flex-row gap-4">
+                    <input
+                        type="text"
+                        placeholder="Sport"
+                        className="w-full md:w-1/2 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        onChange={(e) => setSport(e.target.value)}
+                    />
+                    <input
+                        type="text"
+                        placeholder="Category"
+                        className="w-full md:w-1/2 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        onChange={(e) => setCategory(e.target.value)}
+                    />
                 </div>
             </div>
 
-            <div className="flex flex-grow justify-center items-center m-10 p-5 rounded-lg">
-                <div className="w-full">
-                    <DecathlonEquipment sport={sport} category={category}/>
-                </div>
+            <div className="bg-gray-100 shadow-lg rounded-lg p-6">
+                <h2 className="text-2xl font-bold mb-4">Recommended Equipment</h2>
+                <DecathlonEquipment sport={sport} category={category} />
             </div>
         </div>
     );

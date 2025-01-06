@@ -12,8 +12,7 @@ export default function ContactInfo({ website, email, phone }: ContactInfoProps)
     const url = website.startsWith("https://") ? website : "https://" + website;
 
     return (
-        <div className="contact-info border-gray-200 border bg-gray-200 max-w-xs p-6 rounded-lg shadow-lg">
-            <h1 className="text-xl font-semibold mb-6">Contact</h1>
+        <div className="contact-info border-gray-200 border bg-white max-w-xs p-6 rounded-lg shadow-lg">
 
             <div className="flex flex-col space-y-6">
 
