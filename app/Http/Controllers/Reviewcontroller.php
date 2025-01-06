@@ -20,4 +20,16 @@ class Reviewcontroller extends Controller
     
         return response()->json(['message' => 'Review submitted successfully'], 201);
     }
+
+    public function getReviewsByClub($sportClubId)
+    {
+        $reviews = reviews::where('sport_club_id', $sportClubId)
+                          ->paginate(3);
+        
+        return response()->json([
+            'reviews' => $reviews->items(),
+            'currentPage' => $reviews->currentPage(),
+            'totalPages' => $reviews->lastPage(), 
+        ]);
+    }
 }

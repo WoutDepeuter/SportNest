@@ -44,6 +44,8 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/tags/{id}', [TagController::class, 'delete']);
 });
 
+// Review Routes
+Route::get('/club/{id}/reviews', [Reviewcontroller::class, 'getReviewsByClub']);
 
 #-------------------------------------------------------
 # Club Owner Routes (Requires Authentication)
