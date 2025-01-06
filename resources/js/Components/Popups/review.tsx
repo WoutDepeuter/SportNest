@@ -1,27 +1,43 @@
 import React, { useState } from 'react';
 import { Modal, Box, Button, TextField, Rating, Typography } from '@mui/material';
+import axios from 'axios';
 
 interface LeaveReviewPopupProps {
   open: boolean;
-  onClose: () => void; // Explicitly typing onClose as a function that takes no arguments and returns void
+  onClose: () => void;
+  sportClubId: number; 
 }
 
-const LeaveReviewPopup: React.FC<LeaveReviewPopupProps> = ({ open, onClose }) => {
-  const [rating, setRating] = useState<number | null>(2);
+const LeaveReviewPopup: React.FC<LeaveReviewPopupProps> = ({ open, onClose, sportClubId }) => {
+  const [rating, setRating] = useState<number | null>(2); 
   const [reviewText, setReviewText] = useState('');
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (rating === null || reviewText.trim() === '') {
       alert('Please provide both a rating and a review.');
       return;
     }
 
-    console.log('Review Submitted:', { rating, reviewText });
-    alert('Review submitted successfully!');
-
-    setRating(2);
-    setReviewText('');
-    onClose(); 
+    try {
+      await axios.post('/review', {
+        name: 'Anonymous',
+        score: rating,    
+        text: reviewText,
+        sport_club_id: sportClubId,
+      });
+      alert('Review submitted successfully!');
+      setRating(2);
+      setReviewText('');
+      onClose();
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error('Axios error response:', error.response?.data || error.message);
+        alert(`Failed to submit review: ${error.response?.data?.message || 'An error occurred'}`);
+      } else {
+        console.error('Unexpected error:', error);
+        alert('Failed to submit review: An unexpected error occurred.');
+      }
+    }
   };
 
   return (
