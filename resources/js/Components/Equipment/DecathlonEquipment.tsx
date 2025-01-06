@@ -63,7 +63,7 @@ const DecathlonEquipment: React.FC<DecathlonEquipmentProps> = ({ sport, category
             <div className="w-full flex justify-center items-center">
                 <div ref={scrollContainerRef} className="flex overflow-x-auto space-x-4 p-4" style={{ width: '100%', maxWidth: '100vw', overflowX: 'auto' }}>
                     {equipmentData && equipmentData.map((item, index) => (
-                        <div key={index} className="border p-4 rounded shadow min-w-[150px] max-w-[150px]">
+                        <div key={index} className="border p-4 rounded shadow min-w-[150px] max-w-[150px] bg-white">
                             <img src={item.image_url} alt={item.name} className="w-full h-32 object-cover mb-4" />
                             <h4 className="text-lg font-bold">{item.name}</h4>
                             <p className="text-gray-700">{item.price}</p>
