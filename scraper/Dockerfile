@@ -9,4 +9,4 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
-CMD ["python", "server.py"]
+CMD ["gunicorn", "-c", "gunicorn_config.py", "server:app"]

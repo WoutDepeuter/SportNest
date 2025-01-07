@@ -4,7 +4,7 @@
 
 docker build -t sportnest:laravel .
 
-cd scraper
+    cd scraper
 docker build -t sportnest:scraper .
 
 cd ../deploy

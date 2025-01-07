@@ -2,9 +2,8 @@ import ReviewContainer from "@/Components/Reviews/ReviewContainer";
 import ContactInfo from "@/Components/ClubPage/ContactInfo";
 import DecathlonEquipment from "@/Components/Equipment/DecathlonEquipment";
 import Map from "@/Components/Map";
-import {SportClub} from "@/Models/club";
-import React, {useState} from "react";
-
+import { SportClub } from "@/Models/club";
+import React, { useState } from "react";
 
 function parseDMS(input: string): [number, number] {
     // Regular expression to extract components of the coordinates
@@ -13,7 +12,7 @@ function parseDMS(input: string): [number, number] {
 
     if (!match) {
         // TODO: Communicate with user
-        return [0, 0]
+        return [0, 0];
     }
 
     const [_, latDeg, latMin, latSec, latDir, lonDeg, lonMin, lonSec, lonDir] = match;
@@ -25,16 +24,40 @@ function parseDMS(input: string): [number, number] {
     return [latitude, Math.abs(longitude)];
 }
 
-export default function ClubInfo({club}: {club: SportClub}) {
+export default function ClubInfo({ club }: { club: SportClub }) {
     const name = club.name;
-    const email = ''
-    const website = club.website_url
-    const phone = ''
+    const email = '';
+    const website = club.website_url;
+    const phone = '';
 
-    const coords = parseDMS(club.address.coords)
+    const coords = parseDMS(club.address.coords);
 
     const [sport, setSport] = useState("");
     const [category, setCategory] = useState("");
+
+    const options = [
+        { label: 'Badminton', sport: 'badminton', category: 'raquettes-de-badminton' },
+        { label: 'Basketball', sport: 'basketball', category: 'ballons-de-basketball' },
+        { label: 'Tennis', sport: 'tennis', category: 'materiel-de-tennis' },
+        { label: 'Swimming', sport: 'natation', category: 'equipement' },
+        { label: 'Football', sport: 'football', category: 'chaussures-de-football' },
+        { label: 'Baseball', sport: 'baseball-softbal', category: 'battes' },
+        { label: 'Golf', sport: 'golf', category: 'clubs' },
+        { label: 'Cycling', sport: 'velo', category: 'velos' },
+        { label: 'Boxing', sport: 'boxe', category: 'gants-de-boxe-mitaines-sous-gants' },
+        { label: 'Volleyball', sport: 'volleyball', category: 'chaussures' },
+        { label: 'Rugby', sport: 'rugby', category: 'chaussures' },
+        { label: 'Hockey', sport: 'hockey', category: 'sticks' },
+        { label: 'Table Tennis', sport: 'tennis-de-table', category: 'raquettes' }
+    ];
+
+    const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const selectedOption = options.find(option => option.sport === e.target.value);
+        if (selectedOption) {
+            setSport(selectedOption.sport);
+            setCategory(selectedOption.category);
+        }
+    };
 
     return (
         <div className="max-w-screen-lg mx-auto p-6 space-y-12">
@@ -54,7 +77,6 @@ export default function ClubInfo({club}: {club: SportClub}) {
             {/* Location and Contact Section */}
             <div className="flex flex-col md:flex-row gap-8 items-start">
                 <div className="w-full md:w-1/3">
-
                     {/* Contact Information */}
                     <div className="bg-gray-100 p-4 rounded-lg shadow mt-4">
                         <ContactInfo email={email || ''} website={website || ''} phone={phone || ''} />
@@ -69,35 +91,27 @@ export default function ClubInfo({club}: {club: SportClub}) {
             </div>
 
             <div>
-                <div
-                    className="mb-4 flex flex-col justify-start space-y-2 rounded bg-white p-5 shadow-sm ring-1 ring-inset ring-gray-300">
+                <div className="mb-4 flex flex-col justify-start space-y-2 rounded bg-white p-5 shadow-sm ring-1 ring-inset ring-gray-300">
                     <div className="flex min-w-full flex-row items-center justify-between">
-                        <input
+                        <select
                             className="m-1 flex w-40 grow flex-row rounded-md bg-slate-200 p-2"
-                            placeholder="sport"
-                            onChange={(e) => {
-                                setSport(e.target.value)
-                            }}
-                        />
-                    </div>
-                </div>
-                <div
-                    className="mb-4 flex flex-col justify-start space-y-2 rounded bg-white p-5 shadow-sm ring-1 ring-inset ring-gray-300">
-                    <div className="flex min-w-full flex-row items-center justify-between">
-                        <input
-                            className="m-1 flex w-40 grow flex-row rounded-md bg-slate-200 p-2"
-                            placeholder="category"
-                            onChange={(e) => {
-                                setCategory(e.target.value)
-                            }}
-                        />
+                            value={sport}
+                            onChange={handleSelectChange}
+                        >
+                            <option value="">Select a sport</option>
+                            {options.map(option => (
+                                <option key={option.sport} value={option.sport}>
+                                    {option.label}
+                                </option>
+                            ))}
+                        </select>
                     </div>
                 </div>
             </div>
 
             <div className="flex flex-grow justify-center items-center m-10 p-5 rounded-lg">
                 <div className="w-full">
-                    <DecathlonEquipment sport={sport} category={category}/>
+                    <DecathlonEquipment sport={sport} category={category} />
                 </div>
             </div>
         </div>
