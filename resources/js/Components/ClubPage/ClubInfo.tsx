@@ -157,9 +157,10 @@ export default function ClubInfo({  club  }: {  club: SportClub  }) {
                     </div>
                 </div>
             </div>
-
-            <div>
-                <div className="mb-4 flex flex-col justify-start space-y-2 rounded bg-white p-5 shadow-sm ring-1 ring-inset ring-gray-300">
+            <div className="bg-gray-100 shadow-lg rounded-lg p-6 space-y-4">
+                <h2 className="text-2xl font-bold mb-4">Filters</h2>
+                <div
+                    className="mb-4 flex flex-col justify-start space-y-2 rounded bg-white p-5 shadow-sm ring-1 ring-inset ring-gray-300">
                     <div className="flex min-w-full flex-row items-center justify-between">
                         <select
                             className="m-1 flex w-40 grow flex-row rounded-md bg-slate-200 p-2"
@@ -177,32 +178,9 @@ export default function ClubInfo({  club  }: {  club: SportClub  }) {
                 </div>
             </div>
 
-            <div className="flex flex-grow justify-center items-center m-10 p-5 rounded-lg">
-                <div className="w-full">
-                    <DecathlonEquipment sport={sport} category={category} />
-                </div>
-            </div>
-            <div className="bg-gray-100 shadow-lg rounded-lg p-6 space-y-4">
-                <h2 className="text-2xl font-bold mb-4">Filters</h2>
-                <div className="flex flex-col md:flex-row gap-4">
-                    <input
-                        type="text"
-                        placeholder="Sport"
-                        className="w-full md:w-1/2 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        onChange={(e) => setSport(e.target.value)}
-                    />
-                    <input
-                        type="text"
-                        placeholder="Category"
-                        className="w-full md:w-1/2 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        onChange={(e) => setCategory(e.target.value)}
-                    />
-                </div>
-            </div>
-
             <div className="bg-gray-100 shadow-lg rounded-lg p-6">
                 <h2 className="text-2xl font-bold mb-4">Recommended Equipment</h2>
-                <DecathlonEquipment sport={sport} category={category} />
+                <DecathlonEquipment sport={sport} category={category}/>
             </div>
         </div>
     );
