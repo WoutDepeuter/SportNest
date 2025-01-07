@@ -6,14 +6,14 @@ type ContactInfoProps = {
     website: string;
     email: string;
     phone: string;
+    sportClubId: number;
 };
 
-export default function ContactInfo({ website, email, phone }: ContactInfoProps) {
+export default function ContactInfo({ website, email, phone, sportClubId }: ContactInfoProps) {
     const url = website.startsWith("https://") ? website : "https://" + website;
 
     return (
-        <div className="contact-info border-gray-200 border bg-gray-200 max-w-xs p-6 rounded-lg shadow-lg">
-            <h1 className="text-xl font-semibold mb-6">Contact</h1>
+        <div className="contact-info border-gray-200 border bg-white max-w-xs p-6 rounded-lg shadow-lg">
 
             <div className="flex flex-col space-y-6">
 
@@ -34,7 +34,7 @@ export default function ContactInfo({ website, email, phone }: ContactInfoProps)
 
                 <div className="flex flex-col gap-4 mt-6 items-start">
                     <div className="w-auto">
-                        <LeaveReviewButton  />
+                        <LeaveReviewButton sportClubId={sportClubId} />
                     </div>
                     <div className="w-auto">
                         <ReportButton/>
