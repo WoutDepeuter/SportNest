@@ -33,7 +33,7 @@ class QuizController extends Controller
             ->selectRaw(
                 'SUM(CASE ' .
                 collect($result)->map(function ($id, $weight) {
-                    return "WHEN tags.id = '{îd}' THEN {$weight}";
+                    return "WHEN tags.id = '{$id}' THEN {$weight}";
                 })->join(' ') .
                 ' ELSE 0 END) as dynamic_weight'
             )
