@@ -2,12 +2,11 @@ import ReviewContainer from "@/Components/Reviews/ReviewContainer";
 import ContactInfo from "@/Components/ClubPage/ContactInfo";
 import DecathlonEquipment from "@/Components/Equipment/DecathlonEquipment";
 import Map from "@/Components/Map";
-import { SportClub } from "@/Models/club";
-import React, { useState } from "react";
+import {  SportClub  } from "@/Models/club";
+import React, {  useState  } from "react";
 import Reviewcard from "@/Components/Reviews/Reviewcard";
 import axios from "axios";
 import { useEffect } from "react";
-
 
 function parseDMS(input: string): [number, number] {
     // Regular expression to extract components of the coordinates
@@ -16,7 +15,7 @@ function parseDMS(input: string): [number, number] {
 
     if (!match) {
         // TODO: Communicate with user
-        return [0, 0]
+        return [0, 0];
     }
 
     const [_, latDeg, latMin, latSec, latDir, lonDeg, lonMin, lonSec, lonDir] = match;
@@ -28,12 +27,11 @@ function parseDMS(input: string): [number, number] {
     return [latitude, Math.abs(longitude)];
 }
 
-export default function ClubInfo({ club }: { club: SportClub }) {
+export default function ClubInfo({  club  }: {  club: SportClub  }) {
     const name = club.name;
     const email = ''
     const website = club.website_url
     const phone = ''
-
     const [reviews, setReviews] = useState<any[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
@@ -43,6 +41,30 @@ export default function ClubInfo({ club }: { club: SportClub }) {
 
     const [sport, setSport] = useState("");
     const [category, setCategory] = useState("");
+
+    const options = [
+        { label: 'Badminton', sport: 'badminton', category: 'raquettes-de-badminton' },
+        { label: 'Basketball', sport: 'basketball', category: 'ballons-de-basketball' },
+        { label: 'Tennis', sport: 'tennis', category: 'materiel-de-tennis' },
+        { label: 'Swimming', sport: 'natation', category: 'equipement' },
+        { label: 'Football', sport: 'football', category: 'chaussures-de-football' },
+        { label: 'Baseball', sport: 'baseball-softbal', category: 'battes' },
+        { label: 'Golf', sport: 'golf', category: 'clubs' },
+        { label: 'Cycling', sport: 'velo', category: 'velos' },
+        { label: 'Boxing', sport: 'boxe', category: 'gants-de-boxe-mitaines-sous-gants' },
+        { label: 'Volleyball', sport: 'volleyball', category: 'chaussures' },
+        { label: 'Rugby', sport: 'rugby', category: 'chaussures' },
+        { label: 'Hockey', sport: 'hockey', category: 'sticks' },
+        { label: 'Table Tennis', sport: 'tennis-de-table', category: 'raquettes' }
+    ];
+
+    const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const selectedOption = options.find(option => option.sport === e.target.value);
+        if (selectedOption) {
+            setSport(selectedOption.sport);
+            setCategory(selectedOption.category);
+        }
+    };
 
     useEffect(() => {
         const fetchReviews = async () => {
@@ -131,31 +153,34 @@ export default function ClubInfo({ club }: { club: SportClub }) {
                         >
                             Next
                         </button>
+                        {/* <ReviewContainer/> */}
                     </div>
                 </div>
             </div>
-
             <div className="bg-gray-100 shadow-lg rounded-lg p-6 space-y-4">
                 <h2 className="text-2xl font-bold mb-4">Filters</h2>
-                <div className="flex flex-col md:flex-row gap-4">
-                    <input
-                        type="text"
-                        placeholder="Sport"
-                        className="w-full md:w-1/2 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        onChange={(e) => setSport(e.target.value)}
-                    />
-                    <input
-                        type="text"
-                        placeholder="Category"
-                        className="w-full md:w-1/2 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        onChange={(e) => setCategory(e.target.value)}
-                    />
+                <div
+                    className="mb-4 flex flex-col justify-start space-y-2 rounded bg-white p-5 shadow-sm ring-1 ring-inset ring-gray-300">
+                    <div className="flex min-w-full flex-row items-center justify-between">
+                        <select
+                            className="m-1 flex w-40 grow flex-row rounded-md bg-slate-200 p-2"
+                            value={sport}
+                            onChange={handleSelectChange}
+                        >
+                            <option value="">Select a sport</option>
+                            {options.map(option => (
+                                <option key={option.sport} value={option.sport}>
+                                    {option.label}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
                 </div>
             </div>
 
             <div className="bg-gray-100 shadow-lg rounded-lg p-6">
                 <h2 className="text-2xl font-bold mb-4">Recommended Equipment</h2>
-                <DecathlonEquipment sport={sport} category={category} />
+                <DecathlonEquipment sport={sport} category={category}/>
             </div>
         </div>
     );

@@ -14,6 +14,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+
+        $user = User::where('email', 'admin@example.com');
+        if ($user) {
+            return;
+        }
+
         // Create a default admin user
         $adminUser = User::create([
             'name' => 'Default Admin',
